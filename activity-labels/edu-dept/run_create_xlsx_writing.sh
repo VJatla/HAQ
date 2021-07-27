@@ -1,0 +1,1 @@
+python create_xlsx.py ~/Dropbox/writing-nowriting-GT/C1L1P-E/20170302/gTruth-wnw_30fps.csv ~/Dropbox/writing-nowriting-GT/kid-pseudonym-mapping.csv ~/Dropbox/writing-nowriting-GT/C1L1P-E/20170302/writing_instances.xlsx writing

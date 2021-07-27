@@ -1,0 +1,36 @@
+* Tutorial
+The following tutorial are built using =mmaction2= google colab
+note book. The following commnds work with RTX3 machine.
+** =mmaction2= docker container
+   - Use the following command if the container is **not running**
+    #+BEGIN_SRC shell
+    sudo docker run --name mmaction2 --gpus 3 --shm-size 64G -it  -v /home/vj/DockerHome/mmaction2:/home -v /mnt/twotb:/mnt/twotb -v /home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ:/home/vj/HAQ venkatesh369/mmaction2:working
+    su vj
+    cd /home/vj/HAQ/sota/mmaction2/tutorial
+    #+END_SRC
+   - Use the following command if the container is **running**
+    #+BEGIN_SRC shell
+    sudo docker attach mmaction2
+    su vj
+    cd /home/vj/HAQ/sota/mmaction2/tutorial
+    #+END_SRC
+** Download checkpoint
+   #+BEGIN_SRC shell
+   mkdir checkpoints
+   wget -c https://download.openmmlab.com/mmaction/recognition/tsn/tsn_r50_1x1x3_100e_kinetics400_rgb/tsn_r50_1x1x3_100e_kinetics400_rgb_20200614-e508be42.pth \
+   -O checkpoints/tsn_r50_1x1x3_100e_kinetics400_rgb_20200614-e508be42.pth
+   #+END_SRC shell
+** Download tiny dataset
+    #+BEGIN_SRC shell
+    wget https://download.openmmlab.com/mmaction/kinetics400_tiny.zip
+    unzip kinetics400_tiny.zip
+    #+END_SRC
+** Train =tsn=
+    #+BEGIN_SRC shell
+    python train_tsn_1gpu.py
+    #+END_SRC
+** Test =tsn=
+    #+BEGIN_SRC shell
+    python test_tsn_1gpu.py
+    #+END_SRC
+

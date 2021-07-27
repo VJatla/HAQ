@@ -1,0 +1,67 @@
+#+TITLE: Using mmaction2
+Here I am assuming that using [[./installation.md]] 
+mmaction2 was setup and there are active or inactive containers.
+Running the following command should return empty,
+#+begin_src 
+sudo docker container list --all
+#+end_src
+* Starting container
+Start container from ~mmaction2~ docker image as follows.
++ Run the following command to start the container,
+  #+begin_src 
+  sudo docker run --name mmaction2_1gpu_dec2020 --gpus 1 --shm-size 64G -it  \
+  -v /home/vj/DockerHome/mmaction2:/home \
+  -v /mnt/twotb:/mnt/twotb \
+  -v /home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ:/home/vj/HAQ \
+  venkatesh369/mmaction2:working
+  #+end_src
++ Switch user to vj and go to home directory
+  #+begin_src 
+  su vj
+  cd ~
+  #+end_src
+* Symbolic links
+  The following symbolic links are very important
+  + ~/home/vj/mmaction2~
+  #+begin_src
+  analysis -> /home/vj/HAQ/sota/mmaction2/analysis_scripts
+  checkpoints -> /mnt/twotb/mmaction2/checkpoints
+  data -> /mnt/twotb/mmaction2/data
+  work_dirs -> /mnt/twotb/mmaction2/work_dirs
+  #+end_src
+  + ~/home/vj/mmaction2/configs~
+  #+begin_src 
+  tynty_group_loocv_one_trim_per_instance_3sec_224 -> /home/vj/HAQ/sota/mmaction2/tynty_group_loocv_one_trim_per_instance_3sec_224
+  #+end_src
+  + ~/home/vj/mmaction2/data~
+  #+begin_src 
+  tynty_one_trim_per_instance_3sec_224 -> ../../aolme_datasets/tynty/trimmed_videos/one_trim_per_instance_3sec_224
+  #+end_src
+* Training config files
+  In training config file carefully go through options and set variables to match your data. Here are some important
+  variables,
+  #+begin_src shell
+  dataset_type, data_root, data_root_val
+  ann_file_train, ann_file_val, ann_file_test
+  evaluation, total_epochs, optimizer
+  load_from 
+  #+end_src
+* Train
+  #+begin_src shell
+  # From /home/vj/mmaction2
+  CUDA_VISIBLE_DEVICES=0 python tools/train.py \
+  configs/tynty_group_loocv_one_trim_per_instance_3sec_224/configs/C1L1P-A/i3d_r50_video_32x2x1_100e_kinetics400_rgb.py \
+  --work-dir work_dirs/tynty_group_loocv_one_trim_per_instance_3sec_224/C1L1P-A/i3d/run$i \
+  --validate \
+  --seed 0 \
+  --deterministic
+  #+end_src
+* Validate
+  #+begin_src 
+  # From /home/vj/mmaction2
+  time python tools/test.py \
+  configs/tynty_group_loocv_one_trim_per_instance_3sec_224/configs/C1L1P-A/i3d_r50_video_32x2x1_100e_kinetics400_rgb.py \
+work_dirs/tynty_group_loocv_one_trim_per_instance_3sec_224/C1L1P-A/i3d/run1/epoch_9.pth \
+  --eval top_k_accuracy
+  #+end_src
+  

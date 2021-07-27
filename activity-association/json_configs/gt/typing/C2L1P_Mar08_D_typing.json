@@ -1,0 +1,16 @@
+{
+    "Title"			: "Typing clusters using ground truth",
+    "Cohort"			: "2",
+    "Level"			: "1",
+    "School"			: "Rural",
+    "School_pseudonym"		: "P",
+    "Date2"			: "20180308",
+    "Date"			: "Mar08",
+    "activity"			: "typing",
+    "gt_csv"			: "/home/vj/Dropbox/typing-notyping/C2L1P-D/20180308/gTruth-tynty_30fps.csv",
+    "hands_csv_loc"		: "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/detection/testing/mmaction2/faster-rcnn/C2L1P-D/20180308",
+    "out_log"			: "/home/vj/Dropbox/typing-notyping/C2L1P-D/20180308/base_clusters.log",
+    "labeled_csv_postfix"       : "gt_base_cluster",
+        "out_vid_postfix"           : "gt_base_cluster"
+    
+}
