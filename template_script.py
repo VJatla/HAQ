@@ -15,6 +15,7 @@ import pandas as pd
 # User defined libraries
 import pytkit as pk
 
+
 def _arguments():
     """Parses input arguments."""
     # Initialize arguments instance
@@ -44,8 +45,8 @@ def _arguments():
 
     # Crate a dictionary having arguments and their values
     args_dict = {
-        'arg1' : args.<arg1>,
-        'arg2' : args.<arg2>
+        'arg1': args.arg1,
+        'arg2': args.arg2
     }
 
     # Return arguments as dictionary

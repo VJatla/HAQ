@@ -1,0 +1,22 @@
+{
+        "hand_dist_th"			: 2,
+    "vname1"			: "G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps.mp4",
+    "vdir"                      : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
+    "Title"			: "Typing clusters using ground truth",
+    "Cohort"			: "1",
+    "Level"			: "1",
+    "School"			: "Rural",
+    "School_pseudonym"		: "P",
+    "Date2"			: "20180223",
+    "Date"			: "Feb23",
+    "activity"			: "typing",
+    "gt_csv"			: "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/gTruth-tynty_30fps.csv",
+    "session_csv" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/properties_session.csv",
+    "hands_csv_loc"		: "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/detection/testing/mmaction2/faster-rcnn/C2L1P-B/20180223",
+    "labeled_csv_postfix"       : "gt_base_cluster",
+    "gt_excel"			: "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/typing_instances.xlsx",
+    "vid_level_log"		: "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/base_clusters_videos.log",
+    "session_level_log"		: "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/base_clusters_session.log",
+    "num_persons"               : 5
+    
+}

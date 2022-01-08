@@ -1,0 +1,21 @@
+{
+    "hand_dist_th"	        : 2,
+    "vname1"			: "G-C1L1P-Apr13-C-Windy_q2_01-07_30fps.mp4",
+    "vdir"                      : "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413",
+    "Title"			: "Typing clusters using ground truth",
+    "Cohort"			: "1",
+    "Level"			: "1",
+    "School"			: "Rural",
+    "School_pseudonym"		: "P",
+    "Date2"			: "20170413",
+    "Date"			: "Apr13",
+    "activity"			: "typing",
+    "session_csv"               : "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413/properties_session.csv",
+    "gt_csv"			: "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413/gTruth-tynty_30fps.csv",
+    "hands_csv_loc"		: "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/detection/testing/mmaction2/faster-rcnn/C1L1P-C/20170413",
+    "labeled_csv_postfix"       : "gt_base_cluster",
+    "gt_excel"			: "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413/typing_instances.xlsx",
+    "vid_level_log"		: "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413/base_clusters_videos.log",
+    "session_level_log"		: "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170413/base_clusters_session.log",
+    "num_persons"               : 5
+}

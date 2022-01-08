@@ -15,6 +15,7 @@ EXAMPLE
 python .\generate_activity_map.py C:\\Users\\vj\\Dropbox\\AOLME_Activity_Maps\\GT\\C1L1P-E\\20170302\\all_activities_win.json
 
 # Linux
+python generate_activity_map.py /home/vj/Dropbox/AOLME_Activity_Maps/GT/C1L1P-E/20170302/writing_lin.json
 
 IDEAS
 -----
@@ -153,7 +154,7 @@ def get_session_properties(cfg_dict):
 
     return props
 
-def get_df(cfg_dict, person, activity):
+def get_df(cfg_dict, cluster_name, activity, clus_col):
     """ Returns a DataFrame corresponding to a particular person
     and activity.
 
@@ -165,6 +166,8 @@ def get_df(cfg_dict, person, activity):
         Person under consideration
     activity : Str
         Activity under consideration
+    clus_col : Str
+        Column name in excel sheet having activity ids
 
     Returns
     -------
@@ -172,8 +175,16 @@ def get_df(cfg_dict, person, activity):
         A dataframe having acitivty and person under consideration
     """
     xlsx_pth = cfg_dict[f"{activity.strip()}_xlsx"]
-    df = pd.read_excel(xlsx_pth, sheet_name="Human readable")
-    df = df[df["Numeric code"] == person].copy()
+    if clus_col == "cluster_id":
+        df = pd.read_excel(xlsx_pth, sheet_name="BLC-HR")
+    elif clus_col == "cluster_id_annotated":
+        df = pd.read_excel(xlsx_pth, sheet_name="BLC-HR")
+    elif clus_col == "Pseudonym":
+        df = pd.read_excel(xlsx_pth, sheet_name="Human readable")
+    else:
+        raise Exception(f"Unknown column {clus_col}")
+    df = df[df[clus_col] == cluster_name].copy()
+    
     return df
 
 def get_time_in_sec(t):
@@ -227,15 +238,27 @@ def main():
     # Initalize plotly figure
     fig = go.Figure()
 
-    # Person loop
+    # Cluster loop (person or cluster_name) loop
     y_ticks = []
-    for pidx, person in enumerate(sess_props['persons']):
-        pseudonym = sess_props['pseudonyms'][pidx]
-        y_ticks += [pseudonym] 
+    for pidx in range(0,len(cfg_dict['Persons'])):
+        if cfg_dict['cluster_col_name'] == "Pseudonym":
+            cluster_name = sess_props['pseudonyms'][pidx]
+            cluster_id = cluster_name
+        elif cfg_dict['cluster_col_name'] == "cluster_id":
+            cluster_name = f"clus_{pidx}"
+            cluster_id = pidx
+        elif cfg_dict['cluster_col_name'] == "cluster_id_annotated":
+            cluster_name = sess_props['pseudonyms'][pidx]
+            cluster_id = cluster_name
+        else:
+            raise Exception (f"{cfg_dict['cluster_col_name']} is not supported")
+
+        y_ticks += [cluster_name]
 
         # Activity loop
         y_offsets = cfg_dict['activity_offset_val']
         y_colors = cfg_dict['activity_colors']
+
         for aidx, activity in enumerate(sess_props['activities']):
 
             # Value of current activity based on person
@@ -245,7 +268,7 @@ def main():
             y_color = y_colors[aidx]
 
             # Load data frame corresponding to person and activity
-            df = get_df(cfg_dict, person, activity)
+            df = get_df(cfg_dict, cluster_id, activity, cfg_dict['cluster_col_name'])
             
             # Video loop
             show_legend = True
@@ -283,11 +306,11 @@ def main():
                     
                     yaxis_range = [0, max(y)+1]
                     legend_group = f"{activity}"
-                    legend_name = f"{pseudonym}, {activity}"
+                    legend_name = f"{cluster_name}, {activity}"
 
                     # hover template
                     hover_tempalte = (
-                        f"<b>Pseudonym:</b> {pseudonym}<br>"
+                        f"<b>Pseudonym:</b> {cluster_name}<br>"
                         f"<b>Activity:</b> {activity}<br>"
                         f"<b>Video:</b> {act['Video name']}<br>"
                         f"<b>Time:</b> {act['Start time']} to {act['End time']}"
@@ -327,10 +350,13 @@ def main():
     axes_title_font = 24
 
     # Updating Y axis to be more useful
-    yaxis_range = [0, max(y)+1]
+    try:
+        yaxis_range = [0, max(y)+1]
+    except:
+        pdb.set_trace()
     fig.update_layout(yaxis_range=[0,len(y_ticks) + 1])
     fig.update_yaxes(
-        title="Pseudonyms",
+        title=cfg_dict['cluster_col_name'],
         title_font={"size": axes_title_font},
         tickvals=np.arange(1, len(y_ticks) + 1),
         ticktext=y_ticks,

@@ -16,17 +16,11 @@ import pandas as pd
 import pytkit as pk
 
 class <CLass Name>
-    """ 
-    """
+    """<Class intro> """
     def __init__():
-        
-
-
-
-
 
 def _arguments():
-    """Parses input arguments."""
+    """ Parses input arguments."""
     # Initialize arguments instance
     args_inst = argparse.ArgumentParser(
         description=(
@@ -61,7 +55,6 @@ def _arguments():
     # Return arguments as dictionary
     # Hello world how are you doing
     return args_dict
-
 
 # Calling as script
 if __name__ == "__main__":

@@ -1,0 +1,18 @@
+### DID NOT WORk: Sravani needs to give me hands ###
+{
+    "vname1"		        : "G-C2L1P-Apr12-E-Krithika_q2_01-06_30fps.mp4",
+    "Cohort"			: "2",
+    "Level"			: "1",
+    "School"			: "Rural",
+    "School_pseudonym"		: "P",
+    "Date2"			: "20180412",
+    "Date"			: "Apr12",
+    "activity"			: "writing",
+    "gt_csv"			: "/home/vj/Dropbox/writing-nowriting-GT/C2L1P-E/20180412/gTruth-wnw_30fps.csv",
+    "hands_csv_loc"		: "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/detection/testing/mmaction2/faster-rcnn/C2L1P-E/20180412",
+    "labeled_csv_postfix"       : "gt_base_cluster",
+    
+    "gt_excel"			: "/home/vj/Dropbox/writing-nowriting-GT/C2L1P-E/20180412/writing_instances.xlsx",
+    "vid_level_log"		: "/home/vj/Dropbox/writing-nowriting-GT/C2L1P-E/20180412/base_clusters_videos.log",
+    "session_level_log"		: "/home/vj/Dropbox/writing-nowriting-GT/C2L1P-E/20180412/base_clusters_session.log"
+}

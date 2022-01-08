@@ -9,7 +9,7 @@ import math
 import pytkit as pk
 from activity_association import ActivityAssociation
 
-class BaseClusters(ActivityAssociation):
+class BaseLineClusters(ActivityAssociation):
     """ 
     This class associates activities that are very close to each
     other to same cluster. 
@@ -20,8 +20,11 @@ class BaseClusters(ActivityAssociation):
 
     hand_size = None
     """ Hand size """
+
+    hand_dist_th = None
+    """ Hand distance threshold"""
     
-    def __init__(self, hand_size, activity_df, stime=0, etime=math.inf):
+    def __init__(self, hand_size, hand_dist_th, activity_df, stime=0, etime=math.inf):
         """
         Parameters
         ----------
@@ -29,26 +32,29 @@ class BaseClusters(ActivityAssociation):
             Area of hand bounding box
         """
         # Calling ActivityAssociation class init function
-        super(BaseClusters, self).__init__(
+        super(BaseLineClusters, self).__init__(
             activity_df, stime, etime
         )
 
         # Set hand size
         self.hand_size = hand_size
 
+        # Set hand size
+        self.hand_dist_th = hand_dist_th
 
-    def cluster_activities(self):
+
+    def cluster_activities_base_line(self):
         """ 
         Create a dataframe with cluster id.
         """
-        # Creating a dataframe with `cluster_id` column initialized to -1
+        # Creating a dataframe with `baseline_labels` column initialized to -1
         actdf = self.actdf.copy()
 
         # Initializing cluster variables
         cdict = {}
 
         # Loop thrugh each activity
-        cluster_id = []
+        baseline_labels = []
         cluster_coord = []
         for ridx, row in actdf.iterrows():
             
@@ -59,13 +65,16 @@ class BaseClusters(ActivityAssociation):
             )
 
             # Updating cluster id in dataframe
-            cluster_id += [cur_clust]
+            baseline_labels += [cur_clust]
             cluster_coord += [f"{clust_coord[0]}-{clust_coord[1]}"]
             
         # write the actdf to Class variable
-        actdf['cluster_id'] = cluster_id
+        actdf['baseline_labels'] = baseline_labels
         actdf['cluster_coord'] = cluster_coord
-        self.odf = actdf.copy()
+        self.baseline_df = actdf.copy()
+
+        # Number of clusters
+        self.num_clusters = len(actdf['baseline_labels'].unique())
 
 
 
@@ -83,7 +92,7 @@ class BaseClusters(ActivityAssociation):
             A dictionary to keep track of cluster label and centroids
         """
         # hand size multiplication factor
-        alpha = 2
+        alpha = self.hand_dist_th
         
         # First cluster
         if len(cdict) == 0:
