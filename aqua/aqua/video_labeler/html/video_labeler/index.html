@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>video_labeler API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>video_labeler</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from aqua.video_labeler.ffmpeg_labeler import FFMPEGLabeler
+from aqua.video_labeler.cv2_labeler import CV2Labeler
+
+# Load moduels from fd_ops.py
+__all__ = [&#34;FFMPEGLabeler&#34;, &#34;CV2Labeler&#34;]</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="video_labeler.cv2_labeler" href="cv2_labeler.html">video_labeler.cv2_labeler</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="video_labeler.ffmpeg_labeler" href="ffmpeg_labeler.html">video_labeler.ffmpeg_labeler</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="video_labeler.CV2Labeler"><code class="flex name class">
+<span>class <span class="ident">CV2Labeler</span></span>
+<span>(</span><span>cfg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Uses OpenCV tools to write activity labels to videos.</p>
+<p>cfg: Dict
+Configuration dictionary read from json file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cfg</code></strong> :&ensp;<code>Str</code></dt>
+<dd>
+<p>Configuration file having the following information in
+<code>json</code> format.</p>
+<ol>
+<li>typing instances as excel file</li>
+<li>writing instances as excel file</li>
+<li>session information as csv file</li>
+</ol>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CV2Labeler:
+    &#34;&#34;&#34;
+    Uses OpenCV tools to write activity labels to videos.
+
+    cfg: Dict
+        Configuration dictionary read from json file.
+    &#34;&#34;&#34;
+    def __init__(self, cfg):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        cfg: Str
+            Configuration file having the following information in
+            `json` format.
+
+            1. typing instances as excel file
+            2. writing instances as excel file
+            3. session information as csv file
+        &#34;&#34;&#34;
+        with open(cfg) as f:
+            self.cfg = json.load(f)
+
+        tydf = pd.read_excel(self.cfg[&#39;ty&#39;], sheet_name=&#34;Machine readable&#34;)
+        wrdf = pd.read_excel(self.cfg[&#39;wr&#39;], sheet_name=&#34;Machine readable&#34;)
+        
+        self._spdf = pd.read_csv(self.cfg[&#39;sprops&#39;])
+        self._actdf = pd.concat([tydf, wrdf])
+        
+
+    def write_labels_to_video(self):
+        &#34;&#34;&#34; Writes typing and writing instances to video.
+        &#34;&#34;&#34;
+        
+        # Copy videos from input directory to output
+        ipaths, opaths = self._copy_videos()
+
+        # Loop over each video
+        for vidx in range(0, len(ipaths)):
+            
+            # Input and output video paths
+            opath = opaths[vidx]
+            ipath = ipaths[vidx]
+
+            # skip videos with no activity instances
+            if self._has_no_act_instances(ipath):
+                continue
+
+            # Label activities in the output video,
+            print(f&#34;Labeling: {ipath}&#34;)
+            self._label_video(ipath, opath)
+            
+
+        import pdb; pdb.set_trace()
+
+    def _label_video(self, ipath, opath):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        ipath: Str
+            Input video path
+        opath: Str
+            output video path
+        &#34;&#34;&#34;
+        # Read video using pk library
+        iv = cv2.VideoCapture(ipath)
+        ov = cv2.VideoWriter(
+            opath, cv2.VideoWriter_fourcc(&#39;X&#39;, &#39;2&#39;, &#39;6&#39;, &#39;4&#39;)
+        )
+        import pdb; pdb.set_trace()
+
+        # Dataframe having instances that belong to input video
+        iname = os.path.basename(ipath)
+        df = self._actdf[self._actdf[&#39;name&#39;] == iname].copy()
+
+        # Read video one frame at a time
+        f0 = 0
+        while (iv.isOpened()):
+
+            # Read frame
+            ret, frame = iv.read()
+            
+            if ret:
+                self._get_
+            
+            if ret:
+                cv2.imshow(&#39;Frame&#39;, frame)
+                if cv2.waitKey(25) &amp; 0xFF == ord(&#39;q&#39;):
+                    break
+                
+            else:
+                break
+        import pdb; pdb.set_trace()
+
+    def _has_no_act_instances(self, ipath):
+        &#34;&#34;&#34; Returns true if the current video has no activity instances
+
+        Parameters
+        ----------
+        ipath: Str
+            Input video file path
+        &#34;&#34;&#34;
+        vname = os.path.basename(ipath)
+        if vname in self._actdf[&#39;name&#39;].unique().tolist():
+            return False
+        return True
+
+    def _copy_videos(self):
+        &#34;&#34;&#34; Copies videos from session propoerties dataframe
+        `self._spdf` from input to output directory. It also adds
+        a postfix to the name. For example, a.mp4 becomes a_gt.mp4
+        &#34;&#34;&#34;
+        idir = self.cfg[&#39;idir&#39;]
+        odir = self.cfg[&#39;odir&#39;]
+        postfix = self.cfg[&#39;name_postfix&#39;]
+        
+        inames = self._spdf.iloc[0:-1][&#39;name&#39;].tolist()
+        ipaths = [f&#34;{idir}/{x}&#34; for x in inames]
+        
+        inames_noext = [os.path.splitext(x)[0] for x in inames]
+        onames = [f&#34;{x}_{postfix}.mp4&#34; for x in inames_noext]
+        opaths = [f&#34;{odir}/{x}&#34; for x in onames]
+
+        for vidx in range(0, len(ipaths)):
+            
+            ipath = ipaths[vidx]
+            opath = opaths[vidx]
+
+            cp_cmd = f&#34;cp {ipath} {opath}&#34;
+            # os.system(cp_cmd)
+
+        return ipaths, opaths</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="video_labeler.CV2Labeler.write_labels_to_video"><code class="name flex">
+<span>def <span class="ident">write_labels_to_video</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes typing and writing instances to video.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_labels_to_video(self):
+    &#34;&#34;&#34; Writes typing and writing instances to video.
+    &#34;&#34;&#34;
+    
+    # Copy videos from input directory to output
+    ipaths, opaths = self._copy_videos()
+
+    # Loop over each video
+    for vidx in range(0, len(ipaths)):
+        
+        # Input and output video paths
+        opath = opaths[vidx]
+        ipath = ipaths[vidx]
+
+        # skip videos with no activity instances
+        if self._has_no_act_instances(ipath):
+            continue
+
+        # Label activities in the output video,
+        print(f&#34;Labeling: {ipath}&#34;)
+        self._label_video(ipath, opath)
+        
+
+    import pdb; pdb.set_trace()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="video_labeler.FFMPEGLabeler"><code class="flex name class">
+<span>class <span class="ident">FFMPEGLabeler</span></span>
+<span>(</span><span>activity_instances, session_properties, act, name_post_fix)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>activity_instances</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Excel file having activity instances</dd>
+<dt><strong><code>session_properties</code></strong> :&ensp;<code>Str</code></dt>
+<dd>CSV having session properties</dd>
+<dt><strong><code>act</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Activity we are currently plotting</dd>
+<dt><strong><code>name_post_fix</code></strong> :&ensp;<code>Str</code></dt>
+<dd>String added to the end of input video names.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FFMPEGLabeler:
+
+    act = &#34;&#34;
+    &#34;&#34;&#34; Activity, {typing, writing} &#34;&#34;&#34;
+
+    sess_path = &#34;&#34;
+    &#34;&#34;&#34; Session path &#34;&#34;&#34;
+
+    act_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having activities  &#34;&#34;&#34;
+
+    sess_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having session properties &#34;&#34;&#34;
+
+    def __init__(self, activity_instances, session_properties, act, name_post_fix):
+        &#34;&#34;&#34;
+        Creates 
+        
+        Parameters
+        ----------
+        activity_instances: Str
+            Excel file having activity instances
+        session_properties: Str
+            CSV having session properties
+        act: Str
+            Activity we are currently plotting
+        name_post_fix: Str
+            String added to the end of input video names.
+        &#34;&#34;&#34;
+        
+        # Properties of current activity instances
+        self.act = act
+        self.name_post_fix = name_post_fix
+        self.sess_path = os.path.dirname(session_properties)
+        
+        # Creating data frames having session and activity instances information
+        self.sess_df = pd.read_csv(session_properties)
+        self.act_df = pd.read_excel(activity_instances, sheet_name=&#34;Machine readable&#34;)
+        
+        # Create a dictionary having student code as keys and colors as values
+        self.colors = self._get_colors_for_students()
+        
+    def write_labels_to_video(self):
+        &#34;&#34;&#34; Writes labels to video using xlsx file created from ground truth csv file.
+        &#34;&#34;&#34;
+        # Input videos
+        in_videos = self.sess_df[0:-1][&#39;name&#39;].tolist()
+
+        # Loop through each video
+        for in_video in in_videos:
+            
+            # Copy input video to output video
+            iv_path, ov_path = self._copy_input_video(in_video)
+            
+            # Get intances for current video from activities dataframe
+            vact_df = self.act_df[self.act_df[&#39;name&#39;] == in_video].copy()
+            
+            # if dataframe is empty do not execute the rest of the code
+            if vact_df.empty:
+                continue
+
+            # Create bounding boxes on the video using ffmpeg
+            self._label_video(ov_path, vact_df)
+
+    def _get_colors_for_students(self):
+        &#34;&#34;&#34; Returns a color dictionary with student codes as keys and colors
+        as values. These colors will be used when drawing bounding boxes.
+        &#34;&#34;&#34;
+        
+        # Color list
+        colors = [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;, &#39;pink&#39;, &#39;magenta&#39;, &#39;orange&#39;, &#39;purple&#39;, &#39;black&#39;, &#39;white&#39;, ]
+        uniq_students = self.act_df[&#39;student_code&#39;].unique().tolist()
+        color_dict = {}
+
+        # Loop through each student to create a color dictionary
+        for i, sc in enumerate(uniq_students):
+            color_dict[sc] = colors[i]
+            
+        return color_dict
+
+    def _label_video(self, ov_path, df):
+        &#34;&#34;&#34; Label activity instances on the video.
+
+        ov: Str
+            Output video path
+        df: DataFrame
+            Activity instances in that video
+        &#34;&#34;&#34;
+
+        # Loop through each activity instance
+        for i, row in df.iterrows():
+            # Draw box
+            self._draw_box_fmmpeg(ov_path, row)
+
+        # Label on top left
+        self._draw_labels_ffmpeg(ov_path)
+
+
+    def _draw_box_fmmpeg(self, vpth, row):
+        &#34;&#34;&#34; Return an ffmpeg command that can draw bounding box
+
+        Parameters
+        ----------
+        vpth: Str
+            Video path
+        row: Series
+            A row from dataframe having activities
+        &#34;&#34;&#34;
+        # Get drawbox string
+        drawbox_str = self._get_drawbox_string(row)
+        
+        tdir = tempfile.gettempdir()
+
+        ffmpeg_cmd = f&#34;ffmpeg -y -i {vpth} -preset veryfast -c:a copy -vf {drawbox_str} {tdir}/temp.mp4&#34;
+        os.system(ffmpeg_cmd)
+
+        # Copy temporary file to vpth
+        os.system(f&#34;mv {tdir}/temp.mp4 {vpth}&#34;)
+
+
+    def _get_drawbox_string(self, row):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        row: Series
+            A row from dataframe having activities
+        &#34;&#34;&#34;
+        x  = int(row[&#39;w0&#39;])
+        y  = int(row[&#39;h0&#39;])
+        w  = int(row[&#39;w&#39;])
+        h  = int(row[&#39;h&#39;])
+        f0 = row[&#39;f0&#39;]
+        f1 = row[&#39;f0&#39;] + row[&#39;f&#39;]
+        color = self.colors[row[&#39;student_code&#39;]]
+
+        drawbox_str = (f&#34;\&#34;drawbox=enable=&#39;between(n, {f0}, {f1})&#39;:x={x}:y={y}:w={w}:h={h}:color={color}@0.8:thickness=3\&#34;&#34;)
+
+        return drawbox_str
+     
+    def _draw_labels_ffmpeg(self, vpth):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        vpth: Str
+            Video path
+        &#34;&#34;&#34;
+        tdir = tempfile.gettempdir()
+
+        text = &#34;[in]&#34;
+        x = 5
+        y = 5
+        for i, k in enumerate(self.colors):
+            student_code = k
+            color = self.colors[k]
+            if i == 0:
+                text = f&#34;{text}drawtext:text={student_code}:fontcolor={color}:fontsize=20:x={x}:y={y}:line_spacing=3:borderw=2&#34;
+            else:
+                text = f&#34;{text},drawtext=text={student_code}:fontcolor={color}:fontsize=20:x={x}:y={y+i*20}:line_spacing=3:borderw=2&#34;
+                
+        text = f&#34;{text}[out]&#34;
+
+        ffmpeg_cmd = f&#34;ffmpeg -y -i {vpth} -preset veryfast -c:a copy -vf {text} {tdir}/temp.mp4&#34;
+        os.system(ffmpeg_cmd)
+        os.system(f&#34;mv {tdir}/temp.mp4 {vpth}&#34;)
+        
+
+                
+    def _copy_input_video(self, in_video):
+        &#34;&#34;&#34; Copy input video to output video.
+
+        Parameters
+        ----------
+        in_video: Str
+            Name of input video
+        &#34;&#34;&#34;
+        
+        # Input and output video paths
+        iv_name_no_ext = os.path.splitext(in_video)[0]
+        ov_name = f&#34;{iv_name_no_ext}_{self.name_post_fix}.mp4&#34;
+        iv_path = f&#34;{self.sess_path}/{in_video}&#34;
+        ov_path = f&#34;{self.sess_path}/{ov_name}&#34;
+            
+        # Copy input video to output video
+        os.system(f&#34;cp {iv_path} {ov_path}&#34;)
+
+        return iv_path, ov_path</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="video_labeler.FFMPEGLabeler.act"><code class="name">var <span class="ident">act</span></code></dt>
+<dd>
+<div class="desc"><p>Activity, {typing, writing}</p></div>
+</dd>
+<dt id="video_labeler.FFMPEGLabeler.act_df"><code class="name">var <span class="ident">act_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having activities</p></div>
+</dd>
+<dt id="video_labeler.FFMPEGLabeler.sess_df"><code class="name">var <span class="ident">sess_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having session properties</p></div>
+</dd>
+<dt id="video_labeler.FFMPEGLabeler.sess_path"><code class="name">var <span class="ident">sess_path</span></code></dt>
+<dd>
+<div class="desc"><p>Session path</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="video_labeler.FFMPEGLabeler.write_labels_to_video"><code class="name flex">
+<span>def <span class="ident">write_labels_to_video</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes labels to video using xlsx file created from ground truth csv file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_labels_to_video(self):
+    &#34;&#34;&#34; Writes labels to video using xlsx file created from ground truth csv file.
+    &#34;&#34;&#34;
+    # Input videos
+    in_videos = self.sess_df[0:-1][&#39;name&#39;].tolist()
+
+    # Loop through each video
+    for in_video in in_videos:
+        
+        # Copy input video to output video
+        iv_path, ov_path = self._copy_input_video(in_video)
+        
+        # Get intances for current video from activities dataframe
+        vact_df = self.act_df[self.act_df[&#39;name&#39;] == in_video].copy()
+        
+        # if dataframe is empty do not execute the rest of the code
+        if vact_df.empty:
+            continue
+
+        # Create bounding boxes on the video using ffmpeg
+        self._label_video(ov_path, vact_df)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="video_labeler.cv2_labeler" href="cv2_labeler.html">video_labeler.cv2_labeler</a></code></li>
+<li><code><a title="video_labeler.ffmpeg_labeler" href="ffmpeg_labeler.html">video_labeler.ffmpeg_labeler</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="video_labeler.CV2Labeler" href="#video_labeler.CV2Labeler">CV2Labeler</a></code></h4>
+<ul class="">
+<li><code><a title="video_labeler.CV2Labeler.write_labels_to_video" href="#video_labeler.CV2Labeler.write_labels_to_video">write_labels_to_video</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="video_labeler.FFMPEGLabeler" href="#video_labeler.FFMPEGLabeler">FFMPEGLabeler</a></code></h4>
+<ul class="">
+<li><code><a title="video_labeler.FFMPEGLabeler.act" href="#video_labeler.FFMPEGLabeler.act">act</a></code></li>
+<li><code><a title="video_labeler.FFMPEGLabeler.act_df" href="#video_labeler.FFMPEGLabeler.act_df">act_df</a></code></li>
+<li><code><a title="video_labeler.FFMPEGLabeler.sess_df" href="#video_labeler.FFMPEGLabeler.sess_df">sess_df</a></code></li>
+<li><code><a title="video_labeler.FFMPEGLabeler.sess_path" href="#video_labeler.FFMPEGLabeler.sess_path">sess_path</a></code></li>
+<li><code><a title="video_labeler.FFMPEGLabeler.write_labels_to_video" href="#video_labeler.FFMPEGLabeler.write_labels_to_video">write_labels_to_video</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

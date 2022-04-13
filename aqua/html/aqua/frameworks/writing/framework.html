@@ -1,0 +1,1456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.frameworks.writing.framework API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.frameworks.writing.framework</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import pdb
+import cv2
+import aqua
+import math
+import torch
+import numpy as np
+import pandas as pd
+from tqdm import tqdm
+from matplotlib import pyplot as plt
+from torch.utils.data import DataLoader
+from aqua.nn.dloaders import AOLMETrmsDLoader
+import pytkit as pk
+from aqua.nn.models import DyadicCNN3D
+from torchsummary import summary
+
+
+class Writing:
+    wrdf = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having information on writing instances. 
+    It has following columns,
+    ```
+    1. f0     : poc of starting frame
+    2. f      : number of frames
+    3. W, H   : Video width and height
+    4. w0, h0 : Bounding box top left corner
+    5. w, h   : width and height of bounding box
+    6. FPS    : Frames per second
+    7. writing : {-1, 0, 1}.
+                -1 =&gt; Hands not found
+                0 =&gt; nowriting
+                1 =&gt; writing
+    ```
+    &#34;&#34;&#34;
+
+    cfg = {}
+    &#34;&#34;&#34; Configuration dictionary &#34;&#34;&#34;
+    
+    net = None
+    &#34;&#34;&#34; Dyadic 3D CNN instance. &#34;&#34;&#34;
+
+    ivid = None
+    &#34;&#34;&#34; Input video instance. &#34;&#34;&#34;
+
+    wrdur = 0
+    &#34;&#34;&#34; Duration of spati-temporal trims to classify. &#34;&#34;&#34;
+    
+    
+    
+    def __init__(self, cfg, wrdur=3):
+        &#34;&#34;&#34; Spatio temporal writing detection using,
+
+        Parameters
+        ----------
+        cfg : Str
+        Configuration file. The configuration has the following entries.
+        
+            1. &#34;video&#34;: Video path for which we have hand detections.
+            2. &#34;hands&#34;: Hand detections as CSV file
+            3. &#34;table_roi&#34;: CSV file having Table ROI marked
+            4. &#34;depth&#34;: Depth of 3D-CNN that provided the best performance,
+            5. &#34;ckpt&#34;: Checkpoint of 3D-CNN
+        
+        &#34;&#34;&#34;
+
+        # Configuration dictionary
+        self.cfg = cfg
+        
+        # wrdur
+        self.wrdur = wrdur
+        
+        # Checking configuration file
+        self._check_cfg(cfg)
+
+        # Loading neural network into GPU
+        # self._load_net(cfg)
+
+        # Loading video
+        self.ivid = pk.Vid(cfg[&#39;video&#39;], &#39;read&#39;)
+        
+        
+    def get_writing_proposals(self):
+        &#34;&#34;&#34; Generates hand proposal regions by using hand detections
+        and manually annotated table region of interest.
+
+        Parameters
+        ----------
+        hands_csv_path : str
+            Path of configuration file
+        table_roi_path : str
+            Path of csv file containing manually annotated table regions.
+        &#34;&#34;&#34;
+        
+        # Creating an empty hand region proposal dataframe
+        hrp = pd.DataFrame()
+
+        # Load hands and table roi csvs
+        hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
+        troi_df = pd.read_csv(self.cfg[&#39;table_roi&#39;])
+        troi_df = troi_df[troi_df[&#39;video_names&#39;] == f&#34;{self.ivid.props[&#39;name&#39;]}{self.ivid.props[&#39;extension&#39;]}&#34;].copy()
+        
+        # Calcuating hand region proposals every 3 seconds
+        fps = hands_df[&#39;FPS&#39;].unique().item()
+        new_rows = []
+        print(f&#34;Calculating region proposals...&#34;)
+        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+
+            # Get hands and table regions for 3 seconds
+            hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+            tdf = troi_df[troi_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+
+            # Skip,
+            # 1. if the current 3 seconds do not have sufficient regions of interest.
+            # 2. if the hands dataframe is empty
+            if (not self._have_sufficient_rois(tdf.copy())) or (len(hdf) == 0):
+                continue
+
+            # Calculating table boundary from regions of interest
+            table_boundary = self._get_table_boundary(tdf.copy())
+
+            # Calculating overlap ratio between table bondary and hand detections
+            hdf = self._get_roi_overlap_ratio(hdf, table_boundary)
+
+            # Remove hand regions that do not corss a overlap ratio threshold
+            hdf = self._remove_outside_hand_detections(hdf.copy())
+
+            # Skip to next 3 seconds if all the hand regions lie outside
+            # the table boundary
+            if len(hdf) == 0:
+                continue
+
+            # Calculate hand region proposal rows for 3 seconds by tabking union
+            # of all the valid hand detections
+            new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
+
+
+        hrp = pd.DataFrame(new_rows, columns=[
+                &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
+                &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
+            ])
+            
+        return hrp
+
+    def classify_writing_proposals(self, hrp):
+        &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+        Parameters
+        ----------
+        hrp : Pandas DataFrame instance
+            
+        &#34;&#34;&#34;
+
+
+    def _get_union_of_hand_detections(self, df, f0, f):
+        &#34;&#34;&#34; Returns hand detection regions using union of all the detections
+        in an interval.
+        
+        Parameters
+        ----------
+        df : DataFrame
+            A DataFrame having hand detections.
+
+        Returns
+        -------
+        Returns list of new rows with following columns
+        [W, H, FPS, f0, f, class, table_boundary, w0, h0, w, h]
+        &#34;&#34;&#34;
+        # Flag to turn off/on images
+        show_images = False
+        
+        # Creating an image with zeros
+        W = df[&#39;W&#39;].unique().item()
+        H = df[&#39;H&#39;].unique().item()
+        FPS = df[&#39;FPS&#39;].unique().item()
+        oclass = df[&#39;class&#39;].unique().item()
+        table_boundary = df[&#39;table_boundary&#39;].unique().item()
+        uimg = np.zeros((H, W ))
+
+        # Creating a binary image that is union of all the bounding boxes.
+        for i, r in df.iterrows():
+            [w0, h0, w, h] = [r[&#39;w0&#39;], r[&#39;h0&#39;], r[&#39;w&#39;], r[&#39;h&#39;]]
+            uimg[h0 : h0 + h, w0 : w0 + w] = 1
+
+        if show_images:
+            plt.subplot(111)
+            ax = plt.subplot(1, 1, 1)
+            ax.imshow(uimg, cmap=&#39;gray&#39;)
+            plt.show()
+
+        # Connected components
+        cc = cv2.connectedComponentsWithStats(uimg.astype(&#39;uint8&#39;), 4, cv2.CV_32S)
+        cc_img = cc[1]
+        cc_labels = np.unique(cc_img).tolist()
+
+        # Loop through each label and find bounding box coordinates
+        new_rows = []
+        for cc_label in cc_labels[1:]:
+            
+            new_row = [W, H, FPS, f0, f, oclass, table_boundary]
+
+            cc_label_img = 1*(cc_img == cc_label).astype(&#39;uint8&#39;)
+            active_px = np.argwhere(cc_label_img!=0)
+            active_px = active_px[:,[1,0]]
+            w0,h0,w,h = cv2.boundingRect(active_px)
+
+            new_row += [w0, h0, w, h]
+
+            new_rows += [new_row]
+
+        return new_rows
+
+            
+
+            
+
+
+        
+
+
+    def _remove_outside_hand_detections(self, df, th=0.5):
+        &#34;&#34;&#34; Removes all the hand detections that are less that are
+        50% not inside the table boundary.
+
+        Parameters
+        ----------
+        df : DataFrame
+            DataFrame having hand detections with `roi-overlap-ratio`
+            column.
+        th : Float
+            Detectons which are &lt; th are removed.
+        &#34;&#34;&#34;
+        for ridx, row in df.iterrows():
+            if row[&#39;roi-overlap-ratio&#39;] &lt; th:
+                df.drop([ridx], inplace = True)
+        return df
+            
+    def _get_roi_overlap_ratio(self, hdf, table_boundary):
+        &#34;&#34;&#34; Adds a column to hand detections, roi-overlap-ratio.
+            
+            - Table boundary = T
+            - Hand detection = H
+            - Overlap (O) = Intersection(T, H)
+                overlap-ratio = Area(O) / Area(H)
+
+        Parameters
+        ----------
+        hdf : DataFrame
+            Dataframe having hand detections
+
+        table_boundary : List[Int]
+            Table boundary as list, [w0, h0, w, h]
+        &#34;&#34;&#34;
+        # Flag to turn off/on images
+        show_images = False
+        
+        # Uncompressing boundary
+        [tw0, th0, tw, th] = table_boundary
+        
+        # Creating an image with zeros
+        W = hdf[&#39;W&#39;].unique().item()
+        H = hdf[&#39;H&#39;].unique().item()
+        zimg = np.zeros((H,W))
+
+        # Creating a binary image with table boundary marked as 1s
+        timg = zimg.copy()
+        timg[th0 : th0 + th, tw0 : tw0 + tw] = 1
+
+        # Loop over each hand detection
+        o_area_ratio_lst = []
+        for ridx, row in hdf.iterrows():
+
+            # hand detection is loaded into proper variables
+            [hw0, hh0, hw, hh] = [row[&#39;w0&#39;], row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+            h_area = hw*hh
+
+            # Creating a binary image with hand detection as 1
+            himg = zimg.copy()
+            himg[hh0 : hh0 + hh, hw0 : hw0 + hw] = 1
+
+            # Overlap image
+            oimg = himg + timg
+            oimg = 1*(oimg == 2)
+            o_area = oimg.sum()
+
+            if show_images:
+                plt.subplot(221)
+                ax1 = plt.subplot(2, 2, 1)
+                ax2 = plt.subplot(2, 2, 2)
+                ax3 = plt.subplot(2, 2, 3)
+                ax1.imshow(timg)
+                ax2.imshow(himg)
+                ax3.imshow(oimg)
+                plt.show()
+                import pdb; pdb.set_trace()
+
+            # Drop the hand detection if the overlap area is less than
+            # 50% of hand area
+            o_area_ratio = o_area/h_area
+            o_area_ratio_lst += [o_area_ratio]
+            
+        hdf[&#39;table_boundary&#39;] = f&#34;{tw0}-{th0}-{tw}-{th}&#34;
+        hdf[&#39;roi-overlap-ratio&#39;] = o_area_ratio_lst
+
+        return hdf
+
+
+    
+    def _have_sufficient_rois(self, df):
+        &#34;&#34;&#34; Returns true if there there is a vlaid region of interest of atleast one
+        student. A student having atleast tow rois out of three is considered valid.
+
+        Parameters
+        ----------
+        df : DataFrame
+            A data frame having roi entries for `self.wrdur`.
+        &#34;&#34;&#34;
+
+        # Dropping unnecessary columns
+        df.drop([&#39;Time&#39;, &#39;f0&#39;, &#39;video_names&#39;, &#39;f&#39;], axis = 1, inplace=True)
+
+        # Looping over each column and if atleast one column contain 2 valid entries
+        # return true
+        for col in df.columns.tolist():
+            
+            valid_bboxes = 0
+            for i in range(0, self.wrdur):
+
+                # Bounding box in current column
+                bbox_coords = df[col].iloc[i]
+
+                # A bounding box is valid if it has four coordinates
+                # separated by &#34;-&#34;
+                if len(bbox_coords.split(&#34;-&#34;)) == 4:
+                    valid_bboxes += 1
+
+                # If we are able to get more than 2 valid bounding
+                # boxes return True
+                if valid_bboxes &gt;= 2:
+                    return True
+
+        # If thre are no valid bounding boxes return False
+        return False
+
+
+    
+    def _get_table_boundary(self, df):
+        &#34;&#34;&#34; Return table boundary as list, [w0, h0, w, h]
+
+        Parameters
+        ----------
+        df : DataFrame
+            A data frame having roi entries for `self.wrdur`.
+        &#34;&#34;&#34;
+
+        # Dropping unnecessary columns
+        df.drop([&#39;Time&#39;, &#39;f0&#39;, &#39;video_names&#39;, &#39;f&#39;], axis = 1, inplace=True)
+
+        # Creating list of bounding box coordinates
+        w_min = math.inf
+        h_min = math.inf
+        w_max = 0
+        h_max = 0
+        for col in df.columns.tolist():
+            for ridx in range(0, len(df[col])):
+                
+                [w0, h0, w, h] = [int(x) for x in df[col].iloc[ridx].split(&#39;-&#39;)]
+
+                if w_min &gt; w0:
+                    w_min = w0
+                if h_min &gt; h0:
+                    h_min = h0
+                if w_max &lt; w0 + w:
+                    w_max = w0 + w
+                if h_max &lt; h0 + h:
+                    h_max = h0 + h
+
+        boundary = [w_min, h_min, w_max - w_min, h_max - h_min]
+
+        return boundary
+        
+
+    
+    def _check_cfg(self, cfg):
+        &#34;&#34;&#34; Validates the configuration file.&#34;&#34;&#34;
+
+        # Check files
+        pk.check_file_existance(cfg[&#39;video&#39;])
+        pk.check_file_existance(cfg[&#39;hands&#39;])
+        pk.check_file_existance(cfg[&#39;table_roi&#39;])
+        pk.check_file_existance(cfg[&#39;ckpt&#39;])
+        
+        # Depth should be between 2 and 4
+        if cfg[&#39;depth&#39;] &lt; 2 or cfg[&#39;depth&#39;] &gt; 4:
+            raise Exception(
+                &#34;USER EXCEPTION: The dyadic depth is not valid.&#34;
+                f&#34;\n\t Depth: {cfg[&#39;depth&#39;]}&#34;
+            )
+
+
+        
+    def _load_net(self, cfg):
+        &#34;&#34;&#34; Load neural network to GPU. &#34;&#34;&#34;
+
+        # Checkpoint and depth from cfg file.
+        ckpt = cfg[&#39;ckpt&#39;]
+        depth = cfg[&#39;depth&#39;]
+
+        # Creating an instance of Dyadic 3D-CNN
+        self.net = DyadicCNN3D(depth, [3, 90, 224, 224])
+        self.net.to(&#34;cuda:0&#34;)
+        summary(self.net, (3, 90, 224, 224))
+
+        # Loading the net with trained weights to cuda device 0
+        ckpt_weights = torch.load(ckpt)
+        self.net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
+        self.net.eval()
+        
+        
+
+    def _check_for_writing(self, proposal_df):
+        &#34;&#34;&#34; Checks for writing in the proposal data frame.
+
+        Parameters
+        ----------
+        proposal_df: DataFrame
+            Proposal dataframe having hands bounding boxes.
+        Todo
+        ----
+        1. Here I am trimming -&gt; writing to hdd -&gt; loading. This is not
+           recommended for speed. Please try to improve.
+        &#34;&#34;&#34;
+        import pdb; pdb.set_trace()
+        # Loop over proposal dataframe
+        for i, row in proposal_df.iterrows():
+
+            # if w or h == 0 then there is no hands
+            if row[&#39;w&#39;] == 0 or row[&#39;h&#39;] == 0:
+                proposal_df.at[i, &#39;writing&#39;] = -1
+            else:
+                # Creating temporal trim
+                bbox = [row[&#39;w0&#39;],row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+                sfrm = row[&#39;f0&#39;]
+                efrm = sfrm + row[&#39;f&#39;]
+                oloc = f&#34;{os.path.dirname(self._vid.props[&#39;dir_loc&#39;])}&#34;
+                opth = (f&#34;{oloc}/temp.mp4&#34;)
+
+                # Spatio temporal trim
+                self._vid.spatiotemporal_trim(sfrm, efrm, bbox, opth)
+                 
+                # Creating a temporary text file `temp.txt` having
+                # temp.mp4 and a dummy label (100)
+                with open(f&#34;{oloc}/temp.txt&#34;, &#34;w&#34;) as f:
+                    f.write(&#34;temp.mp4 100&#34;)
+
+                # Intialize AOLME data loader instance
+                tst_data = AOLMETrmsDLoader(oloc, f&#34;{oloc}/temp.txt&#34;, oshape=(224, 224))
+                tst_loader = DataLoader(tst_data, batch_size=1, num_workers=1)
+
+                # Loop over tst data (goes over only once. I am desparate so I kept the loop)
+                for data in tst_loader:
+                    dummy_labels, inputs = (data[0].to(&#34;cuda:0&#34;, non_blocking=True),
+                                             data[1].to(&#34;cuda:0&#34;, non_blocking=True))
+                    with torch.no_grad():
+                        outputs = self._net(inputs)
+                        ipred = outputs.data.clone()
+                        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+                        proposal_df.at[i, &#39;writing&#39;] = round(ipred[0])
+                        
+        return proposal_df
+
+
+
+    def _get_proposal_df(self, bboxes, wrdur):
+        &#34;&#34;&#34;
+        OBSOLETE SHOULD BE DELETED IN CLEANUP PHASE.
+        Creates a data frame with each row representing 3 seconds.
+
+        Parameters
+        ----------
+        bboxes: str
+            path to file having hands bounding boxes
+        wrdur: int, optional
+            Each writing instance duration considered in seconds. 
+            Defaults to 3.
+        &#34;&#34;&#34;
+        # Video properties
+        num_frames = self._vid.props[&#39;num_frames&#39;]
+        fps = self._vid.props[&#39;frame_rate&#39;]
+
+        # Creating f0 and f lists
+        num_trims = math.floor(num_frames/(wrdur*fps))
+        f0 = [x*(wrdur*fps) for x in range(0, num_trims)]
+        f = [wrdur*fps]*num_trims
+
+        # Creating W, H and FPS lists
+        W = [self._vid.props[&#39;width&#39;]]*num_trims
+        H = [self._vid.props[&#39;height&#39;]]*num_trims
+        fps_lst = [fps]*num_trims
+
+        # Get bounding boxes
+        w0, h0, w, h = self._get_proposal_bboxes(bboxes, f0, f)
+
+        # Intializing all writing instances are marked nan(numpy)
+        writing_lst = [np.nan]*(num_trims)
+
+        # Creating data frame with all the lists
+        df = pd.DataFrame(list(zip(W, H, fps_lst, f0, f, w0, h0, w, h, writing_lst)),
+                          columns=[&#34;W&#34;,&#34;H&#34;, &#34;FPS&#34;, &#34;f0&#34;, &#34;f&#34;, &#34;w0&#34;, &#34;h0&#34;, &#34;w&#34;, &#34;h&#34;, &#34;writing&#34;])
+        return df
+
+
+    
+    def write_to_csv(self):
+        &#34;&#34;&#34; Writes writing instances to a csv file. The name of the file is `&lt;video name&gt;_wr_using_alg.csv` and has
+        following columns,
+
+            1. f0      : poc of starting frame
+            2. f       : number of frames
+            3. W, H    : Video width and height
+            4. w0, h0  : Bounding box top left corner
+            5. w, h    : width and height of bounding box
+            6. FPS     : Frames per second
+            7. writing : {-1, 0, 1}.
+                -1 =&gt; Hands not found
+                0  =&gt; nowriting
+                1  =&gt; writing
+
+        &#34;&#34;&#34;
+        # Update writing instances in writing dataframe by processing
+        # valid instances to 0 or 1
+        self.wrdf = self._check_for_writing(self._proposal_df.copy())
+        
+        vname = self._vid.props[&#39;name&#39;]
+        vloc = self._vid.props[&#39;dir_loc&#39;]
+        csv_pth = f&#34;{vloc}/{vname}_wr_using_alg.csv&#34;
+        self.wrdf.to_csv(csv_pth)
+        
+
+        
+    def _get_proposal_bboxes(self, bboxes, f0_lst, f_lst):
+        &#34;&#34;&#34; Creates proposal bounding boxes. Trims from these bounding boxes are
+        later processed via writing detection algorithm.
+
+        If there are multiple bounding boxes in the duration we consider the
+        union of bounding boxes.
+
+        Parameters
+        ----------
+        bboxes: str
+            Path to file having hands detection bounding boxes
+        f0_lst: List of int
+            List having starting frame poc
+        f_lst: List of int
+            List having poc lenght
+        &#34;&#34;&#34;
+        df_bb = pd.read_csv(bboxes)
+        num_trims = len(f0_lst)
+        
+        w0_lst = [0]*num_trims
+        h0_lst = [0]*num_trims
+        w_lst = [0]*num_trims
+        h_lst = [0]*num_trims
+        
+        for i in range(0, num_trims):
+            f0 = f0_lst[i]
+            f = f_lst[i]
+
+            # Data frame having detections from f0 to f0+f
+            df_bbi = pd.DataFrame()
+            df_bbi = df_bb[df_bb[&#39;f0&#39;] &gt;= f0].copy()
+            df_bbi = df_bbi[df_bbi[&#39;f0&#39;] &lt; f0 + f]
+            if len(df_bbi) &gt; 0:
+                w0i = df_bbi[&#39;w0&#39;].tolist()
+                h0i = df_bbi[&#39;h0&#39;].tolist()
+                wi = df_bbi[&#39;w&#39;].tolist()
+                hi = df_bbi[&#39;h&#39;].tolist()
+                w1i = [sum(x) for x in zip(w0i, wi)]
+                h1i = [sum(x) for x in zip(h0i, hi)]
+
+                # Taking union
+                w0_tl = min(w0i)
+                h0_tl = min(h0i)
+                w0_br = max(w1i)
+                h0_br = max(h1i)
+
+                # Adding to the list
+                w0_lst[i] = w0_tl
+                h0_lst[i] = h0_tl
+                w_lst[i] = w0_br - w0_tl
+                h_lst[i] = h0_br - h0_tl
+        return (w0_lst, h0_lst, w_lst, h_lst)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.frameworks.writing.framework.Writing"><code class="flex name class">
+<span>class <span class="ident">Writing</span></span>
+<span>(</span><span>cfg, wrdur=3)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Spatio temporal writing detection using,</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cfg</code></strong> :&ensp;<code>Str</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>Configuration file. The configuration has the following entries.</p>
+<pre><code>1. "video": Video path for which we have hand detections.
+2. "hands": Hand detections as CSV file
+3. "table_roi": CSV file having Table ROI marked
+4. "depth": Depth of 3D-CNN that provided the best performance,
+5. "ckpt": Checkpoint of 3D-CNN
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Writing:
+    wrdf = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having information on writing instances. 
+    It has following columns,
+    ```
+    1. f0     : poc of starting frame
+    2. f      : number of frames
+    3. W, H   : Video width and height
+    4. w0, h0 : Bounding box top left corner
+    5. w, h   : width and height of bounding box
+    6. FPS    : Frames per second
+    7. writing : {-1, 0, 1}.
+                -1 =&gt; Hands not found
+                0 =&gt; nowriting
+                1 =&gt; writing
+    ```
+    &#34;&#34;&#34;
+
+    cfg = {}
+    &#34;&#34;&#34; Configuration dictionary &#34;&#34;&#34;
+    
+    net = None
+    &#34;&#34;&#34; Dyadic 3D CNN instance. &#34;&#34;&#34;
+
+    ivid = None
+    &#34;&#34;&#34; Input video instance. &#34;&#34;&#34;
+
+    wrdur = 0
+    &#34;&#34;&#34; Duration of spati-temporal trims to classify. &#34;&#34;&#34;
+    
+    
+    
+    def __init__(self, cfg, wrdur=3):
+        &#34;&#34;&#34; Spatio temporal writing detection using,
+
+        Parameters
+        ----------
+        cfg : Str
+        Configuration file. The configuration has the following entries.
+        
+            1. &#34;video&#34;: Video path for which we have hand detections.
+            2. &#34;hands&#34;: Hand detections as CSV file
+            3. &#34;table_roi&#34;: CSV file having Table ROI marked
+            4. &#34;depth&#34;: Depth of 3D-CNN that provided the best performance,
+            5. &#34;ckpt&#34;: Checkpoint of 3D-CNN
+        
+        &#34;&#34;&#34;
+
+        # Configuration dictionary
+        self.cfg = cfg
+        
+        # wrdur
+        self.wrdur = wrdur
+        
+        # Checking configuration file
+        self._check_cfg(cfg)
+
+        # Loading neural network into GPU
+        # self._load_net(cfg)
+
+        # Loading video
+        self.ivid = pk.Vid(cfg[&#39;video&#39;], &#39;read&#39;)
+        
+        
+    def get_writing_proposals(self):
+        &#34;&#34;&#34; Generates hand proposal regions by using hand detections
+        and manually annotated table region of interest.
+
+        Parameters
+        ----------
+        hands_csv_path : str
+            Path of configuration file
+        table_roi_path : str
+            Path of csv file containing manually annotated table regions.
+        &#34;&#34;&#34;
+        
+        # Creating an empty hand region proposal dataframe
+        hrp = pd.DataFrame()
+
+        # Load hands and table roi csvs
+        hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
+        troi_df = pd.read_csv(self.cfg[&#39;table_roi&#39;])
+        troi_df = troi_df[troi_df[&#39;video_names&#39;] == f&#34;{self.ivid.props[&#39;name&#39;]}{self.ivid.props[&#39;extension&#39;]}&#34;].copy()
+        
+        # Calcuating hand region proposals every 3 seconds
+        fps = hands_df[&#39;FPS&#39;].unique().item()
+        new_rows = []
+        print(f&#34;Calculating region proposals...&#34;)
+        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+
+            # Get hands and table regions for 3 seconds
+            hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+            tdf = troi_df[troi_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+
+            # Skip,
+            # 1. if the current 3 seconds do not have sufficient regions of interest.
+            # 2. if the hands dataframe is empty
+            if (not self._have_sufficient_rois(tdf.copy())) or (len(hdf) == 0):
+                continue
+
+            # Calculating table boundary from regions of interest
+            table_boundary = self._get_table_boundary(tdf.copy())
+
+            # Calculating overlap ratio between table bondary and hand detections
+            hdf = self._get_roi_overlap_ratio(hdf, table_boundary)
+
+            # Remove hand regions that do not corss a overlap ratio threshold
+            hdf = self._remove_outside_hand_detections(hdf.copy())
+
+            # Skip to next 3 seconds if all the hand regions lie outside
+            # the table boundary
+            if len(hdf) == 0:
+                continue
+
+            # Calculate hand region proposal rows for 3 seconds by tabking union
+            # of all the valid hand detections
+            new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
+
+
+        hrp = pd.DataFrame(new_rows, columns=[
+                &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
+                &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
+            ])
+            
+        return hrp
+
+    def classify_writing_proposals(self, hrp):
+        &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+        Parameters
+        ----------
+        hrp : Pandas DataFrame instance
+            
+        &#34;&#34;&#34;
+
+
+    def _get_union_of_hand_detections(self, df, f0, f):
+        &#34;&#34;&#34; Returns hand detection regions using union of all the detections
+        in an interval.
+        
+        Parameters
+        ----------
+        df : DataFrame
+            A DataFrame having hand detections.
+
+        Returns
+        -------
+        Returns list of new rows with following columns
+        [W, H, FPS, f0, f, class, table_boundary, w0, h0, w, h]
+        &#34;&#34;&#34;
+        # Flag to turn off/on images
+        show_images = False
+        
+        # Creating an image with zeros
+        W = df[&#39;W&#39;].unique().item()
+        H = df[&#39;H&#39;].unique().item()
+        FPS = df[&#39;FPS&#39;].unique().item()
+        oclass = df[&#39;class&#39;].unique().item()
+        table_boundary = df[&#39;table_boundary&#39;].unique().item()
+        uimg = np.zeros((H, W ))
+
+        # Creating a binary image that is union of all the bounding boxes.
+        for i, r in df.iterrows():
+            [w0, h0, w, h] = [r[&#39;w0&#39;], r[&#39;h0&#39;], r[&#39;w&#39;], r[&#39;h&#39;]]
+            uimg[h0 : h0 + h, w0 : w0 + w] = 1
+
+        if show_images:
+            plt.subplot(111)
+            ax = plt.subplot(1, 1, 1)
+            ax.imshow(uimg, cmap=&#39;gray&#39;)
+            plt.show()
+
+        # Connected components
+        cc = cv2.connectedComponentsWithStats(uimg.astype(&#39;uint8&#39;), 4, cv2.CV_32S)
+        cc_img = cc[1]
+        cc_labels = np.unique(cc_img).tolist()
+
+        # Loop through each label and find bounding box coordinates
+        new_rows = []
+        for cc_label in cc_labels[1:]:
+            
+            new_row = [W, H, FPS, f0, f, oclass, table_boundary]
+
+            cc_label_img = 1*(cc_img == cc_label).astype(&#39;uint8&#39;)
+            active_px = np.argwhere(cc_label_img!=0)
+            active_px = active_px[:,[1,0]]
+            w0,h0,w,h = cv2.boundingRect(active_px)
+
+            new_row += [w0, h0, w, h]
+
+            new_rows += [new_row]
+
+        return new_rows
+
+            
+
+            
+
+
+        
+
+
+    def _remove_outside_hand_detections(self, df, th=0.5):
+        &#34;&#34;&#34; Removes all the hand detections that are less that are
+        50% not inside the table boundary.
+
+        Parameters
+        ----------
+        df : DataFrame
+            DataFrame having hand detections with `roi-overlap-ratio`
+            column.
+        th : Float
+            Detectons which are &lt; th are removed.
+        &#34;&#34;&#34;
+        for ridx, row in df.iterrows():
+            if row[&#39;roi-overlap-ratio&#39;] &lt; th:
+                df.drop([ridx], inplace = True)
+        return df
+            
+    def _get_roi_overlap_ratio(self, hdf, table_boundary):
+        &#34;&#34;&#34; Adds a column to hand detections, roi-overlap-ratio.
+            
+            - Table boundary = T
+            - Hand detection = H
+            - Overlap (O) = Intersection(T, H)
+                overlap-ratio = Area(O) / Area(H)
+
+        Parameters
+        ----------
+        hdf : DataFrame
+            Dataframe having hand detections
+
+        table_boundary : List[Int]
+            Table boundary as list, [w0, h0, w, h]
+        &#34;&#34;&#34;
+        # Flag to turn off/on images
+        show_images = False
+        
+        # Uncompressing boundary
+        [tw0, th0, tw, th] = table_boundary
+        
+        # Creating an image with zeros
+        W = hdf[&#39;W&#39;].unique().item()
+        H = hdf[&#39;H&#39;].unique().item()
+        zimg = np.zeros((H,W))
+
+        # Creating a binary image with table boundary marked as 1s
+        timg = zimg.copy()
+        timg[th0 : th0 + th, tw0 : tw0 + tw] = 1
+
+        # Loop over each hand detection
+        o_area_ratio_lst = []
+        for ridx, row in hdf.iterrows():
+
+            # hand detection is loaded into proper variables
+            [hw0, hh0, hw, hh] = [row[&#39;w0&#39;], row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+            h_area = hw*hh
+
+            # Creating a binary image with hand detection as 1
+            himg = zimg.copy()
+            himg[hh0 : hh0 + hh, hw0 : hw0 + hw] = 1
+
+            # Overlap image
+            oimg = himg + timg
+            oimg = 1*(oimg == 2)
+            o_area = oimg.sum()
+
+            if show_images:
+                plt.subplot(221)
+                ax1 = plt.subplot(2, 2, 1)
+                ax2 = plt.subplot(2, 2, 2)
+                ax3 = plt.subplot(2, 2, 3)
+                ax1.imshow(timg)
+                ax2.imshow(himg)
+                ax3.imshow(oimg)
+                plt.show()
+                import pdb; pdb.set_trace()
+
+            # Drop the hand detection if the overlap area is less than
+            # 50% of hand area
+            o_area_ratio = o_area/h_area
+            o_area_ratio_lst += [o_area_ratio]
+            
+        hdf[&#39;table_boundary&#39;] = f&#34;{tw0}-{th0}-{tw}-{th}&#34;
+        hdf[&#39;roi-overlap-ratio&#39;] = o_area_ratio_lst
+
+        return hdf
+
+
+    
+    def _have_sufficient_rois(self, df):
+        &#34;&#34;&#34; Returns true if there there is a vlaid region of interest of atleast one
+        student. A student having atleast tow rois out of three is considered valid.
+
+        Parameters
+        ----------
+        df : DataFrame
+            A data frame having roi entries for `self.wrdur`.
+        &#34;&#34;&#34;
+
+        # Dropping unnecessary columns
+        df.drop([&#39;Time&#39;, &#39;f0&#39;, &#39;video_names&#39;, &#39;f&#39;], axis = 1, inplace=True)
+
+        # Looping over each column and if atleast one column contain 2 valid entries
+        # return true
+        for col in df.columns.tolist():
+            
+            valid_bboxes = 0
+            for i in range(0, self.wrdur):
+
+                # Bounding box in current column
+                bbox_coords = df[col].iloc[i]
+
+                # A bounding box is valid if it has four coordinates
+                # separated by &#34;-&#34;
+                if len(bbox_coords.split(&#34;-&#34;)) == 4:
+                    valid_bboxes += 1
+
+                # If we are able to get more than 2 valid bounding
+                # boxes return True
+                if valid_bboxes &gt;= 2:
+                    return True
+
+        # If thre are no valid bounding boxes return False
+        return False
+
+
+    
+    def _get_table_boundary(self, df):
+        &#34;&#34;&#34; Return table boundary as list, [w0, h0, w, h]
+
+        Parameters
+        ----------
+        df : DataFrame
+            A data frame having roi entries for `self.wrdur`.
+        &#34;&#34;&#34;
+
+        # Dropping unnecessary columns
+        df.drop([&#39;Time&#39;, &#39;f0&#39;, &#39;video_names&#39;, &#39;f&#39;], axis = 1, inplace=True)
+
+        # Creating list of bounding box coordinates
+        w_min = math.inf
+        h_min = math.inf
+        w_max = 0
+        h_max = 0
+        for col in df.columns.tolist():
+            for ridx in range(0, len(df[col])):
+                
+                [w0, h0, w, h] = [int(x) for x in df[col].iloc[ridx].split(&#39;-&#39;)]
+
+                if w_min &gt; w0:
+                    w_min = w0
+                if h_min &gt; h0:
+                    h_min = h0
+                if w_max &lt; w0 + w:
+                    w_max = w0 + w
+                if h_max &lt; h0 + h:
+                    h_max = h0 + h
+
+        boundary = [w_min, h_min, w_max - w_min, h_max - h_min]
+
+        return boundary
+        
+
+    
+    def _check_cfg(self, cfg):
+        &#34;&#34;&#34; Validates the configuration file.&#34;&#34;&#34;
+
+        # Check files
+        pk.check_file_existance(cfg[&#39;video&#39;])
+        pk.check_file_existance(cfg[&#39;hands&#39;])
+        pk.check_file_existance(cfg[&#39;table_roi&#39;])
+        pk.check_file_existance(cfg[&#39;ckpt&#39;])
+        
+        # Depth should be between 2 and 4
+        if cfg[&#39;depth&#39;] &lt; 2 or cfg[&#39;depth&#39;] &gt; 4:
+            raise Exception(
+                &#34;USER EXCEPTION: The dyadic depth is not valid.&#34;
+                f&#34;\n\t Depth: {cfg[&#39;depth&#39;]}&#34;
+            )
+
+
+        
+    def _load_net(self, cfg):
+        &#34;&#34;&#34; Load neural network to GPU. &#34;&#34;&#34;
+
+        # Checkpoint and depth from cfg file.
+        ckpt = cfg[&#39;ckpt&#39;]
+        depth = cfg[&#39;depth&#39;]
+
+        # Creating an instance of Dyadic 3D-CNN
+        self.net = DyadicCNN3D(depth, [3, 90, 224, 224])
+        self.net.to(&#34;cuda:0&#34;)
+        summary(self.net, (3, 90, 224, 224))
+
+        # Loading the net with trained weights to cuda device 0
+        ckpt_weights = torch.load(ckpt)
+        self.net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
+        self.net.eval()
+        
+        
+
+    def _check_for_writing(self, proposal_df):
+        &#34;&#34;&#34; Checks for writing in the proposal data frame.
+
+        Parameters
+        ----------
+        proposal_df: DataFrame
+            Proposal dataframe having hands bounding boxes.
+        Todo
+        ----
+        1. Here I am trimming -&gt; writing to hdd -&gt; loading. This is not
+           recommended for speed. Please try to improve.
+        &#34;&#34;&#34;
+        import pdb; pdb.set_trace()
+        # Loop over proposal dataframe
+        for i, row in proposal_df.iterrows():
+
+            # if w or h == 0 then there is no hands
+            if row[&#39;w&#39;] == 0 or row[&#39;h&#39;] == 0:
+                proposal_df.at[i, &#39;writing&#39;] = -1
+            else:
+                # Creating temporal trim
+                bbox = [row[&#39;w0&#39;],row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+                sfrm = row[&#39;f0&#39;]
+                efrm = sfrm + row[&#39;f&#39;]
+                oloc = f&#34;{os.path.dirname(self._vid.props[&#39;dir_loc&#39;])}&#34;
+                opth = (f&#34;{oloc}/temp.mp4&#34;)
+
+                # Spatio temporal trim
+                self._vid.spatiotemporal_trim(sfrm, efrm, bbox, opth)
+                 
+                # Creating a temporary text file `temp.txt` having
+                # temp.mp4 and a dummy label (100)
+                with open(f&#34;{oloc}/temp.txt&#34;, &#34;w&#34;) as f:
+                    f.write(&#34;temp.mp4 100&#34;)
+
+                # Intialize AOLME data loader instance
+                tst_data = AOLMETrmsDLoader(oloc, f&#34;{oloc}/temp.txt&#34;, oshape=(224, 224))
+                tst_loader = DataLoader(tst_data, batch_size=1, num_workers=1)
+
+                # Loop over tst data (goes over only once. I am desparate so I kept the loop)
+                for data in tst_loader:
+                    dummy_labels, inputs = (data[0].to(&#34;cuda:0&#34;, non_blocking=True),
+                                             data[1].to(&#34;cuda:0&#34;, non_blocking=True))
+                    with torch.no_grad():
+                        outputs = self._net(inputs)
+                        ipred = outputs.data.clone()
+                        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+                        proposal_df.at[i, &#39;writing&#39;] = round(ipred[0])
+                        
+        return proposal_df
+
+
+
+    def _get_proposal_df(self, bboxes, wrdur):
+        &#34;&#34;&#34;
+        OBSOLETE SHOULD BE DELETED IN CLEANUP PHASE.
+        Creates a data frame with each row representing 3 seconds.
+
+        Parameters
+        ----------
+        bboxes: str
+            path to file having hands bounding boxes
+        wrdur: int, optional
+            Each writing instance duration considered in seconds. 
+            Defaults to 3.
+        &#34;&#34;&#34;
+        # Video properties
+        num_frames = self._vid.props[&#39;num_frames&#39;]
+        fps = self._vid.props[&#39;frame_rate&#39;]
+
+        # Creating f0 and f lists
+        num_trims = math.floor(num_frames/(wrdur*fps))
+        f0 = [x*(wrdur*fps) for x in range(0, num_trims)]
+        f = [wrdur*fps]*num_trims
+
+        # Creating W, H and FPS lists
+        W = [self._vid.props[&#39;width&#39;]]*num_trims
+        H = [self._vid.props[&#39;height&#39;]]*num_trims
+        fps_lst = [fps]*num_trims
+
+        # Get bounding boxes
+        w0, h0, w, h = self._get_proposal_bboxes(bboxes, f0, f)
+
+        # Intializing all writing instances are marked nan(numpy)
+        writing_lst = [np.nan]*(num_trims)
+
+        # Creating data frame with all the lists
+        df = pd.DataFrame(list(zip(W, H, fps_lst, f0, f, w0, h0, w, h, writing_lst)),
+                          columns=[&#34;W&#34;,&#34;H&#34;, &#34;FPS&#34;, &#34;f0&#34;, &#34;f&#34;, &#34;w0&#34;, &#34;h0&#34;, &#34;w&#34;, &#34;h&#34;, &#34;writing&#34;])
+        return df
+
+
+    
+    def write_to_csv(self):
+        &#34;&#34;&#34; Writes writing instances to a csv file. The name of the file is `&lt;video name&gt;_wr_using_alg.csv` and has
+        following columns,
+
+            1. f0      : poc of starting frame
+            2. f       : number of frames
+            3. W, H    : Video width and height
+            4. w0, h0  : Bounding box top left corner
+            5. w, h    : width and height of bounding box
+            6. FPS     : Frames per second
+            7. writing : {-1, 0, 1}.
+                -1 =&gt; Hands not found
+                0  =&gt; nowriting
+                1  =&gt; writing
+
+        &#34;&#34;&#34;
+        # Update writing instances in writing dataframe by processing
+        # valid instances to 0 or 1
+        self.wrdf = self._check_for_writing(self._proposal_df.copy())
+        
+        vname = self._vid.props[&#39;name&#39;]
+        vloc = self._vid.props[&#39;dir_loc&#39;]
+        csv_pth = f&#34;{vloc}/{vname}_wr_using_alg.csv&#34;
+        self.wrdf.to_csv(csv_pth)
+        
+
+        
+    def _get_proposal_bboxes(self, bboxes, f0_lst, f_lst):
+        &#34;&#34;&#34; Creates proposal bounding boxes. Trims from these bounding boxes are
+        later processed via writing detection algorithm.
+
+        If there are multiple bounding boxes in the duration we consider the
+        union of bounding boxes.
+
+        Parameters
+        ----------
+        bboxes: str
+            Path to file having hands detection bounding boxes
+        f0_lst: List of int
+            List having starting frame poc
+        f_lst: List of int
+            List having poc lenght
+        &#34;&#34;&#34;
+        df_bb = pd.read_csv(bboxes)
+        num_trims = len(f0_lst)
+        
+        w0_lst = [0]*num_trims
+        h0_lst = [0]*num_trims
+        w_lst = [0]*num_trims
+        h_lst = [0]*num_trims
+        
+        for i in range(0, num_trims):
+            f0 = f0_lst[i]
+            f = f_lst[i]
+
+            # Data frame having detections from f0 to f0+f
+            df_bbi = pd.DataFrame()
+            df_bbi = df_bb[df_bb[&#39;f0&#39;] &gt;= f0].copy()
+            df_bbi = df_bbi[df_bbi[&#39;f0&#39;] &lt; f0 + f]
+            if len(df_bbi) &gt; 0:
+                w0i = df_bbi[&#39;w0&#39;].tolist()
+                h0i = df_bbi[&#39;h0&#39;].tolist()
+                wi = df_bbi[&#39;w&#39;].tolist()
+                hi = df_bbi[&#39;h&#39;].tolist()
+                w1i = [sum(x) for x in zip(w0i, wi)]
+                h1i = [sum(x) for x in zip(h0i, hi)]
+
+                # Taking union
+                w0_tl = min(w0i)
+                h0_tl = min(h0i)
+                w0_br = max(w1i)
+                h0_br = max(h1i)
+
+                # Adding to the list
+                w0_lst[i] = w0_tl
+                h0_lst[i] = h0_tl
+                w_lst[i] = w0_br - w0_tl
+                h_lst[i] = h0_br - h0_tl
+        return (w0_lst, h0_lst, w_lst, h_lst)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="aqua.frameworks.writing.framework.Writing.cfg"><code class="name">var <span class="ident">cfg</span></code></dt>
+<dd>
+<div class="desc"><p>Configuration dictionary</p></div>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.ivid"><code class="name">var <span class="ident">ivid</span></code></dt>
+<dd>
+<div class="desc"><p>Input video instance.</p></div>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.net"><code class="name">var <span class="ident">net</span></code></dt>
+<dd>
+<div class="desc"><p>Dyadic 3D CNN instance.</p></div>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.wrdf"><code class="name">var <span class="ident">wrdf</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having information on writing instances.
+It has following columns,</p>
+<pre><code>1. f0     : poc of starting frame
+2. f      : number of frames
+3. W, H   : Video width and height
+4. w0, h0 : Bounding box top left corner
+5. w, h   : width and height of bounding box
+6. FPS    : Frames per second
+7. writing : {-1, 0, 1}.
+            -1 =&gt; Hands not found
+            0 =&gt; nowriting
+            1 =&gt; writing
+</code></pre></div>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.wrdur"><code class="name">var <span class="ident">wrdur</span></code></dt>
+<dd>
+<div class="desc"><p>Duration of spati-temporal trims to classify.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.frameworks.writing.framework.Writing.classify_writing_proposals"><code class="name flex">
+<span>def <span class="ident">classify_writing_proposals</span></span>(<span>self, hrp)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Classify each proposed region as writing / no-writing.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>hrp</code></strong> :&ensp;<code>Pandas DataFrame instance</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def classify_writing_proposals(self, hrp):
+    &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+    Parameters
+    ----------
+    hrp : Pandas DataFrame instance
+        
+    &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.get_writing_proposals"><code class="name flex">
+<span>def <span class="ident">get_writing_proposals</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates hand proposal regions by using hand detections
+and manually annotated table region of interest.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>hands_csv_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path of configuration file</dd>
+<dt><strong><code>table_roi_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path of csv file containing manually annotated table regions.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_writing_proposals(self):
+    &#34;&#34;&#34; Generates hand proposal regions by using hand detections
+    and manually annotated table region of interest.
+
+    Parameters
+    ----------
+    hands_csv_path : str
+        Path of configuration file
+    table_roi_path : str
+        Path of csv file containing manually annotated table regions.
+    &#34;&#34;&#34;
+    
+    # Creating an empty hand region proposal dataframe
+    hrp = pd.DataFrame()
+
+    # Load hands and table roi csvs
+    hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
+    troi_df = pd.read_csv(self.cfg[&#39;table_roi&#39;])
+    troi_df = troi_df[troi_df[&#39;video_names&#39;] == f&#34;{self.ivid.props[&#39;name&#39;]}{self.ivid.props[&#39;extension&#39;]}&#34;].copy()
+    
+    # Calcuating hand region proposals every 3 seconds
+    fps = hands_df[&#39;FPS&#39;].unique().item()
+    new_rows = []
+    print(f&#34;Calculating region proposals...&#34;)
+    for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+
+        # Get hands and table regions for 3 seconds
+        hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+        tdf = troi_df[troi_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
+
+        # Skip,
+        # 1. if the current 3 seconds do not have sufficient regions of interest.
+        # 2. if the hands dataframe is empty
+        if (not self._have_sufficient_rois(tdf.copy())) or (len(hdf) == 0):
+            continue
+
+        # Calculating table boundary from regions of interest
+        table_boundary = self._get_table_boundary(tdf.copy())
+
+        # Calculating overlap ratio between table bondary and hand detections
+        hdf = self._get_roi_overlap_ratio(hdf, table_boundary)
+
+        # Remove hand regions that do not corss a overlap ratio threshold
+        hdf = self._remove_outside_hand_detections(hdf.copy())
+
+        # Skip to next 3 seconds if all the hand regions lie outside
+        # the table boundary
+        if len(hdf) == 0:
+            continue
+
+        # Calculate hand region proposal rows for 3 seconds by tabking union
+        # of all the valid hand detections
+        new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
+
+
+    hrp = pd.DataFrame(new_rows, columns=[
+            &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
+            &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
+        ])
+        
+    return hrp</code></pre>
+</details>
+</dd>
+<dt id="aqua.frameworks.writing.framework.Writing.write_to_csv"><code class="name flex">
+<span>def <span class="ident">write_to_csv</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes writing instances to a csv file. The name of the file is <code>&lt;video name&gt;_wr_using_alg.csv</code> and has
+following columns,</p>
+<pre><code>1. f0      : poc of starting frame
+2. f       : number of frames
+3. W, H    : Video width and height
+4. w0, h0  : Bounding box top left corner
+5. w, h    : width and height of bounding box
+6. FPS     : Frames per second
+7. writing : {-1, 0, 1}.
+    -1 =&gt; Hands not found
+    0  =&gt; nowriting
+    1  =&gt; writing
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_to_csv(self):
+    &#34;&#34;&#34; Writes writing instances to a csv file. The name of the file is `&lt;video name&gt;_wr_using_alg.csv` and has
+    following columns,
+
+        1. f0      : poc of starting frame
+        2. f       : number of frames
+        3. W, H    : Video width and height
+        4. w0, h0  : Bounding box top left corner
+        5. w, h    : width and height of bounding box
+        6. FPS     : Frames per second
+        7. writing : {-1, 0, 1}.
+            -1 =&gt; Hands not found
+            0  =&gt; nowriting
+            1  =&gt; writing
+
+    &#34;&#34;&#34;
+    # Update writing instances in writing dataframe by processing
+    # valid instances to 0 or 1
+    self.wrdf = self._check_for_writing(self._proposal_df.copy())
+    
+    vname = self._vid.props[&#39;name&#39;]
+    vloc = self._vid.props[&#39;dir_loc&#39;]
+    csv_pth = f&#34;{vloc}/{vname}_wr_using_alg.csv&#34;
+    self.wrdf.to_csv(csv_pth)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua.frameworks.writing" href="index.html">aqua.frameworks.writing</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.frameworks.writing.framework.Writing" href="#aqua.frameworks.writing.framework.Writing">Writing</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.frameworks.writing.framework.Writing.cfg" href="#aqua.frameworks.writing.framework.Writing.cfg">cfg</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.classify_writing_proposals" href="#aqua.frameworks.writing.framework.Writing.classify_writing_proposals">classify_writing_proposals</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.get_writing_proposals" href="#aqua.frameworks.writing.framework.Writing.get_writing_proposals">get_writing_proposals</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.ivid" href="#aqua.frameworks.writing.framework.Writing.ivid">ivid</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.net" href="#aqua.frameworks.writing.framework.Writing.net">net</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.wrdf" href="#aqua.frameworks.writing.framework.Writing.wrdf">wrdf</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.wrdur" href="#aqua.frameworks.writing.framework.Writing.wrdur">wrdur</a></code></li>
+<li><code><a title="aqua.frameworks.writing.framework.Writing.write_to_csv" href="#aqua.frameworks.writing.framework.Writing.write_to_csv">write_to_csv</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

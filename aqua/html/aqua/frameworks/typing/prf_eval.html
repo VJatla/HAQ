@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.frameworks.typing.prf_eval API documentation</title>
+<meta name="description" content="DEPRICATION WARNING …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.frameworks.typing.prf_eval</code></h1>
+</header>
+<section id="section-intro">
+<p>DEPRICATION WARNING</p>
+<p>The following performance evaluation class is replaced by ../../performance-metrics/spatio_temporal_act_det.py</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+DEPRICATION WARNING
+
+The following performance evaluation class is replaced by ../../performance-metrics/spatio_temporal_act_det.py
+&#34;&#34;&#34;
+
+import os
+import glob
+from tqdm import tqdm
+import cv2
+import math
+import statistics as stats
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import precision_recall_fscore_support
+import pandas as pd
+import pdb
+import sys
+import shutil
+import tempfile
+from aqua.video_tools import Vid
+
+
+class TypingPerfEval():
+
+    def __init__(self, gt_csv, alg_csv, prop_csv):
+        &#34;&#34;&#34; Methods and techiniques to evaluate typing
+        framework performance.
+
+        Parameters:
+        gt_csv: str
+            Ground truth csv file.
+        alg_csv: str
+            CSV file produced by typing framework.
+        prop_csv: str
+            CSV file having session properties
+        &#34;&#34;&#34;
+        # Check if the files exist
+        if not os.path.isfile(gt_csv):
+            raise Exception(f&#34;{gt_csv} does not exist.&#34;)
+        if not os.path.isfile(alg_csv):
+            raise Exception(f&#34;{alg_csv} does not exist.&#34;)
+        if not os.path.isfile(prop_csv):
+            raise Exception(f&#34;{prop_csv} does not exist.&#34;)
+
+        # Loading ground truth for typing (I remove notyping instances).
+        self._gtdf = pd.read_csv(gt_csv)
+        self._gtdf = self._gtdf[self._gtdf[&#39;activity&#39;] == &#34;typing&#34;]
+
+        self._algdf = pd.read_csv(alg_csv)
+        self._algdf = self._algdf[self._algdf[&#39;activity&#39;] == &#34;typing&#34;]
+
+        self._propdf = pd.read_csv(prop_csv).sort_values(&#39;name&#39;)
+        self._propdf = self._propdf[self._propdf.name != &#39;total&#39;]
+
+    def write_spatio_tempo_perf_tocsv(self, tdur, out_csv):
+        &#34;&#34;&#34;
+        Temporal:
+            Creates a csv file with each `t` second video segment from automation algorithm classified as
+            tp, tn, fp or fn (Confusion matirx). A `t` second instance from ground truth is considered to
+            belong to typing if &gt;=50% of frames (&gt;= 15 frames if `t` == 1 sec) belong to typing.The output
+            is a CSV file classifying every `t` second video segment in the session as tp, tn, fp, fn.
+
+        Spatial:
+            IoU + bounding box coordinates (GT + Automation) are documented. Color code:
+            1. tp = Green
+            2. tn = Green
+            3. fp = Yello (we are ok with fp)
+            4. fn = Red (we don&#39;t like fn)
+        &#34;&#34;&#34;
+        rows = []
+        gt_lst = []
+        iou_lst = []
+        pred_lst =  []
+        for vidx, vrow in self._propdf.iterrows():
+            vdur = vrow[&#39;dur&#39;]
+            vfps = vrow[&#39;FPS&#39;]
+            cur_vname = vrow[&#39;name&#39;] + &#34;.mp4&#34;
+            print(f&#34;Processing:    {cur_vname}&#34;)
+
+            # &gt;= 50% of frames
+            frm_th_for_act = 0.5*(tdur*vfps)
+
+            cur_gtdf = self._gtdf[self._gtdf[&#39;name&#39;] == cur_vname].copy()
+            cur_algdf = self._algdf[self._algdf[&#39;name&#39;] == cur_vname].copy()
+
+            t0_lst = list(range(0, vdur, tdur))
+            f0_lst = [int(vfps)*x for x in t0_lst]
+
+            for i, f0 in enumerate(f0_lst):
+
+                t0 = t0_lst[i]
+                t0_hr = self._get_hr_time(t0)
+
+                f1 = int(f0 + vfps*tdur)
+
+                gt_ty_flag = self._is_typing((f0, f1), cur_gtdf, frm_th_for_act)
+                alg_ty_flag = self._is_typing((f0, f1), cur_algdf, frm_th_for_act)
+
+                # Collecting labels in an array to print metrics
+                gt_lst += [int(gt_ty_flag)]
+                pred_lst += [int(alg_ty_flag)]
+
+                # Labeling tp, tn, fp, fn
+
+                if gt_ty_flag and alg_ty_flag:
+                    # Get bounding box coordinates
+                    gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                    alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                    iou = self._get_iou(gt_ty_bbox_dict, alg_ty_bbox_dict)
+
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;tp&#39;]
+                elif not(gt_ty_flag) and not(alg_ty_flag):
+                    coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                    gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;tn&#39;]
+                    iou = 1
+                elif not(gt_ty_flag) and alg_ty_flag:
+                    alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                    coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                    gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;fp&#39;]
+                    iou = 0
+                elif gt_ty_flag and not(alg_ty_flag):
+                    gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                    alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;fn&#39;]
+                    iou = 0
+                else:
+                    raise Exception(&#34;Something is fishy&#34;)
+                iou_lst += [iou]
+                row += [iou]
+                rows += [row]
+
+        # Write to pandas dataframe
+        columns = [&#39;name&#39;, &#39;T&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;t0&#39;, &#39;t&#39;, &#39;gtbbox&#39;, &#39;algbbox&#39;, &#39;conf_labels&#39;,&#39;iou&#39;]
+        df = pd.DataFrame(rows, columns=columns)
+        df.to_csv(out_csv)
+
+        # Output properties
+        tn, fp, fn, tp = confusion_matrix(gt_lst, pred_lst).ravel()
+        accuracy = (tn+tp)/(tp+tn+fp+fn)
+        precision = (tp)/(tp+fp)
+        recall = (tp)/(tp+fn)
+        sensitivity = (tp)/(tp+fn)
+        specificity = (tn)/(tn+fp)
+        print(&#34;---- Performance stats ----&#34;)
+        print(f&#34;tp:{tp}, tn:{tn}, fp:{fp}, fn:{fn}&#34;)
+        print(f&#34;Accuracy   = {round(accuracy,2)}&#34;)
+        print(f&#34;Precision  = {round(precision,2)}&#34;)
+        print(f&#34;Recall     = {round(recall,2)}&#34;)
+        print(f&#34;Sensitivit = {round(sensitivity,2)}&#34;)
+        print(f&#34;Specificity = {round(specificity,2)}&#34;)
+        print(f&#34;IoU = {round(stats.mean(iou_lst), 2)}&#34;)
+        print(&#34;---------------------------&#34;)
+
+
+    def _is_typing(self, frms, df, frm_th):
+
+        &#34;&#34;&#34; Returns `True` or `False` of current interval to belong to typing.
+        Number of frames that belong to typing are counted between `frms`. If
+        that number is greater than or equal to `frm_th` we return `True`.
+
+        Parameters
+        ----------
+        frms: tuple of int
+            Tuple of integers having starting and ending frame numbers. The
+            indexing starts from 0.
+        df: Pandas DataFrame
+            DataFrame containing typing instances
+        frm_th: int
+            Frames thereshold
+
+        Returns
+        -------
+        int
+            Number of frames that has typing between frames frms tuple, (f0, f1)
+
+        Assumption
+        ----------
+        - The `df` will only contain typing instances.
+        &#34;&#34;&#34;
+        # Current activity interval
+        cf0, cf1 = frms
+
+        # Creating f1 column in df
+        df[&#39;f1&#39;] = df[&#39;f0&#39;] + df[&#39;f&#39;]
+
+        # Filter all rows f1 &gt;= cf0
+        # Activities that end after current instance began
+        df_fil1 = df[df[&#39;f1&#39;] &gt;= cf0].copy()
+
+        # Filter all remaining rows with f0 &lt;= cf1
+        # Activities that begun begun before current instance ends
+        df_fil2 = df_fil1[df_fil1[&#39;f0&#39;] &lt;= cf1].copy()
+
+        # Loop through all the overlapping instances(df_fil2)
+        nfrms = 0
+        for ridx,row in df_fil2.iterrows():
+            f0 = row[&#39;f0&#39;]
+            f1 = row[&#39;f1&#39;]
+
+            if0 = max(f0, cf0)
+            if1 = min(f1, cf1)
+
+            nfrms = if1 - if0 + 1 # +1 as indexing starts from 0(??? correct)
+
+        if nfrms &gt;= frm_th:
+            return True
+        else:
+            return False
+
+    def _get_union_bbox(self,frms, df):
+        &#34;&#34;&#34;
+        Returns bounding box coordinates.
+
+        Parameters
+        ----------
+        frm: int
+            Frame number(frame number starts from 0)
+        df: Pandas DataFrame
+            Dataframe having bounding box coordinates
+        &#34;&#34;&#34;
+        w0_lst = []
+        h0_lst = []
+        w1_lst = []
+        h1_lst = []
+        for frm in range(frms[0], frms[1]):
+
+            bbox_flag, cdict = self._get_bbox(frm, df)
+            if bbox_flag:
+                w0_lst += [cdict[&#39;x1&#39;]]
+                h0_lst += [cdict[&#39;y1&#39;]]
+                w1_lst += [cdict[&#39;x2&#39;]]
+                h1_lst += [cdict[&#39;y2&#39;]]
+        if len(w0_lst) != 0:
+            w0_min = min(w0_lst)
+            h0_min = min(h0_lst)
+            w1_max = max(w1_lst)
+            h1_max = max(h1_lst)
+            bbox = [w0_min, h0_min, w1_max - w0_min, h1_max - h0_min]
+            coord_dict = {
+                    &#39;x1&#39;:w0_min,
+                    &#39;y1&#39;:h0_min,
+                    &#39;x2&#39;:w1_max,
+                    &#39;y2&#39;:h1_max
+                }
+        else:
+            coord_dict = {
+                &#39;x1&#39;:0,
+                &#39;y1&#39;:0,
+                &#39;x2&#39;:0,
+                &#39;y2&#39;:0
+            }
+            bbox = [0, 0, 0, 0]
+
+
+        return bbox, coord_dict
+
+
+    def _get_bbox(self, frm, df):
+        &#34;&#34;&#34;
+        Returns bounding box coordinates.
+
+        Parameters
+        ----------
+        frm: int
+            Frame number(frame number starts from 0)
+        df: Pandas DataFrame
+            Dataframe having bounding box coordinates
+
+        Returns
+        -------
+        (Flag, coordinate dictionary). The coordiante dictionary,
+        A dictionary with Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}, The (x1, y1) position
+        is at the top left corner, the (x2, y2) position is at the bottom right corner
+        &#34;&#34;&#34;
+        df_frm = df[frm &gt;= df[&#39;f0&#39;]].copy()
+        df_frm = df_frm[frm &lt; df_frm[&#39;f0&#39;] + df_frm[&#39;f&#39;]]
+        if len(df_frm) == 0:
+            coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+            return (False, coord_dict)
+        elif len(df_frm) &gt; 1:
+            raise Exception(f&#34;Multiple typing instances at same time not supported.&#34;)
+        else:
+            row = df_frm.iloc[0]
+            coord_dict = {
+                &#39;x1&#39;:row[&#39;w0&#39;],
+                &#39;y1&#39;:row[&#39;h0&#39;],
+                &#39;x2&#39;:row[&#39;w0&#39;] + row[&#39;w&#39;],
+                &#39;y2&#39;:row[&#39;h0&#39;] + row[&#39;h&#39;]
+            }
+            return (True, coord_dict)
+
+
+
+
+    def _get_iou(self, bb1, bb2):
+        &#34;&#34;&#34;
+        Calculate the Intersection over Union (IoU) of two bounding boxes.
+
+        Parameters
+        ----------
+        bb1 : dict
+            Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}
+            The (x1, y1) position is at the top left corner,
+            the (x2, y2) position is at the bottom right corner
+        bb2 : dict
+            Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}
+            The (x, y) position is at the top left corner,
+            the (x2, y2) position is at the bottom right corner
+
+        Returns
+        -------
+        float
+            in [0, 1]
+        &#34;&#34;&#34;
+        # Converting bb
+        assert bb1[&#39;x1&#39;] &lt; bb1[&#39;x2&#39;]
+        assert bb1[&#39;y1&#39;] &lt; bb1[&#39;y2&#39;]
+        assert bb2[&#39;x1&#39;] &lt; bb2[&#39;x2&#39;]
+        assert bb2[&#39;y1&#39;] &lt; bb2[&#39;y2&#39;]
+
+        # determine the coordinates of the intersection rectangle
+        x_left = max(bb1[&#39;x1&#39;], bb2[&#39;x1&#39;])
+        y_top = max(bb1[&#39;y1&#39;], bb2[&#39;y1&#39;])
+        x_right = min(bb1[&#39;x2&#39;], bb2[&#39;x2&#39;])
+        y_bottom = min(bb1[&#39;y2&#39;], bb2[&#39;y2&#39;])
+
+        if x_right &lt; x_left or y_bottom &lt; y_top:
+            return 0.0
+
+        # The intersection of two axis-aligned bounding boxes is always an
+        # axis-aligned bounding box
+        intersection_area = (x_right - x_left) * (y_bottom - y_top)
+
+        # compute the area of both AABBs
+        bb1_area = (bb1[&#39;x2&#39;] - bb1[&#39;x1&#39;]) * (bb1[&#39;y2&#39;] - bb1[&#39;y1&#39;])
+        bb2_area = (bb2[&#39;x2&#39;] - bb2[&#39;x1&#39;]) * (bb2[&#39;y2&#39;] - bb2[&#39;y1&#39;])
+
+        # compute the intersection over union by taking the intersection
+        # area and dividing it by the sum of prediction + ground-truth
+        # areas - the interesection area
+        iou = intersection_area / float(bb1_area + bb2_area - intersection_area)
+        assert iou &gt;= 0.0
+        assert iou &lt;= 1.0
+        return iou
+
+    def _get_hr_time(self, t):
+        &#34;&#34;&#34; Get human readable time
+        &#34;&#34;&#34;
+        tmin, tsec = divmod(t, 60)
+        tmin = str(tmin).zfill(2)
+        tsec = str(tsec).zfill(2)
+        return f&#34;{tmin}:{tsec}&#34;
+
+
+class TypingPerfViz():
+    def __init__(self, perf_csv):
+        &#34;&#34;&#34; Contains methods that aid in visualizing typing performance.
+
+        Assumptions
+        ----------
+        1. Videos are present at the same location as `perf_csv`.
+
+        Parameters
+        ----------
+        perf_csv: str
+            CSV file having performance data.
+        &#34;&#34;&#34;
+        if not os.path.isfile(perf_csv):
+            raise Exception(f&#34;{perf_csv} not found&#34;)
+
+        self._df = pd.read_csv(perf_csv)
+        self._df[&#39;gtbbox&#39;] = self._df[&#39;gtbbox&#39;].map(lambda x: x.replace(&#34;[&#34;,&#34;&#34;))
+        self._df[&#39;gtbbox&#39;] = self._df[&#39;gtbbox&#39;].map(lambda x: x.replace(&#34;]&#34;,&#34;&#34;))
+        self._df[&#39;algbbox&#39;] = self._df[&#39;algbbox&#39;].map(lambda x: x.replace(&#34;[&#34;,&#34;&#34;))
+        self._df[&#39;algbbox&#39;] = self._df[&#39;algbbox&#39;].map(lambda x: x.replace(&#34;]&#34;,&#34;&#34;))
+        self._rdir = os.path.dirname(perf_csv)
+
+    def write_to_video(self):
+        &#34;&#34;&#34; Create video with performance.
+        &#34;&#34;&#34;
+        df = self._df.copy()
+
+
+        # Extract videos to temporary directories
+        if True:
+            temp_dir = tempfile.mkdtemp()
+            print(f&#34;INFO: Extracting videos to frames at {temp_dir}&#34;)
+            vlist = list(df[&#39;name&#39;].unique())
+            for vname in tqdm(vlist):
+                cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+                os.mkdir(cur_temp_dir)
+                vpath = f&#34;{self._rdir}/{vname}&#34;
+                vid = Vid(vpath)
+                vid.extract_all_frames_ffmpeg(cur_temp_dir)
+
+
+        # Loop through each activity instance and put a bounding box
+        print(&#34;INFO: Writing bboxes&#34;)
+        for ridx, row in tqdm(df.iterrows(), total=df.shape[0]):
+            cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(row[&#39;name&#39;])[0]}&#34;
+            num_files = len(glob.glob1(cur_temp_dir,&#34;*.jpg&#34;))
+            conf_label = row[&#39;conf_labels&#39;]
+
+            # Draw and write for each frame
+            fs = int(row[&#39;f0&#39;])
+            fe = fs + int(row[&#39;f&#39;])
+
+            fe = min(num_files, fe)
+            if conf_label != &#39;tn&#39; :
+                for img_idx in range(fs,fe):
+                    # Load image
+                    img_path =  f&#34;{cur_temp_dir}/{img_idx}.jpg&#34;
+                    img = cv2.imread(img_path)
+                    H, W, C = img.shape
+
+                    # Box and text based on confusion matrix label
+                    if conf_label == &#39;tp&#39;:
+                        c_alg = (0, 255, 0) # Green
+                        c_gt = (0, 125, 0)
+                        gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                        gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                        gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                        img = cv2.rectangle(img, gt_tl, gt_br, c_gt, 2)
+                        alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                        alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                        alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                        img = cv2.rectangle(img, alg_tl, alg_br, c_alg, 2)
+                        iou = round(row[&#39;iou&#39;], 2)
+                        text = f&#34;TP - {iou}&#34;
+                        img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c_alg, 2, cv2.LINE_AA)
+
+                    elif conf_label == &#39;fp&#39;:
+                        c = (0, 255, 255)  # yellow
+
+                        alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                        alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                        alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                        img = cv2.rectangle(img, alg_tl, alg_br, c, 2)
+
+                        text = &#34;FP&#34;
+                        img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                    elif conf_label == &#39;fn&#39;:
+                        c = (0, 0, 255)  # Red
+                        gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                        gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                        gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                        img = cv2.rectangle(img, gt_tl, gt_br, c, 2)
+                        text = &#34;FN&#34;
+                        img = cv2.putText(img, text, gt_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                    else:
+                        raise Exception(f&#34;Confusion matrix albel {conf_label} is not supported&#34;)
+
+                    cv2.imwrite(img_path, img)
+                    # cv2.imshow(&#34;test&#34;, img)
+                    # cv2.waitKey(1)
+
+        # Now writing video
+        vlist = list(df[&#39;name&#39;].unique())
+        try:
+            print(&#34;INFO: Writing videos with bounding boxes.&#34;)
+            for vname in tqdm(vlist):
+                cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+                out_path = f&#34;{self._rdir}/perf_{vname}&#34;
+                cmd = f&#34;ffmpeg -y -hide_banner -loglevel panic -i &#39;{cur_temp_dir}/%d.jpg&#39; -vf fps=30 -pix_fmt yuv420p {out_path}&#34;
+                os.system(cmd)
+        except:
+            # Cleaning up temporary files if there is exception
+            pdb.set_trace()
+            shutil.rmtree(temp_dir)
+
+
+        shutil.rmtree(temp_dir)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.frameworks.typing.prf_eval.TypingPerfEval"><code class="flex name class">
+<span>class <span class="ident">TypingPerfEval</span></span>
+<span>(</span><span>gt_csv, alg_csv, prop_csv)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Methods and techiniques to evaluate typing
+framework performance.</p>
+<p>Parameters:
+gt_csv: str
+Ground truth csv file.
+alg_csv: str
+CSV file produced by typing framework.
+prop_csv: str
+CSV file having session properties</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TypingPerfEval():
+
+    def __init__(self, gt_csv, alg_csv, prop_csv):
+        &#34;&#34;&#34; Methods and techiniques to evaluate typing
+        framework performance.
+
+        Parameters:
+        gt_csv: str
+            Ground truth csv file.
+        alg_csv: str
+            CSV file produced by typing framework.
+        prop_csv: str
+            CSV file having session properties
+        &#34;&#34;&#34;
+        # Check if the files exist
+        if not os.path.isfile(gt_csv):
+            raise Exception(f&#34;{gt_csv} does not exist.&#34;)
+        if not os.path.isfile(alg_csv):
+            raise Exception(f&#34;{alg_csv} does not exist.&#34;)
+        if not os.path.isfile(prop_csv):
+            raise Exception(f&#34;{prop_csv} does not exist.&#34;)
+
+        # Loading ground truth for typing (I remove notyping instances).
+        self._gtdf = pd.read_csv(gt_csv)
+        self._gtdf = self._gtdf[self._gtdf[&#39;activity&#39;] == &#34;typing&#34;]
+
+        self._algdf = pd.read_csv(alg_csv)
+        self._algdf = self._algdf[self._algdf[&#39;activity&#39;] == &#34;typing&#34;]
+
+        self._propdf = pd.read_csv(prop_csv).sort_values(&#39;name&#39;)
+        self._propdf = self._propdf[self._propdf.name != &#39;total&#39;]
+
+    def write_spatio_tempo_perf_tocsv(self, tdur, out_csv):
+        &#34;&#34;&#34;
+        Temporal:
+            Creates a csv file with each `t` second video segment from automation algorithm classified as
+            tp, tn, fp or fn (Confusion matirx). A `t` second instance from ground truth is considered to
+            belong to typing if &gt;=50% of frames (&gt;= 15 frames if `t` == 1 sec) belong to typing.The output
+            is a CSV file classifying every `t` second video segment in the session as tp, tn, fp, fn.
+
+        Spatial:
+            IoU + bounding box coordinates (GT + Automation) are documented. Color code:
+            1. tp = Green
+            2. tn = Green
+            3. fp = Yello (we are ok with fp)
+            4. fn = Red (we don&#39;t like fn)
+        &#34;&#34;&#34;
+        rows = []
+        gt_lst = []
+        iou_lst = []
+        pred_lst =  []
+        for vidx, vrow in self._propdf.iterrows():
+            vdur = vrow[&#39;dur&#39;]
+            vfps = vrow[&#39;FPS&#39;]
+            cur_vname = vrow[&#39;name&#39;] + &#34;.mp4&#34;
+            print(f&#34;Processing:    {cur_vname}&#34;)
+
+            # &gt;= 50% of frames
+            frm_th_for_act = 0.5*(tdur*vfps)
+
+            cur_gtdf = self._gtdf[self._gtdf[&#39;name&#39;] == cur_vname].copy()
+            cur_algdf = self._algdf[self._algdf[&#39;name&#39;] == cur_vname].copy()
+
+            t0_lst = list(range(0, vdur, tdur))
+            f0_lst = [int(vfps)*x for x in t0_lst]
+
+            for i, f0 in enumerate(f0_lst):
+
+                t0 = t0_lst[i]
+                t0_hr = self._get_hr_time(t0)
+
+                f1 = int(f0 + vfps*tdur)
+
+                gt_ty_flag = self._is_typing((f0, f1), cur_gtdf, frm_th_for_act)
+                alg_ty_flag = self._is_typing((f0, f1), cur_algdf, frm_th_for_act)
+
+                # Collecting labels in an array to print metrics
+                gt_lst += [int(gt_ty_flag)]
+                pred_lst += [int(alg_ty_flag)]
+
+                # Labeling tp, tn, fp, fn
+
+                if gt_ty_flag and alg_ty_flag:
+                    # Get bounding box coordinates
+                    gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                    alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                    iou = self._get_iou(gt_ty_bbox_dict, alg_ty_bbox_dict)
+
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;tp&#39;]
+                elif not(gt_ty_flag) and not(alg_ty_flag):
+                    coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                    gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;tn&#39;]
+                    iou = 1
+                elif not(gt_ty_flag) and alg_ty_flag:
+                    alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                    coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                    gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;fp&#39;]
+                    iou = 0
+                elif gt_ty_flag and not(alg_ty_flag):
+                    gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                    alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                    row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                    row += [&#39;fn&#39;]
+                    iou = 0
+                else:
+                    raise Exception(&#34;Something is fishy&#34;)
+                iou_lst += [iou]
+                row += [iou]
+                rows += [row]
+
+        # Write to pandas dataframe
+        columns = [&#39;name&#39;, &#39;T&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;t0&#39;, &#39;t&#39;, &#39;gtbbox&#39;, &#39;algbbox&#39;, &#39;conf_labels&#39;,&#39;iou&#39;]
+        df = pd.DataFrame(rows, columns=columns)
+        df.to_csv(out_csv)
+
+        # Output properties
+        tn, fp, fn, tp = confusion_matrix(gt_lst, pred_lst).ravel()
+        accuracy = (tn+tp)/(tp+tn+fp+fn)
+        precision = (tp)/(tp+fp)
+        recall = (tp)/(tp+fn)
+        sensitivity = (tp)/(tp+fn)
+        specificity = (tn)/(tn+fp)
+        print(&#34;---- Performance stats ----&#34;)
+        print(f&#34;tp:{tp}, tn:{tn}, fp:{fp}, fn:{fn}&#34;)
+        print(f&#34;Accuracy   = {round(accuracy,2)}&#34;)
+        print(f&#34;Precision  = {round(precision,2)}&#34;)
+        print(f&#34;Recall     = {round(recall,2)}&#34;)
+        print(f&#34;Sensitivit = {round(sensitivity,2)}&#34;)
+        print(f&#34;Specificity = {round(specificity,2)}&#34;)
+        print(f&#34;IoU = {round(stats.mean(iou_lst), 2)}&#34;)
+        print(&#34;---------------------------&#34;)
+
+
+    def _is_typing(self, frms, df, frm_th):
+
+        &#34;&#34;&#34; Returns `True` or `False` of current interval to belong to typing.
+        Number of frames that belong to typing are counted between `frms`. If
+        that number is greater than or equal to `frm_th` we return `True`.
+
+        Parameters
+        ----------
+        frms: tuple of int
+            Tuple of integers having starting and ending frame numbers. The
+            indexing starts from 0.
+        df: Pandas DataFrame
+            DataFrame containing typing instances
+        frm_th: int
+            Frames thereshold
+
+        Returns
+        -------
+        int
+            Number of frames that has typing between frames frms tuple, (f0, f1)
+
+        Assumption
+        ----------
+        - The `df` will only contain typing instances.
+        &#34;&#34;&#34;
+        # Current activity interval
+        cf0, cf1 = frms
+
+        # Creating f1 column in df
+        df[&#39;f1&#39;] = df[&#39;f0&#39;] + df[&#39;f&#39;]
+
+        # Filter all rows f1 &gt;= cf0
+        # Activities that end after current instance began
+        df_fil1 = df[df[&#39;f1&#39;] &gt;= cf0].copy()
+
+        # Filter all remaining rows with f0 &lt;= cf1
+        # Activities that begun begun before current instance ends
+        df_fil2 = df_fil1[df_fil1[&#39;f0&#39;] &lt;= cf1].copy()
+
+        # Loop through all the overlapping instances(df_fil2)
+        nfrms = 0
+        for ridx,row in df_fil2.iterrows():
+            f0 = row[&#39;f0&#39;]
+            f1 = row[&#39;f1&#39;]
+
+            if0 = max(f0, cf0)
+            if1 = min(f1, cf1)
+
+            nfrms = if1 - if0 + 1 # +1 as indexing starts from 0(??? correct)
+
+        if nfrms &gt;= frm_th:
+            return True
+        else:
+            return False
+
+    def _get_union_bbox(self,frms, df):
+        &#34;&#34;&#34;
+        Returns bounding box coordinates.
+
+        Parameters
+        ----------
+        frm: int
+            Frame number(frame number starts from 0)
+        df: Pandas DataFrame
+            Dataframe having bounding box coordinates
+        &#34;&#34;&#34;
+        w0_lst = []
+        h0_lst = []
+        w1_lst = []
+        h1_lst = []
+        for frm in range(frms[0], frms[1]):
+
+            bbox_flag, cdict = self._get_bbox(frm, df)
+            if bbox_flag:
+                w0_lst += [cdict[&#39;x1&#39;]]
+                h0_lst += [cdict[&#39;y1&#39;]]
+                w1_lst += [cdict[&#39;x2&#39;]]
+                h1_lst += [cdict[&#39;y2&#39;]]
+        if len(w0_lst) != 0:
+            w0_min = min(w0_lst)
+            h0_min = min(h0_lst)
+            w1_max = max(w1_lst)
+            h1_max = max(h1_lst)
+            bbox = [w0_min, h0_min, w1_max - w0_min, h1_max - h0_min]
+            coord_dict = {
+                    &#39;x1&#39;:w0_min,
+                    &#39;y1&#39;:h0_min,
+                    &#39;x2&#39;:w1_max,
+                    &#39;y2&#39;:h1_max
+                }
+        else:
+            coord_dict = {
+                &#39;x1&#39;:0,
+                &#39;y1&#39;:0,
+                &#39;x2&#39;:0,
+                &#39;y2&#39;:0
+            }
+            bbox = [0, 0, 0, 0]
+
+
+        return bbox, coord_dict
+
+
+    def _get_bbox(self, frm, df):
+        &#34;&#34;&#34;
+        Returns bounding box coordinates.
+
+        Parameters
+        ----------
+        frm: int
+            Frame number(frame number starts from 0)
+        df: Pandas DataFrame
+            Dataframe having bounding box coordinates
+
+        Returns
+        -------
+        (Flag, coordinate dictionary). The coordiante dictionary,
+        A dictionary with Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}, The (x1, y1) position
+        is at the top left corner, the (x2, y2) position is at the bottom right corner
+        &#34;&#34;&#34;
+        df_frm = df[frm &gt;= df[&#39;f0&#39;]].copy()
+        df_frm = df_frm[frm &lt; df_frm[&#39;f0&#39;] + df_frm[&#39;f&#39;]]
+        if len(df_frm) == 0:
+            coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+            return (False, coord_dict)
+        elif len(df_frm) &gt; 1:
+            raise Exception(f&#34;Multiple typing instances at same time not supported.&#34;)
+        else:
+            row = df_frm.iloc[0]
+            coord_dict = {
+                &#39;x1&#39;:row[&#39;w0&#39;],
+                &#39;y1&#39;:row[&#39;h0&#39;],
+                &#39;x2&#39;:row[&#39;w0&#39;] + row[&#39;w&#39;],
+                &#39;y2&#39;:row[&#39;h0&#39;] + row[&#39;h&#39;]
+            }
+            return (True, coord_dict)
+
+
+
+
+    def _get_iou(self, bb1, bb2):
+        &#34;&#34;&#34;
+        Calculate the Intersection over Union (IoU) of two bounding boxes.
+
+        Parameters
+        ----------
+        bb1 : dict
+            Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}
+            The (x1, y1) position is at the top left corner,
+            the (x2, y2) position is at the bottom right corner
+        bb2 : dict
+            Keys: {&#39;x1&#39;, &#39;x2&#39;, &#39;y1&#39;, &#39;y2&#39;}
+            The (x, y) position is at the top left corner,
+            the (x2, y2) position is at the bottom right corner
+
+        Returns
+        -------
+        float
+            in [0, 1]
+        &#34;&#34;&#34;
+        # Converting bb
+        assert bb1[&#39;x1&#39;] &lt; bb1[&#39;x2&#39;]
+        assert bb1[&#39;y1&#39;] &lt; bb1[&#39;y2&#39;]
+        assert bb2[&#39;x1&#39;] &lt; bb2[&#39;x2&#39;]
+        assert bb2[&#39;y1&#39;] &lt; bb2[&#39;y2&#39;]
+
+        # determine the coordinates of the intersection rectangle
+        x_left = max(bb1[&#39;x1&#39;], bb2[&#39;x1&#39;])
+        y_top = max(bb1[&#39;y1&#39;], bb2[&#39;y1&#39;])
+        x_right = min(bb1[&#39;x2&#39;], bb2[&#39;x2&#39;])
+        y_bottom = min(bb1[&#39;y2&#39;], bb2[&#39;y2&#39;])
+
+        if x_right &lt; x_left or y_bottom &lt; y_top:
+            return 0.0
+
+        # The intersection of two axis-aligned bounding boxes is always an
+        # axis-aligned bounding box
+        intersection_area = (x_right - x_left) * (y_bottom - y_top)
+
+        # compute the area of both AABBs
+        bb1_area = (bb1[&#39;x2&#39;] - bb1[&#39;x1&#39;]) * (bb1[&#39;y2&#39;] - bb1[&#39;y1&#39;])
+        bb2_area = (bb2[&#39;x2&#39;] - bb2[&#39;x1&#39;]) * (bb2[&#39;y2&#39;] - bb2[&#39;y1&#39;])
+
+        # compute the intersection over union by taking the intersection
+        # area and dividing it by the sum of prediction + ground-truth
+        # areas - the interesection area
+        iou = intersection_area / float(bb1_area + bb2_area - intersection_area)
+        assert iou &gt;= 0.0
+        assert iou &lt;= 1.0
+        return iou
+
+    def _get_hr_time(self, t):
+        &#34;&#34;&#34; Get human readable time
+        &#34;&#34;&#34;
+        tmin, tsec = divmod(t, 60)
+        tmin = str(tmin).zfill(2)
+        tsec = str(tsec).zfill(2)
+        return f&#34;{tmin}:{tsec}&#34;</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.frameworks.typing.prf_eval.TypingPerfEval.write_spatio_tempo_perf_tocsv"><code class="name flex">
+<span>def <span class="ident">write_spatio_tempo_perf_tocsv</span></span>(<span>self, tdur, out_csv)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="temporal">Temporal</h2>
+<p>Creates a csv file with each <code>t</code> second video segment from automation algorithm classified as
+tp, tn, fp or fn (Confusion matirx). A <code>t</code> second instance from ground truth is considered to
+belong to typing if &gt;=50% of frames (&gt;= 15 frames if <code>t</code> == 1 sec) belong to typing.The output
+is a CSV file classifying every <code>t</code> second video segment in the session as tp, tn, fp, fn.</p>
+<h2 id="spatial">Spatial</h2>
+<p>IoU + bounding box coordinates (GT + Automation) are documented. Color code:
+1. tp = Green
+2. tn = Green
+3. fp = Yello (we are ok with fp)
+4. fn = Red (we don't like fn)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_spatio_tempo_perf_tocsv(self, tdur, out_csv):
+    &#34;&#34;&#34;
+    Temporal:
+        Creates a csv file with each `t` second video segment from automation algorithm classified as
+        tp, tn, fp or fn (Confusion matirx). A `t` second instance from ground truth is considered to
+        belong to typing if &gt;=50% of frames (&gt;= 15 frames if `t` == 1 sec) belong to typing.The output
+        is a CSV file classifying every `t` second video segment in the session as tp, tn, fp, fn.
+
+    Spatial:
+        IoU + bounding box coordinates (GT + Automation) are documented. Color code:
+        1. tp = Green
+        2. tn = Green
+        3. fp = Yello (we are ok with fp)
+        4. fn = Red (we don&#39;t like fn)
+    &#34;&#34;&#34;
+    rows = []
+    gt_lst = []
+    iou_lst = []
+    pred_lst =  []
+    for vidx, vrow in self._propdf.iterrows():
+        vdur = vrow[&#39;dur&#39;]
+        vfps = vrow[&#39;FPS&#39;]
+        cur_vname = vrow[&#39;name&#39;] + &#34;.mp4&#34;
+        print(f&#34;Processing:    {cur_vname}&#34;)
+
+        # &gt;= 50% of frames
+        frm_th_for_act = 0.5*(tdur*vfps)
+
+        cur_gtdf = self._gtdf[self._gtdf[&#39;name&#39;] == cur_vname].copy()
+        cur_algdf = self._algdf[self._algdf[&#39;name&#39;] == cur_vname].copy()
+
+        t0_lst = list(range(0, vdur, tdur))
+        f0_lst = [int(vfps)*x for x in t0_lst]
+
+        for i, f0 in enumerate(f0_lst):
+
+            t0 = t0_lst[i]
+            t0_hr = self._get_hr_time(t0)
+
+            f1 = int(f0 + vfps*tdur)
+
+            gt_ty_flag = self._is_typing((f0, f1), cur_gtdf, frm_th_for_act)
+            alg_ty_flag = self._is_typing((f0, f1), cur_algdf, frm_th_for_act)
+
+            # Collecting labels in an array to print metrics
+            gt_lst += [int(gt_ty_flag)]
+            pred_lst += [int(alg_ty_flag)]
+
+            # Labeling tp, tn, fp, fn
+
+            if gt_ty_flag and alg_ty_flag:
+                # Get bounding box coordinates
+                gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                iou = self._get_iou(gt_ty_bbox_dict, alg_ty_bbox_dict)
+
+                row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                row += [&#39;tp&#39;]
+            elif not(gt_ty_flag) and not(alg_ty_flag):
+                coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+
+                row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                row += [&#39;tn&#39;]
+                iou = 1
+            elif not(gt_ty_flag) and alg_ty_flag:
+                alg_ty_bbox, alg_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_algdf)
+                coord_dict = {&#39;x1&#39;:0, &#39;y1&#39;:0, &#39;x2&#39;:0, &#39;y2&#39;:0}
+                gt_ty_bbox, gt_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                row += [&#39;fp&#39;]
+                iou = 0
+            elif gt_ty_flag and not(alg_ty_flag):
+                gt_ty_bbox, gt_ty_bbox_dict = self._get_union_bbox((f0,f1), cur_gtdf)
+                alg_ty_bbox, alg_ty_bbox_dict = ([0,0,0,0], coord_dict)
+                row = [cur_vname, vdur, vfps, f0, f1-f0, t0_hr, tdur, gt_ty_bbox, alg_ty_bbox]
+                row += [&#39;fn&#39;]
+                iou = 0
+            else:
+                raise Exception(&#34;Something is fishy&#34;)
+            iou_lst += [iou]
+            row += [iou]
+            rows += [row]
+
+    # Write to pandas dataframe
+    columns = [&#39;name&#39;, &#39;T&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;t0&#39;, &#39;t&#39;, &#39;gtbbox&#39;, &#39;algbbox&#39;, &#39;conf_labels&#39;,&#39;iou&#39;]
+    df = pd.DataFrame(rows, columns=columns)
+    df.to_csv(out_csv)
+
+    # Output properties
+    tn, fp, fn, tp = confusion_matrix(gt_lst, pred_lst).ravel()
+    accuracy = (tn+tp)/(tp+tn+fp+fn)
+    precision = (tp)/(tp+fp)
+    recall = (tp)/(tp+fn)
+    sensitivity = (tp)/(tp+fn)
+    specificity = (tn)/(tn+fp)
+    print(&#34;---- Performance stats ----&#34;)
+    print(f&#34;tp:{tp}, tn:{tn}, fp:{fp}, fn:{fn}&#34;)
+    print(f&#34;Accuracy   = {round(accuracy,2)}&#34;)
+    print(f&#34;Precision  = {round(precision,2)}&#34;)
+    print(f&#34;Recall     = {round(recall,2)}&#34;)
+    print(f&#34;Sensitivit = {round(sensitivity,2)}&#34;)
+    print(f&#34;Specificity = {round(specificity,2)}&#34;)
+    print(f&#34;IoU = {round(stats.mean(iou_lst), 2)}&#34;)
+    print(&#34;---------------------------&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="aqua.frameworks.typing.prf_eval.TypingPerfViz"><code class="flex name class">
+<span>class <span class="ident">TypingPerfViz</span></span>
+<span>(</span><span>perf_csv)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains methods that aid in visualizing typing performance.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ol>
+<li>Videos are present at the same location as <code>perf_csv</code>.</li>
+</ol>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>perf_csv</code></strong> :&ensp;<code>str</code></dt>
+<dd>CSV file having performance data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TypingPerfViz():
+    def __init__(self, perf_csv):
+        &#34;&#34;&#34; Contains methods that aid in visualizing typing performance.
+
+        Assumptions
+        ----------
+        1. Videos are present at the same location as `perf_csv`.
+
+        Parameters
+        ----------
+        perf_csv: str
+            CSV file having performance data.
+        &#34;&#34;&#34;
+        if not os.path.isfile(perf_csv):
+            raise Exception(f&#34;{perf_csv} not found&#34;)
+
+        self._df = pd.read_csv(perf_csv)
+        self._df[&#39;gtbbox&#39;] = self._df[&#39;gtbbox&#39;].map(lambda x: x.replace(&#34;[&#34;,&#34;&#34;))
+        self._df[&#39;gtbbox&#39;] = self._df[&#39;gtbbox&#39;].map(lambda x: x.replace(&#34;]&#34;,&#34;&#34;))
+        self._df[&#39;algbbox&#39;] = self._df[&#39;algbbox&#39;].map(lambda x: x.replace(&#34;[&#34;,&#34;&#34;))
+        self._df[&#39;algbbox&#39;] = self._df[&#39;algbbox&#39;].map(lambda x: x.replace(&#34;]&#34;,&#34;&#34;))
+        self._rdir = os.path.dirname(perf_csv)
+
+    def write_to_video(self):
+        &#34;&#34;&#34; Create video with performance.
+        &#34;&#34;&#34;
+        df = self._df.copy()
+
+
+        # Extract videos to temporary directories
+        if True:
+            temp_dir = tempfile.mkdtemp()
+            print(f&#34;INFO: Extracting videos to frames at {temp_dir}&#34;)
+            vlist = list(df[&#39;name&#39;].unique())
+            for vname in tqdm(vlist):
+                cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+                os.mkdir(cur_temp_dir)
+                vpath = f&#34;{self._rdir}/{vname}&#34;
+                vid = Vid(vpath)
+                vid.extract_all_frames_ffmpeg(cur_temp_dir)
+
+
+        # Loop through each activity instance and put a bounding box
+        print(&#34;INFO: Writing bboxes&#34;)
+        for ridx, row in tqdm(df.iterrows(), total=df.shape[0]):
+            cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(row[&#39;name&#39;])[0]}&#34;
+            num_files = len(glob.glob1(cur_temp_dir,&#34;*.jpg&#34;))
+            conf_label = row[&#39;conf_labels&#39;]
+
+            # Draw and write for each frame
+            fs = int(row[&#39;f0&#39;])
+            fe = fs + int(row[&#39;f&#39;])
+
+            fe = min(num_files, fe)
+            if conf_label != &#39;tn&#39; :
+                for img_idx in range(fs,fe):
+                    # Load image
+                    img_path =  f&#34;{cur_temp_dir}/{img_idx}.jpg&#34;
+                    img = cv2.imread(img_path)
+                    H, W, C = img.shape
+
+                    # Box and text based on confusion matrix label
+                    if conf_label == &#39;tp&#39;:
+                        c_alg = (0, 255, 0) # Green
+                        c_gt = (0, 125, 0)
+                        gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                        gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                        gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                        img = cv2.rectangle(img, gt_tl, gt_br, c_gt, 2)
+                        alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                        alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                        alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                        img = cv2.rectangle(img, alg_tl, alg_br, c_alg, 2)
+                        iou = round(row[&#39;iou&#39;], 2)
+                        text = f&#34;TP - {iou}&#34;
+                        img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c_alg, 2, cv2.LINE_AA)
+
+                    elif conf_label == &#39;fp&#39;:
+                        c = (0, 255, 255)  # yellow
+
+                        alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                        alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                        alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                        img = cv2.rectangle(img, alg_tl, alg_br, c, 2)
+
+                        text = &#34;FP&#34;
+                        img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                    elif conf_label == &#39;fn&#39;:
+                        c = (0, 0, 255)  # Red
+                        gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                        gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                        gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                        img = cv2.rectangle(img, gt_tl, gt_br, c, 2)
+                        text = &#34;FN&#34;
+                        img = cv2.putText(img, text, gt_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                    else:
+                        raise Exception(f&#34;Confusion matrix albel {conf_label} is not supported&#34;)
+
+                    cv2.imwrite(img_path, img)
+                    # cv2.imshow(&#34;test&#34;, img)
+                    # cv2.waitKey(1)
+
+        # Now writing video
+        vlist = list(df[&#39;name&#39;].unique())
+        try:
+            print(&#34;INFO: Writing videos with bounding boxes.&#34;)
+            for vname in tqdm(vlist):
+                cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+                out_path = f&#34;{self._rdir}/perf_{vname}&#34;
+                cmd = f&#34;ffmpeg -y -hide_banner -loglevel panic -i &#39;{cur_temp_dir}/%d.jpg&#39; -vf fps=30 -pix_fmt yuv420p {out_path}&#34;
+                os.system(cmd)
+        except:
+            # Cleaning up temporary files if there is exception
+            pdb.set_trace()
+            shutil.rmtree(temp_dir)
+
+
+        shutil.rmtree(temp_dir)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.frameworks.typing.prf_eval.TypingPerfViz.write_to_video"><code class="name flex">
+<span>def <span class="ident">write_to_video</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create video with performance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_to_video(self):
+    &#34;&#34;&#34; Create video with performance.
+    &#34;&#34;&#34;
+    df = self._df.copy()
+
+
+    # Extract videos to temporary directories
+    if True:
+        temp_dir = tempfile.mkdtemp()
+        print(f&#34;INFO: Extracting videos to frames at {temp_dir}&#34;)
+        vlist = list(df[&#39;name&#39;].unique())
+        for vname in tqdm(vlist):
+            cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+            os.mkdir(cur_temp_dir)
+            vpath = f&#34;{self._rdir}/{vname}&#34;
+            vid = Vid(vpath)
+            vid.extract_all_frames_ffmpeg(cur_temp_dir)
+
+
+    # Loop through each activity instance and put a bounding box
+    print(&#34;INFO: Writing bboxes&#34;)
+    for ridx, row in tqdm(df.iterrows(), total=df.shape[0]):
+        cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(row[&#39;name&#39;])[0]}&#34;
+        num_files = len(glob.glob1(cur_temp_dir,&#34;*.jpg&#34;))
+        conf_label = row[&#39;conf_labels&#39;]
+
+        # Draw and write for each frame
+        fs = int(row[&#39;f0&#39;])
+        fe = fs + int(row[&#39;f&#39;])
+
+        fe = min(num_files, fe)
+        if conf_label != &#39;tn&#39; :
+            for img_idx in range(fs,fe):
+                # Load image
+                img_path =  f&#34;{cur_temp_dir}/{img_idx}.jpg&#34;
+                img = cv2.imread(img_path)
+                H, W, C = img.shape
+
+                # Box and text based on confusion matrix label
+                if conf_label == &#39;tp&#39;:
+                    c_alg = (0, 255, 0) # Green
+                    c_gt = (0, 125, 0)
+                    gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                    gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                    gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                    img = cv2.rectangle(img, gt_tl, gt_br, c_gt, 2)
+                    alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                    alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                    alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                    img = cv2.rectangle(img, alg_tl, alg_br, c_alg, 2)
+                    iou = round(row[&#39;iou&#39;], 2)
+                    text = f&#34;TP - {iou}&#34;
+                    img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c_alg, 2, cv2.LINE_AA)
+
+                elif conf_label == &#39;fp&#39;:
+                    c = (0, 255, 255)  # yellow
+
+                    alg_bbox = [float(x) for x in row[&#39;algbbox&#39;].split(&#34;,&#34;)]
+                    alg_tl = (int(alg_bbox[0]), int(alg_bbox[1]))
+                    alg_br = (int(alg_bbox[0]) + int(alg_bbox[2]), int(alg_bbox[1]) + int(alg_bbox[3]))
+                    img = cv2.rectangle(img, alg_tl, alg_br, c, 2)
+
+                    text = &#34;FP&#34;
+                    img = cv2.putText(img, text, alg_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                elif conf_label == &#39;fn&#39;:
+                    c = (0, 0, 255)  # Red
+                    gt_bbox = [float(x) for x in row[&#39;gtbbox&#39;].split(&#34;,&#34;)]
+                    gt_tl = (int(gt_bbox[0]), int(gt_bbox[1]))
+                    gt_br = (int(gt_bbox[0]) + int(gt_bbox[2]), int(gt_bbox[1]) + int(gt_bbox[3]))
+                    img = cv2.rectangle(img, gt_tl, gt_br, c, 2)
+                    text = &#34;FN&#34;
+                    img = cv2.putText(img, text, gt_tl, cv2.FONT_HERSHEY_SIMPLEX, 1, c, 2, cv2.LINE_AA)
+
+                else:
+                    raise Exception(f&#34;Confusion matrix albel {conf_label} is not supported&#34;)
+
+                cv2.imwrite(img_path, img)
+                # cv2.imshow(&#34;test&#34;, img)
+                # cv2.waitKey(1)
+
+    # Now writing video
+    vlist = list(df[&#39;name&#39;].unique())
+    try:
+        print(&#34;INFO: Writing videos with bounding boxes.&#34;)
+        for vname in tqdm(vlist):
+            cur_temp_dir = f&#34;{temp_dir}/{os.path.splitext(vname)[0]}&#34;
+            out_path = f&#34;{self._rdir}/perf_{vname}&#34;
+            cmd = f&#34;ffmpeg -y -hide_banner -loglevel panic -i &#39;{cur_temp_dir}/%d.jpg&#39; -vf fps=30 -pix_fmt yuv420p {out_path}&#34;
+            os.system(cmd)
+    except:
+        # Cleaning up temporary files if there is exception
+        pdb.set_trace()
+        shutil.rmtree(temp_dir)
+
+
+    shutil.rmtree(temp_dir)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua.frameworks.typing" href="index.html">aqua.frameworks.typing</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.frameworks.typing.prf_eval.TypingPerfEval" href="#aqua.frameworks.typing.prf_eval.TypingPerfEval">TypingPerfEval</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.frameworks.typing.prf_eval.TypingPerfEval.write_spatio_tempo_perf_tocsv" href="#aqua.frameworks.typing.prf_eval.TypingPerfEval.write_spatio_tempo_perf_tocsv">write_spatio_tempo_perf_tocsv</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="aqua.frameworks.typing.prf_eval.TypingPerfViz" href="#aqua.frameworks.typing.prf_eval.TypingPerfViz">TypingPerfViz</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.frameworks.typing.prf_eval.TypingPerfViz.write_to_video" href="#aqua.frameworks.typing.prf_eval.TypingPerfViz.write_to_video">write_to_video</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

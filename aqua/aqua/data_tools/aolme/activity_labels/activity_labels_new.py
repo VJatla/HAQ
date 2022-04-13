@@ -6,6 +6,7 @@ import math
 import datetime
 import numpy as np
 import pandas as pd
+import pretty_errors
 import skvideo.io as skvio
 from aqua.data_tools.aolme.activity_labels.standardize import Standardize
 from aqua.data_tools.aolme.activity_labels.process import Process
@@ -53,9 +54,35 @@ class AOLMEActivityLabels:
         # Initializing visualization instance
         viz = Visualize(self._rdir, tydf)
         viz.to_video_ffmpeg(names_df = ndf)
-        
 
-    def create_xlsx(self, names_csv, out_xlsx, activity):
+
+
+    def get_person_codes(self, ndf, row, person_code, person_code_type):
+        """ Returns person information.
+        """
+        
+        if person_code_type == 'numeric_code':
+            numeric_code = row[person_code]
+            pseudonym = ndf[ndf[person_code_type] == numeric_code]['pseudonym'].item()
+            student_code = ndf[ndf[person_code_type] == numeric_code]['student_code'].item()
+            
+        elif person_code_type == 'student_code':
+            student_code = row[person_code]
+            pseudonym = ndf[ndf[person_code_type] == student_code]['pseudonym'].item()
+            numeric_code = ndf[ndf[person_code_type] == student_code]['numeric_code'].item()
+                        
+        elif person_code_type == 'pseudonym':
+            pseudonym = row[person_code]
+            numeric_code = ndf[ndf[person_code_type] == pseudonym]['numeric_code'].item()
+            student_code = ndf[ndf[person_code_type] == pseudonym]['student_code'].item()
+            
+        else:
+            print(f"Does not support {person_code_type}")
+
+        
+        return numeric_code, pseudonym, student_code
+
+    def create_xlsx(self, names_csv, out_xlsx, activity, person_code, person_code_type):
         """
         The following code parses ground truth csv file to xlsx sheets.
         This is done to provide easy access to education researchers.
@@ -74,6 +101,10 @@ class AOLMEActivityLabels:
             Path to output xlsx file
         activity: str
             Activity that is being processed
+        person_code: str
+            Column name having student identification
+        person_code_type: str
+            Type of student identification used, {numeric_code, student_code, pseudonym}
         """
         # Session properties
         sprops = pd.read_csv(f"{self._rdir}/properties_session.csv")
@@ -85,16 +116,14 @@ class AOLMEActivityLabels:
         # Load dataframe that has typing instances
         df = pd.read_csv(f"{self._rdir}/{self._fname}")
         tydf = df[df['activity'] == activity].copy()
-        persons = tydf['person'].unique()
+        persons = tydf[person_code].unique()
 
         # Loop over all typing instances and collect information
         hrlist = [] # Human readable
-        summary_dict = dict.fromkeys(persons, 0)
         for ridx, row in tydf.iterrows():
 
             # Information of tydf
             name = row['name']
-            num_code = row['person']
             stime = math.ceil(row['f0']/row['FPS'])
             stime_str = str(datetime.timedelta(seconds=stime))
             etime = math.floor(stime + (row['f']/row['FPS']))
@@ -102,50 +131,43 @@ class AOLMEActivityLabels:
             dur_sec = etime - stime
             dur_min = round(dur_sec/60.0, 2)
             dur_str = str(datetime.timedelta(seconds=dur_sec))
-            w0 = row['w0']
-            h0 = row['h0']
-            w = row['w']
-            h = row['h']
+            w0 = math.floor(row['w0'])
+            h0 = math.floor(row['h0'])
+            w = math.floor(row['w'])
+            h = math.floor(row['h'])
             
-
-            # Pseudonym
-            try:
-                pseudonym = ndf[ndf['numeric_code'] == num_code]['pseudonym'].item()
-            except:
-                pdb.set_trace()
+            # Getting person name information
+            numeric_code, pseudonym, student_code = self.get_person_codes(ndf, row, person_code, person_code_type)
 
             # Creating list
-            hrlist += [[name, num_code, pseudonym,
+            hrlist += [[name, numeric_code, pseudonym, student_code,
                         stime_str, etime_str, dur_str,
                         w0, h0, w, h]]
 
-            # Adding information to summary
-            summary_dict[num_code] += dur_min
 
-        # Summary dataframe
-        summary_df = pd.DataFrame(columns=['Numeric code', 'Pseudonym', 'minutes'])
-        for num_code in summary_dict:
-            summary_df.loc[len(summary_df.index)] = [
-                num_code,
-                ndf[ndf['numeric_code'] == num_code]['pseudonym'].item(),
-                summary_dict[num_code]
-            ]
-        summary_df.loc[len(summary_df.index)] = ['Total', 'typing',
-                                                 sum(summary_dict.values())] 
-        summary_df.loc[len(summary_df.index)] = ['Total', 'notyping',
-                                                 int(sdur_sec/60) - sum(summary_dict.values())] 
+
+
+            
         
         # Output dataframe
-        odf = pd.DataFrame(hrlist, columns=['Video name', 'Numeric code', 'Pseudonym',
+        try:
+            odf = pd.DataFrame(hrlist, columns=['Video name', 'Numeric code', 'Pseudonym', 'Student code',
                                             'Start time', 'End time', 'Duration',
                                             'w0', 'h0', 'w', 'h'])
+        except:
+            import pdb; pdb.set_trace()
 
         # Export to excel
+        
         print(f"INFO: Writing {out_xlsx}")
         writer = pd.ExcelWriter(out_xlsx, engine='xlsxwriter')
         odf.to_excel(writer, sheet_name="Human readable", index=False)
+
+        # Adding pseudonym, numeric_code, student_code to tydf
+        tydf['pseudonym'] = [row[2] for row in hrlist]
+        tydf['numeric_code'] = [row[1] for row in hrlist]
+        tydf['student_code'] = [row[3] for row in hrlist]
         tydf.to_excel(writer, sheet_name="Machine readable", index=False)
-        summary_df.to_excel(writer, sheet_name="Summary", index=False)
         writer.save()
         
 

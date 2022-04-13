@@ -16,8 +16,10 @@ Exp2: Group level leave one out for typing/notyping
 import os
 import pdb
 
-dyads = [2, 3, 4]
-groups = ['C1L1P-B']
+# dyads = [2, 3, 4]
+dyads = [4]
+# groups = ['C1L1P-B', 'C1L1P-C', 'C2L1P-B', 'C2L1P-C']
+groups = ['C2L1P-C']
 vdir = "/mnt/twotb/aolme_datasets/wnw/trimmed_videos/one_trim_per_instance_3sec_224"
 list_dir = "/mnt/twotb/aolme_datasets/wnw/trimmed_videos/one_trim_per_instance_3sec_224/group_leave_one_out/exp2"
 workdir_root = "/mnt/twotb/dyadic_nn/workdir/wnw/one_trim_per_instance_3sec_224/exp2_group_leave_one_out"
@@ -37,6 +39,7 @@ for grp in groups:
 
         # Command to execute
         cmd = f"{cmd_head} {dyad} {wdir} {val_list_file} val_log.json"
+        import pdb; pdb.set_trace()
 
         # Execute
         os.system(cmd)

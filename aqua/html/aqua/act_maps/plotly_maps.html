@@ -1,0 +1,1368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.act_maps.plotly_maps API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.act_maps.plotly_maps</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import pdb
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+from tqdm import tqdm
+import json
+import os
+
+class ActMapsPlotly:
+
+    tydf_ps = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having typing activities per second  &#34;&#34;&#34;
+
+    wrdf_ps = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having writing activities per second  &#34;&#34;&#34;
+
+    sess_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having session properties &#34;&#34;&#34;
+
+    vloc = &#34;&#34;
+    &#34;&#34;&#34;Video location w.r.t the root of AOLME Data server&#34;&#34;&#34;
+
+    odir = &#34;&#34;
+    &#34;&#34;&#34; Output path, it should be a .html file &#34;&#34;&#34;
+
+    student_y_val = {}
+    &#34;&#34;&#34; A dictionary having having student codes. The key is sutdent
+    code and the value is the integer used to represent the sutdent
+    in activity map.&#34;&#34;&#34;
+
+    def __init__(self, cfg):
+        &#34;&#34;&#34;
+
+        Parameters
+        ----------
+        cfg: Str
+            Configuration file having the following information in
+            `json` format.
+
+            1. typing instances as excel file
+            2. writing instances as excel file
+            3. session information as csv file
+        &#34;&#34;&#34;
+        with open(cfg) as f:
+            self.cfg = json.load(f)
+
+        # Loading activity instances and session properties as dataframe
+        self.odir = self.cfg[&#34;odir&#34;]
+        self.vloc = self.cfg[&#34;vloc&#34;]
+        self.sess_df = pd.read_csv(self.cfg[&#34;sprops&#34;])
+
+        # Load the ativity dataframes with 1 second resolution if they aready
+        # exist, else create them
+        if not self.cfg[&#34;ty&#34;] == &#34;&#34;:
+            tydf = pd.read_excel(self.cfg[&#34;ty&#34;], sheet_name=&#34;Machine readable&#34;)
+            tydf_ps_path = f&#34;{self.odir}/tydf_per_sec.csv&#34;
+            if os.path.isfile(tydf_ps_path):
+                self.tydf_ps = pd.read_csv(tydf_ps_path)
+            else:
+                self.tydf_ps = self._get_activities_per_sec(tydf, &#34;typing&#34;)
+
+        if not self.cfg[&#34;wr&#34;] == &#34;&#34;:
+            wrdf = pd.read_excel(self.cfg[&#34;wr&#34;], sheet_name=&#34;Machine readable&#34;)
+            wrdf_ps_path = f&#34;{self.odir}/wrdf_per_sec.csv&#34;
+            if os.path.isfile(wrdf_ps_path):
+                self.wrdf_ps = pd.read_csv(wrdf_ps_path)
+            else:
+                self.wrdf_ps = self._get_activities_per_sec(wrdf, &#34;writing&#34;)
+
+        self.student_y_val = self._get_student_value(self.tydf_ps.copy(), self.wrdf_ps.copy())
+            
+
+
+
+
+
+            
+
+    def _get_activities_per_sec(self, df, act):
+        &#34;&#34;&#34;Creates a data frame with each row representing one second.
+        Extra columns are added to support multiple instances instances
+        that happen in the same time.
+        &#34;&#34;&#34;
+
+        # Duration column
+        dur_col = self._get_dur_column()
+
+        # video_name column
+        video_name_col = self._get_video_name_column()
+
+        # W, H, FPS columns
+        W, H, FPS = self._get_W_H_FPS()
+        W_col = [W] * len(dur_col)
+        H_col = [H] * len(dur_col)
+        FPS_col = [FPS] * len(dur_col)
+
+        # f0 and f
+        f0_col = self._get_f0_column(FPS)
+        f_col = [FPS] * len(dur_col)
+
+        # f0_sess
+        f0_sess_col = np.arange(0, len(dur_col) * FPS, FPS).tolist()
+
+        # Get student_codes
+        student_codes, student_codes_col = self._get_student_codes(df, dur_col)
+
+        # Ground truth columns
+        act_col, bbox_col, fn_col = self._get_act_columns(
+            df.copy(), video_name_col, f0_col, f_col, student_codes_col, act
+        )
+
+        # Creating an empty data frame with required columns
+        df_per_sec = pd.DataFrame(
+            list(
+                zip(
+                    video_name_col,
+                    dur_col,
+                    W_col,
+                    H_col,
+                    FPS_col,
+                    f0_col,
+                    f_col,
+                    f0_sess_col,
+                    student_codes_col,
+                    bbox_col,
+                    act_col,
+                    fn_col,
+                )
+            ),
+            columns=[
+                &#34;video_name&#34;,
+                &#34;dur&#34;,
+                &#34;W&#34;,
+                &#34;H&#34;,
+                &#34;FPS&#34;,
+                &#34;f0&#34;,
+                &#34;f&#34;,
+                &#34;f0_sess&#34;,
+                &#34;student_codes&#34;,
+                &#34;bbox&#34;,
+                &#34;act&#34;,
+                &#34;fn&#34;,
+            ],
+        )
+        return df_per_sec
+
+    def _get_student_codes(self, df, dur_col):
+        &#34;&#34;&#34;Returns student_codes by considering students from both
+        ground truth and algorithm.
+        &#34;&#34;&#34;
+
+        sc = df[&#34;student_code&#34;].unique()
+        student_code_str = &#34;:&#34;.join(sc)
+
+        return sc, [student_code_str] * len(dur_col)
+
+    def _get_act_columns(
+        self, df, video_name_col, f0_col, f_col, student_codes_col, act
+    ):
+        &#34;&#34;&#34;Checks every second and labels it as activity or
+        no-activity. If labeled as activity it returns bounding box
+        with hyphen separated values, &#39;w0-h0-w-h&#39;.
+        &#34;&#34;&#34;
+        act_col = []
+        bbox_col = []
+        fn_col = []
+
+        # Loop every second
+        for i, f0 in tqdm(enumerate(f0_col)):
+
+            f = f_col[i]
+            video_name = video_name_col[i]
+            student_codes = student_codes_col[i]
+
+            act_, bbox, fn_gt = self._get_act_label(
+                df.copy(), video_name, f0, f, student_codes, act
+            )
+
+            act_col += [act_]
+            bbox_col += [bbox]
+            fn_col += [fn_gt]
+
+        return act_col, bbox_col, fn_col
+
+    def _get_act_label(self, df, vname, f0, f, student_codes, cur_act):
+        &#34;&#34;&#34;If there are &gt;= 1/2*frames between f0 and f0+f are
+        classified as &#39;activity&#39; we return &lt;self.act&gt;, else
+        we return no_&lt;self.act&gt;
+        &#34;&#34;&#34;
+        # Get student codes from string
+        student_codes = [x for x in student_codes.split(&#34;:&#34;)]
+
+        # Current video instances
+        df = df[df[&#34;name&#34;] == vname].copy()
+
+        # Filtering events that happened before or after current
+        # frames, (f0,f)
+        df[&#34;f1&#34;] = df[&#34;f0&#34;] + df[&#34;f&#34;]
+        df = df[f0 &lt;= df[&#34;f1&#34;]]
+        df = df[f0 + f &gt;= df[&#34;f0&#34;]]
+
+        # Loop through each student
+        bboxs = &#34;&#34;
+        activities = &#34;&#34;
+        fns = &#34;&#34;
+        for i, student_code in enumerate(student_codes):
+
+            # Data frame having entries for current student
+            dfs = df[df[&#34;student_code&#34;] == student_code].copy()
+
+            # Calculating number of frames in time interval
+            fn = 0
+            w0 = 0
+            h0 = 0
+            w = 0
+            h = 0
+            for j, row in dfs.iterrows():
+                fn += min(f0 + f, row[&#34;f1&#34;]) - max(f0, row[&#34;f0&#34;])
+                w0 += row[&#34;w0&#34;]
+                h0 += row[&#34;h0&#34;]
+                w += row[&#34;w&#34;]
+                h += row[&#34;h&#34;]
+
+            # Bounding box
+            if not dfs.empty:
+                bbox = f&#34;{w0/len(dfs)}-{h0/len(dfs)}-{w/len(dfs)}-{h/len(dfs)}&#34;
+            else:
+                bbox = &#34;0-0-0-0&#34;
+
+            # If we have activity for more than 50% of frames
+            # in current time interval, we label it as self.act
+            if fn &gt;= 0.5 * (f):
+                act = cur_act
+            else:
+                act = f&#34;no_{cur_act}&#34;
+
+            # Creating a string for bounding boxes, student_code and
+            # activities
+            if i == 0:
+                bboxs = f&#34;{bbox}&#34;
+                activities = f&#34;{act}&#34;
+                fns = f&#34;{fn}&#34;
+            else:
+                bboxs += f&#34; :{bbox}&#34;
+                activities += f&#34; :{act}&#34;
+                fns += f&#34; :{fn}&#34;
+
+        return activities, bboxs, fns
+
+    def _get_f0_column(self, FPS):
+        &#34;&#34;&#34;Returns f0 column&#34;&#34;&#34;
+
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        f0_col = []
+        for ridx, row in sdf.iterrows():
+            f0_col += np.arange(0, FPS * row[&#34;dur&#34;], FPS).tolist()
+        return f0_col
+
+    def _get_W_H_FPS(self):
+        &#34;&#34;&#34;Returns Width, Height and FPS&#34;&#34;&#34;
+        W = self.sess_df[&#34;width&#34;].unique()[0].astype(&#34;int&#34;)
+        H = self.sess_df[&#34;height&#34;].unique()[0].astype(&#34;int&#34;)
+        FPS = self.sess_df[&#34;FPS&#34;].unique()[0].astype(&#34;int&#34;)
+
+        return W, H, FPS
+
+    def _get_video_name_column(self):
+        &#34;&#34;&#34;Make a column with video names&#34;&#34;&#34;
+
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        video_name_col = []
+        for ridx, row in sdf.iterrows():
+            video_name_col += [row[&#34;name&#34;]] * int(row[&#34;dur&#34;])
+
+        return video_name_col
+
+    def _get_dur_column(self):
+        &#34;&#34;&#34;Get session duration&#34;&#34;&#34;
+
+        sess_df = self.sess_df.copy()
+        total_row = sess_df[sess_df[&#34;name&#34;] == &#34;total&#34;]
+        total_dur = total_row[&#34;dur&#34;].item()
+        dur_col = np.arange(0, total_dur).tolist()
+
+        return dur_col
+
+    def _group_cur_student_act(self, start_end, th):
+        &#34;&#34;&#34; Group activities into one if the start of next activity is withing `th`
+        seconds of end of previous activity.
+
+        Parameters
+        ----------
+        start_end : List of tuples
+            Start and end of activities
+        th : int
+            Threshold to group activities
+        &#34;&#34;&#34;
+        # If input list is empty return empty list
+        if len(start_end) == 0:
+            return []
+        
+        g_start_end = []
+        for i in range(0, len(start_end)):
+            if i == 0:
+                g_start, g_end = start_end[i]
+            else:
+                start, end = start_end[i]
+                if start - g_end &lt;= th:
+                    g_end = end
+                else:
+                    g_start_end += [(g_start, g_end)]
+                    # Starting new group
+                    g_start = start
+                    g_end = end
+        
+        # Case where group list is empty
+        if len(g_start_end) == 0:
+            g_start_end += [(g_start, g_end)]
+            
+        # In case we missed the last entry            
+        if g_start_end[-1][1] != start_end[-1][1]:
+            g_start_end += [(g_start, g_end)]
+
+        return g_start_end
+
+    def _get_cur_student_act_start_end(self, cur_act_labels, act):
+        &#34;&#34;&#34;Return a list of tuples with starting and ending index of activity.
+
+        Example
+        -------
+        [(50, 60), (300, 800)]
+        &#34;&#34;&#34;
+        act_list = [1 * (x == act) for x in cur_act_labels]
+
+        act_start_end_list = []
+        start_idx_flag = True
+        for i, v in enumerate(act_list):
+
+            if v == 0 and start_idx_flag:
+                continue
+            elif v == 1 and not (start_idx_flag):
+                continue
+
+            elif v == 1 and start_idx_flag:
+                start_idx = i
+                start_idx_flag = False
+
+            elif v == 0 and not (start_idx_flag):
+                end_idx = i - 1
+                act_start_end_list += [(start_idx, end_idx)]
+                start_idx_flag = True
+
+            else:
+                pdb.set_trace()
+                raise Exception(f&#34;Haha I am not sure what is happening&#34;)
+
+        return act_start_end_list
+
+    def _get_time_in_min(self, f0):
+        &#34;&#34;&#34;Returns time as &#39;MM:SS&#39; format&#34;&#34;&#34;
+        FPS = self.sess_df[&#34;FPS&#34;].unique()[0].astype(&#34;int&#34;)
+        # Seconds
+        sec = int(f0 / FPS)
+
+        # Minutes
+        min_ = int(sec // 60)
+
+        # seconds
+        sec_ = int(sec % 60)
+
+        return sec, f&#34;{min_:02d}:{sec_:02d}&#34;
+
+    def _annotate(self, df, fig, y_val, start, end, vname):
+
+        # Time w.r.t the video
+        f0_start = df.iloc[start][&#34;f0&#34;]
+        f0_end = df.iloc[end - 1][&#34;f0&#34;] + df.iloc[end -1][&#34;f&#34;]
+        start_sec, start_mm_ss = self._get_time_in_min(f0_start)
+        end_sec, end_mm_ss = self._get_time_in_min(f0_end)
+        time_str = f&#34;{start_mm_ss} to {end_mm_ss}&#34;
+
+        # Update link with video index and start and end time
+        link = &#34;https://aolme.unm.edu/researcher/activity_maps/video.php&#34;
+        vname_gt = os.path.splitext(vname)[0] + &#34;_gt.mp4&#34;
+        link = (
+            f&#34;{link}?vloc={self.vloc}&amp;vname={vname_gt}&amp;start_time={start_sec}&amp;end_time={end_sec}&#34;
+        )
+
+        # On hover show the following information
+        hover_tempalte = (
+            f&#34;&lt;b&gt;Video:&lt;/b&gt; {vname}&lt;br&gt;&#34; f&#34;&lt;b&gt;Time:&lt;/b&gt; {time_str}&#34;
+        )
+
+        x_val = end
+
+        fig.add_annotation(
+            x=x_val,
+            y=y_val,
+            hovertext=hover_tempalte,
+            width=5,
+            text=f&#34;&lt;a href=&#39;{link}&#39;&gt;*&lt;/a&gt;&#34;,
+            showarrow=True,
+        )
+        return fig
+
+    def _get_student_value(self, tydf, wrdf):
+        &#34;&#34;&#34; 
+        &#34;&#34;&#34;
+        df = pd.concat([tydf, wrdf])
+        ty_students = set()
+        wr_students = set()
+        
+        if not tydf.empty:
+            ty_students = set(tydf.iloc[0][&#39;student_codes&#39;].split(&#34;:&#34;))
+        if not wrdf.empty:
+            wr_students = set(wrdf.iloc[0][&#39;student_codes&#39;].split(&#34;:&#34;))
+            
+        all_students = sorted(ty_students.union(wr_students))
+        student_y_val = {}
+        for i in range(0, len(all_students)):
+            student_y_val[all_students[i]] = i + 1
+            
+        return student_y_val
+            
+            
+
+    def _create_act_map(
+            self, fig, df, act, annotation_delta_time=60, color=&#34;red&#34;
+    ):
+        &#34;&#34;&#34;Creates ground truth activity map
+
+        Parameters
+        ----------
+        fig: Plotly Figure object
+            Plotly figure object on which we need to trace
+        annotation_delta_time: Int
+            Two activities that end withing `annotation_delata_time` are not
+            required to be marked.
+        &#34;&#34;&#34;
+
+        # Get student codes and activity labels from per second dataframe
+        student_codes = df[&#34;student_codes&#34;].tolist()
+        act_labels = df[f&#34;act&#34;].tolist()
+
+        # Creating a 2D matrix
+        student_codes = [x.split(&#34;:&#34;) for x in student_codes]
+        act_labels = [x.split(&#34;:&#34;) for x in act_labels]
+
+        # Loop over each student
+        for sidx in range(0, len(student_codes[0])):
+
+            # Current student confusion matrix labels
+            cur_act_labels = [x[sidx].strip() for x in act_labels]
+            cur_student = student_codes[0][sidx]
+
+            # Plot typing instances or current student
+            x_vals = np.arange(0, len(cur_act_labels)).tolist()
+            y_val = self.student_y_val[cur_student]
+            y_vals = [y_val * (x == act) for x in cur_act_labels]
+            y_vals = [np.nan if x == 0 else x for x in y_vals]
+
+            if sidx == 0:
+                fig.add_trace(
+                    go.Scatter(
+                        x=x_vals,
+                        y=y_vals,
+                        mode=&#34;lines&#34;,
+                        line=dict(color=color, width=20),
+                        name=f&#34;{act}&#34;,
+                        showlegend=True,
+                        legendgroup=f&#34;{act}&#34;
+                    )
+                )
+            else:
+                fig.add_trace(
+                    go.Scatter(
+                        x=x_vals,
+                        y=y_vals,
+                        mode=&#34;lines&#34;,
+                        line=dict(color=color, width=20),
+                        name=f&#34;{act}&#34;,
+                        showlegend=False,
+                        legendgroup=f&#34;{act}&#34;
+                    )
+                )
+
+            # Get starting and ending indexes of each event for
+            # current student. The time duration is at session level.
+            start_end = self._get_cur_student_act_start_end(cur_act_labels, act)
+
+            # Annotate event. Make sure that each annotation
+            start_end_grouped = self._group_cur_student_act(start_end, annotation_delta_time)
+
+
+            prev_end_time = 0
+            for cur_act_start_end in start_end_grouped:
+
+                # Current start and end time at session level
+                start, end = cur_act_start_end
+
+                start_vname = df.iloc[start][&#34;video_name&#34;]
+                end_vname = df.iloc[end][&#34;video_name&#34;]
+
+                if(start_vname != end_vname):
+                    new_end = self.sess_df[self.sess_df[&#39;name&#39;] == start_vname][&#39;dur&#39;].item()
+                    fig = self._annotate(df, fig, y_val, start, new_end, start_vname)
+
+                    new_start = new_end # 30 minutes (all AOLME videos are under 25min)
+                    fig = self._annotate(df, fig, y_val, new_start, end, end_vname)
+
+                else:
+                    fig = self._annotate(df, fig, y_val, start, end, start_vname)
+
+        # Updating y_ticks
+        y_vals = np.arange(1, len(self.student_y_val) + 1)
+        y_labels = [*self.student_y_val]
+        fig.update_yaxes(
+            title_font={&#34;size&#34;: 32},
+            tickvals=y_vals,
+            ticktext=y_labels,
+            tickfont=dict(size=20),
+        )
+        fig.update(layout_yaxis_range = [0,len(self.student_y_val)+1])
+
+        # Updating x_ticks: we will be having a label every
+        # 3 minutes
+        x_vals = np.arange(0, len(act_labels), 60 * 5).tolist()
+        x_labels = [f&#34;{int(x/60)} min&#34; for x in x_vals]
+        fig.update_xaxes(
+            title_font={&#34;size&#34;: 32},
+            tickvals=x_vals,
+            ticktext=x_labels,
+            tickfont=dict(size=20),
+        )
+
+        # Legend font
+        fig.update_layout(legend=dict(font=dict(size=20)))
+
+        return fig
+
+    def write_activity_map(self, act_map_type, annotation_delta_time=30, visualize=True):
+        &#34;&#34;&#34;Writes maps to a directory
+
+        Parameters
+        ----------
+        act_map_type: Str
+            Activity map type. It is added as prefix before saving the html files.
+        annotation_delta_time: Int
+            Two activities that end withing `annotation_delata_time` are not
+            required to be marked.
+        visualize: Bool
+            Visualize activity map
+        &#34;&#34;&#34;
+        # Create activity map
+        ty_fig = go.Figure()
+        wr_fig = go.Figure()
+        fig = go.Figure()
+
+        if not self.tydf_ps.empty:
+            ty_fig = self._create_act_map(
+                ty_fig, self.tydf_ps, &#34;typing&#34;, annotation_delta_time=60, color=&#34;blue&#34;
+            )
+            if visualize:
+                ty_fig.show()
+            ty_fig.write_html(f&#34;{self.odir}/{act_map_type}_ty.html&#34;)
+
+        if not self.wrdf_ps.empty:
+            wr_fig = self._create_act_map(
+                wr_fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+            )
+            if visualize:
+                wr_fig.show()
+            wr_fig.write_html(f&#34;{self.odir}/{act_map_type}_wr.html&#34;)
+
+        if not self.tydf_ps.empty and not self.wrdf_ps.empty:
+            fig = ty_fig
+            fig = self._create_act_map(
+                fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+            )
+            if visualize:
+                fig.show()
+            fig.write_html(f&#34;{self.odir}/{act_map_type}.html&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly"><code class="flex name class">
+<span>class <span class="ident">ActMapsPlotly</span></span>
+<span>(</span><span>cfg)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cfg</code></strong> :&ensp;<code>Str</code></dt>
+<dd>
+<p>Configuration file having the following information in
+<code>json</code> format.</p>
+<ol>
+<li>typing instances as excel file</li>
+<li>writing instances as excel file</li>
+<li>session information as csv file</li>
+</ol>
+</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ActMapsPlotly:
+
+    tydf_ps = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having typing activities per second  &#34;&#34;&#34;
+
+    wrdf_ps = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having writing activities per second  &#34;&#34;&#34;
+
+    sess_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having session properties &#34;&#34;&#34;
+
+    vloc = &#34;&#34;
+    &#34;&#34;&#34;Video location w.r.t the root of AOLME Data server&#34;&#34;&#34;
+
+    odir = &#34;&#34;
+    &#34;&#34;&#34; Output path, it should be a .html file &#34;&#34;&#34;
+
+    student_y_val = {}
+    &#34;&#34;&#34; A dictionary having having student codes. The key is sutdent
+    code and the value is the integer used to represent the sutdent
+    in activity map.&#34;&#34;&#34;
+
+    def __init__(self, cfg):
+        &#34;&#34;&#34;
+
+        Parameters
+        ----------
+        cfg: Str
+            Configuration file having the following information in
+            `json` format.
+
+            1. typing instances as excel file
+            2. writing instances as excel file
+            3. session information as csv file
+        &#34;&#34;&#34;
+        with open(cfg) as f:
+            self.cfg = json.load(f)
+
+        # Loading activity instances and session properties as dataframe
+        self.odir = self.cfg[&#34;odir&#34;]
+        self.vloc = self.cfg[&#34;vloc&#34;]
+        self.sess_df = pd.read_csv(self.cfg[&#34;sprops&#34;])
+
+        # Load the ativity dataframes with 1 second resolution if they aready
+        # exist, else create them
+        if not self.cfg[&#34;ty&#34;] == &#34;&#34;:
+            tydf = pd.read_excel(self.cfg[&#34;ty&#34;], sheet_name=&#34;Machine readable&#34;)
+            tydf_ps_path = f&#34;{self.odir}/tydf_per_sec.csv&#34;
+            if os.path.isfile(tydf_ps_path):
+                self.tydf_ps = pd.read_csv(tydf_ps_path)
+            else:
+                self.tydf_ps = self._get_activities_per_sec(tydf, &#34;typing&#34;)
+
+        if not self.cfg[&#34;wr&#34;] == &#34;&#34;:
+            wrdf = pd.read_excel(self.cfg[&#34;wr&#34;], sheet_name=&#34;Machine readable&#34;)
+            wrdf_ps_path = f&#34;{self.odir}/wrdf_per_sec.csv&#34;
+            if os.path.isfile(wrdf_ps_path):
+                self.wrdf_ps = pd.read_csv(wrdf_ps_path)
+            else:
+                self.wrdf_ps = self._get_activities_per_sec(wrdf, &#34;writing&#34;)
+
+        self.student_y_val = self._get_student_value(self.tydf_ps.copy(), self.wrdf_ps.copy())
+            
+
+
+
+
+
+            
+
+    def _get_activities_per_sec(self, df, act):
+        &#34;&#34;&#34;Creates a data frame with each row representing one second.
+        Extra columns are added to support multiple instances instances
+        that happen in the same time.
+        &#34;&#34;&#34;
+
+        # Duration column
+        dur_col = self._get_dur_column()
+
+        # video_name column
+        video_name_col = self._get_video_name_column()
+
+        # W, H, FPS columns
+        W, H, FPS = self._get_W_H_FPS()
+        W_col = [W] * len(dur_col)
+        H_col = [H] * len(dur_col)
+        FPS_col = [FPS] * len(dur_col)
+
+        # f0 and f
+        f0_col = self._get_f0_column(FPS)
+        f_col = [FPS] * len(dur_col)
+
+        # f0_sess
+        f0_sess_col = np.arange(0, len(dur_col) * FPS, FPS).tolist()
+
+        # Get student_codes
+        student_codes, student_codes_col = self._get_student_codes(df, dur_col)
+
+        # Ground truth columns
+        act_col, bbox_col, fn_col = self._get_act_columns(
+            df.copy(), video_name_col, f0_col, f_col, student_codes_col, act
+        )
+
+        # Creating an empty data frame with required columns
+        df_per_sec = pd.DataFrame(
+            list(
+                zip(
+                    video_name_col,
+                    dur_col,
+                    W_col,
+                    H_col,
+                    FPS_col,
+                    f0_col,
+                    f_col,
+                    f0_sess_col,
+                    student_codes_col,
+                    bbox_col,
+                    act_col,
+                    fn_col,
+                )
+            ),
+            columns=[
+                &#34;video_name&#34;,
+                &#34;dur&#34;,
+                &#34;W&#34;,
+                &#34;H&#34;,
+                &#34;FPS&#34;,
+                &#34;f0&#34;,
+                &#34;f&#34;,
+                &#34;f0_sess&#34;,
+                &#34;student_codes&#34;,
+                &#34;bbox&#34;,
+                &#34;act&#34;,
+                &#34;fn&#34;,
+            ],
+        )
+        return df_per_sec
+
+    def _get_student_codes(self, df, dur_col):
+        &#34;&#34;&#34;Returns student_codes by considering students from both
+        ground truth and algorithm.
+        &#34;&#34;&#34;
+
+        sc = df[&#34;student_code&#34;].unique()
+        student_code_str = &#34;:&#34;.join(sc)
+
+        return sc, [student_code_str] * len(dur_col)
+
+    def _get_act_columns(
+        self, df, video_name_col, f0_col, f_col, student_codes_col, act
+    ):
+        &#34;&#34;&#34;Checks every second and labels it as activity or
+        no-activity. If labeled as activity it returns bounding box
+        with hyphen separated values, &#39;w0-h0-w-h&#39;.
+        &#34;&#34;&#34;
+        act_col = []
+        bbox_col = []
+        fn_col = []
+
+        # Loop every second
+        for i, f0 in tqdm(enumerate(f0_col)):
+
+            f = f_col[i]
+            video_name = video_name_col[i]
+            student_codes = student_codes_col[i]
+
+            act_, bbox, fn_gt = self._get_act_label(
+                df.copy(), video_name, f0, f, student_codes, act
+            )
+
+            act_col += [act_]
+            bbox_col += [bbox]
+            fn_col += [fn_gt]
+
+        return act_col, bbox_col, fn_col
+
+    def _get_act_label(self, df, vname, f0, f, student_codes, cur_act):
+        &#34;&#34;&#34;If there are &gt;= 1/2*frames between f0 and f0+f are
+        classified as &#39;activity&#39; we return &lt;self.act&gt;, else
+        we return no_&lt;self.act&gt;
+        &#34;&#34;&#34;
+        # Get student codes from string
+        student_codes = [x for x in student_codes.split(&#34;:&#34;)]
+
+        # Current video instances
+        df = df[df[&#34;name&#34;] == vname].copy()
+
+        # Filtering events that happened before or after current
+        # frames, (f0,f)
+        df[&#34;f1&#34;] = df[&#34;f0&#34;] + df[&#34;f&#34;]
+        df = df[f0 &lt;= df[&#34;f1&#34;]]
+        df = df[f0 + f &gt;= df[&#34;f0&#34;]]
+
+        # Loop through each student
+        bboxs = &#34;&#34;
+        activities = &#34;&#34;
+        fns = &#34;&#34;
+        for i, student_code in enumerate(student_codes):
+
+            # Data frame having entries for current student
+            dfs = df[df[&#34;student_code&#34;] == student_code].copy()
+
+            # Calculating number of frames in time interval
+            fn = 0
+            w0 = 0
+            h0 = 0
+            w = 0
+            h = 0
+            for j, row in dfs.iterrows():
+                fn += min(f0 + f, row[&#34;f1&#34;]) - max(f0, row[&#34;f0&#34;])
+                w0 += row[&#34;w0&#34;]
+                h0 += row[&#34;h0&#34;]
+                w += row[&#34;w&#34;]
+                h += row[&#34;h&#34;]
+
+            # Bounding box
+            if not dfs.empty:
+                bbox = f&#34;{w0/len(dfs)}-{h0/len(dfs)}-{w/len(dfs)}-{h/len(dfs)}&#34;
+            else:
+                bbox = &#34;0-0-0-0&#34;
+
+            # If we have activity for more than 50% of frames
+            # in current time interval, we label it as self.act
+            if fn &gt;= 0.5 * (f):
+                act = cur_act
+            else:
+                act = f&#34;no_{cur_act}&#34;
+
+            # Creating a string for bounding boxes, student_code and
+            # activities
+            if i == 0:
+                bboxs = f&#34;{bbox}&#34;
+                activities = f&#34;{act}&#34;
+                fns = f&#34;{fn}&#34;
+            else:
+                bboxs += f&#34; :{bbox}&#34;
+                activities += f&#34; :{act}&#34;
+                fns += f&#34; :{fn}&#34;
+
+        return activities, bboxs, fns
+
+    def _get_f0_column(self, FPS):
+        &#34;&#34;&#34;Returns f0 column&#34;&#34;&#34;
+
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        f0_col = []
+        for ridx, row in sdf.iterrows():
+            f0_col += np.arange(0, FPS * row[&#34;dur&#34;], FPS).tolist()
+        return f0_col
+
+    def _get_W_H_FPS(self):
+        &#34;&#34;&#34;Returns Width, Height and FPS&#34;&#34;&#34;
+        W = self.sess_df[&#34;width&#34;].unique()[0].astype(&#34;int&#34;)
+        H = self.sess_df[&#34;height&#34;].unique()[0].astype(&#34;int&#34;)
+        FPS = self.sess_df[&#34;FPS&#34;].unique()[0].astype(&#34;int&#34;)
+
+        return W, H, FPS
+
+    def _get_video_name_column(self):
+        &#34;&#34;&#34;Make a column with video names&#34;&#34;&#34;
+
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        video_name_col = []
+        for ridx, row in sdf.iterrows():
+            video_name_col += [row[&#34;name&#34;]] * int(row[&#34;dur&#34;])
+
+        return video_name_col
+
+    def _get_dur_column(self):
+        &#34;&#34;&#34;Get session duration&#34;&#34;&#34;
+
+        sess_df = self.sess_df.copy()
+        total_row = sess_df[sess_df[&#34;name&#34;] == &#34;total&#34;]
+        total_dur = total_row[&#34;dur&#34;].item()
+        dur_col = np.arange(0, total_dur).tolist()
+
+        return dur_col
+
+    def _group_cur_student_act(self, start_end, th):
+        &#34;&#34;&#34; Group activities into one if the start of next activity is withing `th`
+        seconds of end of previous activity.
+
+        Parameters
+        ----------
+        start_end : List of tuples
+            Start and end of activities
+        th : int
+            Threshold to group activities
+        &#34;&#34;&#34;
+        # If input list is empty return empty list
+        if len(start_end) == 0:
+            return []
+        
+        g_start_end = []
+        for i in range(0, len(start_end)):
+            if i == 0:
+                g_start, g_end = start_end[i]
+            else:
+                start, end = start_end[i]
+                if start - g_end &lt;= th:
+                    g_end = end
+                else:
+                    g_start_end += [(g_start, g_end)]
+                    # Starting new group
+                    g_start = start
+                    g_end = end
+        
+        # Case where group list is empty
+        if len(g_start_end) == 0:
+            g_start_end += [(g_start, g_end)]
+            
+        # In case we missed the last entry            
+        if g_start_end[-1][1] != start_end[-1][1]:
+            g_start_end += [(g_start, g_end)]
+
+        return g_start_end
+
+    def _get_cur_student_act_start_end(self, cur_act_labels, act):
+        &#34;&#34;&#34;Return a list of tuples with starting and ending index of activity.
+
+        Example
+        -------
+        [(50, 60), (300, 800)]
+        &#34;&#34;&#34;
+        act_list = [1 * (x == act) for x in cur_act_labels]
+
+        act_start_end_list = []
+        start_idx_flag = True
+        for i, v in enumerate(act_list):
+
+            if v == 0 and start_idx_flag:
+                continue
+            elif v == 1 and not (start_idx_flag):
+                continue
+
+            elif v == 1 and start_idx_flag:
+                start_idx = i
+                start_idx_flag = False
+
+            elif v == 0 and not (start_idx_flag):
+                end_idx = i - 1
+                act_start_end_list += [(start_idx, end_idx)]
+                start_idx_flag = True
+
+            else:
+                pdb.set_trace()
+                raise Exception(f&#34;Haha I am not sure what is happening&#34;)
+
+        return act_start_end_list
+
+    def _get_time_in_min(self, f0):
+        &#34;&#34;&#34;Returns time as &#39;MM:SS&#39; format&#34;&#34;&#34;
+        FPS = self.sess_df[&#34;FPS&#34;].unique()[0].astype(&#34;int&#34;)
+        # Seconds
+        sec = int(f0 / FPS)
+
+        # Minutes
+        min_ = int(sec // 60)
+
+        # seconds
+        sec_ = int(sec % 60)
+
+        return sec, f&#34;{min_:02d}:{sec_:02d}&#34;
+
+    def _annotate(self, df, fig, y_val, start, end, vname):
+
+        # Time w.r.t the video
+        f0_start = df.iloc[start][&#34;f0&#34;]
+        f0_end = df.iloc[end - 1][&#34;f0&#34;] + df.iloc[end -1][&#34;f&#34;]
+        start_sec, start_mm_ss = self._get_time_in_min(f0_start)
+        end_sec, end_mm_ss = self._get_time_in_min(f0_end)
+        time_str = f&#34;{start_mm_ss} to {end_mm_ss}&#34;
+
+        # Update link with video index and start and end time
+        link = &#34;https://aolme.unm.edu/researcher/activity_maps/video.php&#34;
+        vname_gt = os.path.splitext(vname)[0] + &#34;_gt.mp4&#34;
+        link = (
+            f&#34;{link}?vloc={self.vloc}&amp;vname={vname_gt}&amp;start_time={start_sec}&amp;end_time={end_sec}&#34;
+        )
+
+        # On hover show the following information
+        hover_tempalte = (
+            f&#34;&lt;b&gt;Video:&lt;/b&gt; {vname}&lt;br&gt;&#34; f&#34;&lt;b&gt;Time:&lt;/b&gt; {time_str}&#34;
+        )
+
+        x_val = end
+
+        fig.add_annotation(
+            x=x_val,
+            y=y_val,
+            hovertext=hover_tempalte,
+            width=5,
+            text=f&#34;&lt;a href=&#39;{link}&#39;&gt;*&lt;/a&gt;&#34;,
+            showarrow=True,
+        )
+        return fig
+
+    def _get_student_value(self, tydf, wrdf):
+        &#34;&#34;&#34; 
+        &#34;&#34;&#34;
+        df = pd.concat([tydf, wrdf])
+        ty_students = set()
+        wr_students = set()
+        
+        if not tydf.empty:
+            ty_students = set(tydf.iloc[0][&#39;student_codes&#39;].split(&#34;:&#34;))
+        if not wrdf.empty:
+            wr_students = set(wrdf.iloc[0][&#39;student_codes&#39;].split(&#34;:&#34;))
+            
+        all_students = sorted(ty_students.union(wr_students))
+        student_y_val = {}
+        for i in range(0, len(all_students)):
+            student_y_val[all_students[i]] = i + 1
+            
+        return student_y_val
+            
+            
+
+    def _create_act_map(
+            self, fig, df, act, annotation_delta_time=60, color=&#34;red&#34;
+    ):
+        &#34;&#34;&#34;Creates ground truth activity map
+
+        Parameters
+        ----------
+        fig: Plotly Figure object
+            Plotly figure object on which we need to trace
+        annotation_delta_time: Int
+            Two activities that end withing `annotation_delata_time` are not
+            required to be marked.
+        &#34;&#34;&#34;
+
+        # Get student codes and activity labels from per second dataframe
+        student_codes = df[&#34;student_codes&#34;].tolist()
+        act_labels = df[f&#34;act&#34;].tolist()
+
+        # Creating a 2D matrix
+        student_codes = [x.split(&#34;:&#34;) for x in student_codes]
+        act_labels = [x.split(&#34;:&#34;) for x in act_labels]
+
+        # Loop over each student
+        for sidx in range(0, len(student_codes[0])):
+
+            # Current student confusion matrix labels
+            cur_act_labels = [x[sidx].strip() for x in act_labels]
+            cur_student = student_codes[0][sidx]
+
+            # Plot typing instances or current student
+            x_vals = np.arange(0, len(cur_act_labels)).tolist()
+            y_val = self.student_y_val[cur_student]
+            y_vals = [y_val * (x == act) for x in cur_act_labels]
+            y_vals = [np.nan if x == 0 else x for x in y_vals]
+
+            if sidx == 0:
+                fig.add_trace(
+                    go.Scatter(
+                        x=x_vals,
+                        y=y_vals,
+                        mode=&#34;lines&#34;,
+                        line=dict(color=color, width=20),
+                        name=f&#34;{act}&#34;,
+                        showlegend=True,
+                        legendgroup=f&#34;{act}&#34;
+                    )
+                )
+            else:
+                fig.add_trace(
+                    go.Scatter(
+                        x=x_vals,
+                        y=y_vals,
+                        mode=&#34;lines&#34;,
+                        line=dict(color=color, width=20),
+                        name=f&#34;{act}&#34;,
+                        showlegend=False,
+                        legendgroup=f&#34;{act}&#34;
+                    )
+                )
+
+            # Get starting and ending indexes of each event for
+            # current student. The time duration is at session level.
+            start_end = self._get_cur_student_act_start_end(cur_act_labels, act)
+
+            # Annotate event. Make sure that each annotation
+            start_end_grouped = self._group_cur_student_act(start_end, annotation_delta_time)
+
+
+            prev_end_time = 0
+            for cur_act_start_end in start_end_grouped:
+
+                # Current start and end time at session level
+                start, end = cur_act_start_end
+
+                start_vname = df.iloc[start][&#34;video_name&#34;]
+                end_vname = df.iloc[end][&#34;video_name&#34;]
+
+                if(start_vname != end_vname):
+                    new_end = self.sess_df[self.sess_df[&#39;name&#39;] == start_vname][&#39;dur&#39;].item()
+                    fig = self._annotate(df, fig, y_val, start, new_end, start_vname)
+
+                    new_start = new_end # 30 minutes (all AOLME videos are under 25min)
+                    fig = self._annotate(df, fig, y_val, new_start, end, end_vname)
+
+                else:
+                    fig = self._annotate(df, fig, y_val, start, end, start_vname)
+
+        # Updating y_ticks
+        y_vals = np.arange(1, len(self.student_y_val) + 1)
+        y_labels = [*self.student_y_val]
+        fig.update_yaxes(
+            title_font={&#34;size&#34;: 32},
+            tickvals=y_vals,
+            ticktext=y_labels,
+            tickfont=dict(size=20),
+        )
+        fig.update(layout_yaxis_range = [0,len(self.student_y_val)+1])
+
+        # Updating x_ticks: we will be having a label every
+        # 3 minutes
+        x_vals = np.arange(0, len(act_labels), 60 * 5).tolist()
+        x_labels = [f&#34;{int(x/60)} min&#34; for x in x_vals]
+        fig.update_xaxes(
+            title_font={&#34;size&#34;: 32},
+            tickvals=x_vals,
+            ticktext=x_labels,
+            tickfont=dict(size=20),
+        )
+
+        # Legend font
+        fig.update_layout(legend=dict(font=dict(size=20)))
+
+        return fig
+
+    def write_activity_map(self, act_map_type, annotation_delta_time=30, visualize=True):
+        &#34;&#34;&#34;Writes maps to a directory
+
+        Parameters
+        ----------
+        act_map_type: Str
+            Activity map type. It is added as prefix before saving the html files.
+        annotation_delta_time: Int
+            Two activities that end withing `annotation_delata_time` are not
+            required to be marked.
+        visualize: Bool
+            Visualize activity map
+        &#34;&#34;&#34;
+        # Create activity map
+        ty_fig = go.Figure()
+        wr_fig = go.Figure()
+        fig = go.Figure()
+
+        if not self.tydf_ps.empty:
+            ty_fig = self._create_act_map(
+                ty_fig, self.tydf_ps, &#34;typing&#34;, annotation_delta_time=60, color=&#34;blue&#34;
+            )
+            if visualize:
+                ty_fig.show()
+            ty_fig.write_html(f&#34;{self.odir}/{act_map_type}_ty.html&#34;)
+
+        if not self.wrdf_ps.empty:
+            wr_fig = self._create_act_map(
+                wr_fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+            )
+            if visualize:
+                wr_fig.show()
+            wr_fig.write_html(f&#34;{self.odir}/{act_map_type}_wr.html&#34;)
+
+        if not self.tydf_ps.empty and not self.wrdf_ps.empty:
+            fig = ty_fig
+            fig = self._create_act_map(
+                fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+            )
+            if visualize:
+                fig.show()
+            fig.write_html(f&#34;{self.odir}/{act_map_type}.html&#34;)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.odir"><code class="name">var <span class="ident">odir</span></code></dt>
+<dd>
+<div class="desc"><p>Output path, it should be a .html file</p></div>
+</dd>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.sess_df"><code class="name">var <span class="ident">sess_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having session properties</p></div>
+</dd>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.student_y_val"><code class="name">var <span class="ident">student_y_val</span></code></dt>
+<dd>
+<div class="desc"><p>A dictionary having having student codes. The key is sutdent
+code and the value is the integer used to represent the sutdent
+in activity map.</p></div>
+</dd>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.tydf_ps"><code class="name">var <span class="ident">tydf_ps</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having typing activities per second</p></div>
+</dd>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.vloc"><code class="name">var <span class="ident">vloc</span></code></dt>
+<dd>
+<div class="desc"><p>Video location w.r.t the root of AOLME Data server</p></div>
+</dd>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.wrdf_ps"><code class="name">var <span class="ident">wrdf_ps</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having writing activities per second</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.act_maps.plotly_maps.ActMapsPlotly.write_activity_map"><code class="name flex">
+<span>def <span class="ident">write_activity_map</span></span>(<span>self, act_map_type, annotation_delta_time=30, visualize=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes maps to a directory</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>act_map_type</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Activity map type. It is added as prefix before saving the html files.</dd>
+<dt><strong><code>annotation_delta_time</code></strong> :&ensp;<code>Int</code></dt>
+<dd>Two activities that end withing <code>annotation_delata_time</code> are not
+required to be marked.</dd>
+<dt><strong><code>visualize</code></strong> :&ensp;<code>Bool</code></dt>
+<dd>Visualize activity map</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_activity_map(self, act_map_type, annotation_delta_time=30, visualize=True):
+    &#34;&#34;&#34;Writes maps to a directory
+
+    Parameters
+    ----------
+    act_map_type: Str
+        Activity map type. It is added as prefix before saving the html files.
+    annotation_delta_time: Int
+        Two activities that end withing `annotation_delata_time` are not
+        required to be marked.
+    visualize: Bool
+        Visualize activity map
+    &#34;&#34;&#34;
+    # Create activity map
+    ty_fig = go.Figure()
+    wr_fig = go.Figure()
+    fig = go.Figure()
+
+    if not self.tydf_ps.empty:
+        ty_fig = self._create_act_map(
+            ty_fig, self.tydf_ps, &#34;typing&#34;, annotation_delta_time=60, color=&#34;blue&#34;
+        )
+        if visualize:
+            ty_fig.show()
+        ty_fig.write_html(f&#34;{self.odir}/{act_map_type}_ty.html&#34;)
+
+    if not self.wrdf_ps.empty:
+        wr_fig = self._create_act_map(
+            wr_fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+        )
+        if visualize:
+            wr_fig.show()
+        wr_fig.write_html(f&#34;{self.odir}/{act_map_type}_wr.html&#34;)
+
+    if not self.tydf_ps.empty and not self.wrdf_ps.empty:
+        fig = ty_fig
+        fig = self._create_act_map(
+            fig, self.wrdf_ps, &#34;writing&#34;, annotation_delta_time=60, color=&#34;green&#34;
+        )
+        if visualize:
+            fig.show()
+        fig.write_html(f&#34;{self.odir}/{act_map_type}.html&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua.act_maps" href="index.html">aqua.act_maps</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly" href="#aqua.act_maps.plotly_maps.ActMapsPlotly">ActMapsPlotly</a></code></h4>
+<ul class="two-column">
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.odir" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.odir">odir</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.sess_df" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.sess_df">sess_df</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.student_y_val" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.student_y_val">student_y_val</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.tydf_ps" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.tydf_ps">tydf_ps</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.vloc" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.vloc">vloc</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.wrdf_ps" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.wrdf_ps">wrdf_ps</a></code></li>
+<li><code><a title="aqua.act_maps.plotly_maps.ActMapsPlotly.write_activity_map" href="#aqua.act_maps.plotly_maps.ActMapsPlotly.write_activity_map">write_activity_map</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

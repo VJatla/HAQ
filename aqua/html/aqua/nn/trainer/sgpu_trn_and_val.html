@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.nn.trainer.sgpu_trn_and_val API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.nn.trainer.sgpu_trn_and_val</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import pdb
+import sys
+import time
+from datetime import datetime
+import torch
+import shutil
+from barbar import Bar
+from sklearn.metrics import accuracy_score
+from torchsummary import summary
+
+
+class SGPU_TrnAndVal:
+    def __init__(self,
+                 params,
+                 net,
+                 optimizer,
+                 criterion,
+                 trainloader,
+                 valloader,
+                 cuda_device_id=0):
+        &#34;&#34;&#34; Trains a model on one GPU.
+
+        Parameters
+        ----------
+        params: Dict
+        A dictionary having training parameters.
+        Ex:
+        ```
+        {
+            &#34;max_epochs&#34;: 100,
+        }
+        ```
+        net: Custom Network Instance
+            Instance of pytorch custom network we will be training
+        optimizer: Optimizer instance
+        criterion: Loss instance
+        trainloader: Instance of Custom DataLoader
+            Training data loader instance
+        trainloader: Instance of Custom DataLoader
+            Validation data loader instance
+        cuda_device_id: int, optional
+            CUDA device ID. Defaults to 0.
+        &#34;&#34;&#34;
+        self.params = params
+
+        # Load network into GPU
+        self.net = net
+        self.optimizer = optimizer
+        self.criterion = criterion
+        self.trainloader = trainloader
+        self.valloader = valloader
+
+        # Load network into GPU device
+        self.device = self._get_cuda_device(cuda_device_id)
+        self.net.to(self.device)
+
+        # Create checkpoint directory if it does not exist
+        self.work_dir = self.params[&#39;work_dir&#39;]
+        if os.path.isdir(self.work_dir):
+            shutil.rmtree(self.work_dir)
+        print(f&#34;INFO: Creating work directory {self.params[&#39;work_dir&#39;]}&#34;)
+        os.makedirs(self.work_dir)
+
+        # Create log json file
+        self.log = open(self.params[&#39;log_pth&#39;], &#34;w&#34;)
+
+        # Epochs for which we need to save checkpoints
+        self.max_epochs = self.params[&#39;max_epochs&#39;]
+        ckpt_save_interval = self.params[&#39;ckpt_save_interval&#39;]
+        self.ckpt_save_epochs = list(
+            range(0, self.max_epochs, ckpt_save_interval))
+
+        # Save model diagram in model.txt
+        model_stats = summary(self.net, params[&#39;input_shape&#39;], verbose=0)
+        summary_str = str(model_stats)
+        model_floc = f&#34;{os.path.dirname(self.params[&#39;log_pth&#39;])}/model.txt&#34;
+        model_f = open(model_floc, &#34;w&#34;)
+        model_f.write(summary_str)
+        model_f.close()
+
+    def _get_cuda_device(self, cuda_device_id):
+        &#34;&#34;&#34; Sets NVIDIA device with id `cuda_device_id` to
+        be used for training.
+
+        Parameters
+        ----------
+        net: Custom Network Instance
+            Instance of pytorch custom network we will be training
+        cuda_device_id: int
+            CUDA device ID
+        &#34;&#34;&#34;
+        if not torch.cuda.is_available():
+            raise Exception(&#34;ERROR: Cuda is not found in this environment&#34;)
+
+        num_cuda_devices = torch.cuda.device_count()
+        cuda_devices = list(range(0,
+                                  num_cuda_devices))  # cuda index start from 0
+
+        if not (cuda_device_id &lt;= num_cuda_devices - 1):
+            raise Exception(
+                f&#34;ERROR: Cuda device {cuda_device_id} is not found.\n&#34;
+                f&#34;ERROR: Found {num_cuda_devices}(&#34;
+                f&#34;{cuda_devices}), Cuda devices&#34;)
+
+        # If no errors load network onto cuda device
+        print(&#34;INFO: Network sucessfully loaded into &#34;
+              f&#34;CUDA device {cuda_device_id}&#34;)
+        return f&#34;cuda:{cuda_device_id}&#34;
+
+    def train(self):
+        &#34;&#34;&#34; Trains a network with specified dataloaser.
+        
+        Parameters
+        ----------
+
+        &#34;&#34;&#34;
+        print(f&#34;INFO: Starting training for {self.max_epochs} epochs&#34;)
+        now = datetime.now()
+        self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;start_time&#34;:{now} }}&#39;)
+
+        # Epoch loop
+        best_val_acc = 0
+        for epoch in range(self.max_epochs):
+            print(
+                f&#34;\n*****************Epoch {epoch}**************************&#34;)
+
+            # Training
+            print(&#34;Trn:&#34;)
+            self.net.train()
+            trnloss, trnaccu, trntt = self._train_and_get_loss_and_accuracy()
+
+            # Save model every n epochs
+            if epoch in self.ckpt_save_epochs:
+                ckpt_loc = f&#34;{self.work_dir}/epoch_{epoch}.pth&#34;
+                self._save_model(epoch, trnloss, ckpt_loc)
+
+            # Validation
+            print(&#34;Val:&#34;)
+            self.net.eval()
+            valloss, valaccu, valtt = self._get_val_loss_and_accuracy()
+
+            # If this is best validation accuracy save the ckpt
+            if valaccu &gt; best_val_acc:
+                ckpt_loc = f&#34;{self.work_dir}/best_vacc_epoch_{epoch}.pth&#34;
+                self._save_model(epoch, trnloss, ckpt_loc)
+                best_val_acc = valaccu
+                best_val_acc_epoch = epoch
+
+            # Print useful information per epoch
+            trnstr = (
+                f&#39;{{&#34;mode&#34;: &#34;train&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{trnaccu}, &#39;
+                f&#39;&#34;loss&#34;:{trnloss} &#34;time???&lt;--need correction&#34;:{trntt} }}&#39;)
+            valstr = (
+                f&#39;{{&#34;mode&#34;: &#34;val&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{valaccu}, &#39;
+                f&#39;&#34;loss&#34;:{valloss} &#34;time???&lt;---need correction&#34;:{valtt}}}&#39;)
+
+            # Write log file (this will slow down trainning &lt;&lt;&lt; How much?)
+            self.log.write(f&#34;\n{trnstr}\n{valstr}&#34;)
+
+            # Print to console
+            print(f&#34;Trn: {trnstr}&#34;)
+            print(f&#34;Val: {valstr}&#34;)
+
+        # Close log file
+        best_str = (f&#39;{{ &#34;mode&#34;:&#34;best&#34;, &#34;epoch&#34;:{best_val_acc_epoch},&#39;
+                    f&#39;&#34;val_acc&#34;:{best_val_acc} }}&#39;)
+        print(f&#34;\n{best_str}&#34;)
+
+        # Recording end time
+        now = datetime.now()
+        self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;end_time&#34;:{now} }}&#39;)
+
+        self.log.close()
+
+    def _train_and_get_loss_and_accuracy(self):
+        &#34;&#34;&#34; Trains and returns avrage training loss and accuracy
+        &#34;&#34;&#34;
+        # Training Iteration loop
+        trngt_lst = []
+        trntt_lst = []
+        trnloss_lst = []
+        trnpred_lst = []
+        for idx, data in enumerate(Bar(self.trainloader)):
+
+            # Train for current iteration
+            trnloss, trnpred, trngt, tt = self._train_cur_iter(data)
+
+            # Collect training loss and prediction and time taken
+            trntt_lst += [tt]
+            trngt_lst += trngt
+            trnloss_lst += [trnloss]
+            trnpred_lst += trnpred
+
+        # Training loss and prediction accuracy per epoch
+        trngt_lst = [round(x) for x in trngt_lst]
+        trnpred_lst = [round(x) for x in trnpred_lst]
+        tot_tt = round(sum(trntt_lst), 5)
+        trnaccu = accuracy_score(trngt_lst, trnpred_lst)
+        avg_trnloss = round(sum(trnloss_lst) / len(trnloss_lst), 2)
+
+        return avg_trnloss, trnaccu, tot_tt
+
+    def _train_cur_iter(self, data):
+        &#34;&#34;&#34; Trains f
+        &#34;&#34;&#34;
+        # Label and input tensors
+        labels, inputs = (data[0].to(self.device, non_blocking=True),
+                          data[1].to(self.device, non_blocking=True))
+        labels = torch.reshape(labels.float(), (-1, 1))
+
+        # Training Core
+        st = time.time()  # Start time
+        self.optimizer.zero_grad()  # Zeroing the gradient
+        outputs = self.net(inputs)  # Prediction
+        loss = self.criterion(outputs, labels)  # Calculate loss
+        loss.backward()  # Back propagation
+        self.optimizer.step()  # Update the gradients
+        et = time.time()  # End time
+        tt = round(et - st, 5)  # time taken
+
+        # Collecting information to cpu memory and to list
+        ipred = outputs.data.clone()
+        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+        iloss = loss.data.clone()
+        iloss = iloss.to(&#34;cpu&#34;).numpy().tolist()
+        ilabels = labels.data.clone()
+        ilabels = ilabels.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        return iloss, ipred, ilabels, tt
+
+    def _get_val_loss_and_accuracy(self):
+        &#34;&#34;&#34; Returns validation accuracy and loss
+        &#34;&#34;&#34;
+        with torch.no_grad():
+            valloss_lst = []
+            valpred_lst = []
+            valgt_lst = []
+            valtt_lst = []
+            for idx, data in enumerate(Bar(self.valloader)):
+                valloss, valpred, valgt, valtt = self._eval_cur_iter(data)
+
+                # Collect validation loss and prediction
+                valloss_lst += [valloss]
+                valpred_lst += valpred
+                valtt_lst += [valtt]
+                valgt_lst += valgt
+
+            # Validation loss and prediction accuracy
+            valgt_lst = [round(x) for x in valgt_lst]
+            valpred_lst = [round(x) for x in valpred_lst]
+            tot_valtt = round(sum(valtt_lst), 5)
+            avg_valloss = round(sum(valloss_lst) / len(valloss_lst), 2)
+            valaccu = accuracy_score(valgt_lst, valpred_lst)
+
+        return avg_valloss, valaccu, tot_valtt
+
+    def _eval_cur_iter(self, data):
+        &#34;&#34;&#34; Tests
+        &#34;&#34;&#34;
+        labels, inputs = (data[0].to(self.device, non_blocking=True),
+                          data[1].to(self.device, non_blocking=True))
+        labels = torch.reshape(labels.float(), (-1, 1))
+        ilabels = labels.data.clone()
+        ilabels = ilabels.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        st = time.time()
+        outputs = self.net(inputs)
+        et = time.time()
+        ipred = outputs.data.clone()
+        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        # Loss
+        loss = self.criterion(outputs, labels)
+        iloss = loss.data.clone()
+        iloss = iloss.to(&#34;cpu&#34;).numpy().tolist()
+
+        # Time taken
+        tt = round(et - st, 5)
+
+        return iloss, ipred, ilabels, tt
+
+    def _save_model(self, epoch, trnloss, ckpt_loc):
+        &#34;&#34;&#34; Saves model as pth file
+        &#34;&#34;&#34;
+        torch.save(
+            {
+                &#39;epoch&#39;: epoch,
+                &#39;model_state_dict&#39;: self.net.state_dict(),
+                &#39;optimizer_state_dict&#39;: self.optimizer.state_dict(),
+                &#39;loss&#39;: trnloss,
+            }, ckpt_loc)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal"><code class="flex name class">
+<span>class <span class="ident">SGPU_TrnAndVal</span></span>
+<span>(</span><span>params, net, optimizer, criterion, trainloader, valloader, cuda_device_id=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Trains a model on one GPU.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>A dictionary having training parameters.
+Ex:</p>
+<pre><code>{
+    &quot;max_epochs&quot;: 100,
+}
+</code></pre>
+<dl>
+<dt><strong><code>net</code></strong> :&ensp;<code>Custom Network Instance</code></dt>
+<dd>Instance of pytorch custom network we will be training</dd>
+<dt><strong><code>optimizer</code></strong> :&ensp;<code>Optimizer instance</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>criterion</code></strong> :&ensp;<code>Loss instance</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>trainloader</code></strong> :&ensp;<code>Instance</code> of <code>Custom DataLoader</code></dt>
+<dd>Training data loader instance</dd>
+<dt><strong><code>trainloader</code></strong> :&ensp;<code>Instance</code> of <code>Custom DataLoader</code></dt>
+<dd>Validation data loader instance</dd>
+<dt><strong><code>cuda_device_id</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>CUDA device ID. Defaults to 0.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SGPU_TrnAndVal:
+    def __init__(self,
+                 params,
+                 net,
+                 optimizer,
+                 criterion,
+                 trainloader,
+                 valloader,
+                 cuda_device_id=0):
+        &#34;&#34;&#34; Trains a model on one GPU.
+
+        Parameters
+        ----------
+        params: Dict
+        A dictionary having training parameters.
+        Ex:
+        ```
+        {
+            &#34;max_epochs&#34;: 100,
+        }
+        ```
+        net: Custom Network Instance
+            Instance of pytorch custom network we will be training
+        optimizer: Optimizer instance
+        criterion: Loss instance
+        trainloader: Instance of Custom DataLoader
+            Training data loader instance
+        trainloader: Instance of Custom DataLoader
+            Validation data loader instance
+        cuda_device_id: int, optional
+            CUDA device ID. Defaults to 0.
+        &#34;&#34;&#34;
+        self.params = params
+
+        # Load network into GPU
+        self.net = net
+        self.optimizer = optimizer
+        self.criterion = criterion
+        self.trainloader = trainloader
+        self.valloader = valloader
+
+        # Load network into GPU device
+        self.device = self._get_cuda_device(cuda_device_id)
+        self.net.to(self.device)
+
+        # Create checkpoint directory if it does not exist
+        self.work_dir = self.params[&#39;work_dir&#39;]
+        if os.path.isdir(self.work_dir):
+            shutil.rmtree(self.work_dir)
+        print(f&#34;INFO: Creating work directory {self.params[&#39;work_dir&#39;]}&#34;)
+        os.makedirs(self.work_dir)
+
+        # Create log json file
+        self.log = open(self.params[&#39;log_pth&#39;], &#34;w&#34;)
+
+        # Epochs for which we need to save checkpoints
+        self.max_epochs = self.params[&#39;max_epochs&#39;]
+        ckpt_save_interval = self.params[&#39;ckpt_save_interval&#39;]
+        self.ckpt_save_epochs = list(
+            range(0, self.max_epochs, ckpt_save_interval))
+
+        # Save model diagram in model.txt
+        model_stats = summary(self.net, params[&#39;input_shape&#39;], verbose=0)
+        summary_str = str(model_stats)
+        model_floc = f&#34;{os.path.dirname(self.params[&#39;log_pth&#39;])}/model.txt&#34;
+        model_f = open(model_floc, &#34;w&#34;)
+        model_f.write(summary_str)
+        model_f.close()
+
+    def _get_cuda_device(self, cuda_device_id):
+        &#34;&#34;&#34; Sets NVIDIA device with id `cuda_device_id` to
+        be used for training.
+
+        Parameters
+        ----------
+        net: Custom Network Instance
+            Instance of pytorch custom network we will be training
+        cuda_device_id: int
+            CUDA device ID
+        &#34;&#34;&#34;
+        if not torch.cuda.is_available():
+            raise Exception(&#34;ERROR: Cuda is not found in this environment&#34;)
+
+        num_cuda_devices = torch.cuda.device_count()
+        cuda_devices = list(range(0,
+                                  num_cuda_devices))  # cuda index start from 0
+
+        if not (cuda_device_id &lt;= num_cuda_devices - 1):
+            raise Exception(
+                f&#34;ERROR: Cuda device {cuda_device_id} is not found.\n&#34;
+                f&#34;ERROR: Found {num_cuda_devices}(&#34;
+                f&#34;{cuda_devices}), Cuda devices&#34;)
+
+        # If no errors load network onto cuda device
+        print(&#34;INFO: Network sucessfully loaded into &#34;
+              f&#34;CUDA device {cuda_device_id}&#34;)
+        return f&#34;cuda:{cuda_device_id}&#34;
+
+    def train(self):
+        &#34;&#34;&#34; Trains a network with specified dataloaser.
+        
+        Parameters
+        ----------
+
+        &#34;&#34;&#34;
+        print(f&#34;INFO: Starting training for {self.max_epochs} epochs&#34;)
+        now = datetime.now()
+        self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;start_time&#34;:{now} }}&#39;)
+
+        # Epoch loop
+        best_val_acc = 0
+        for epoch in range(self.max_epochs):
+            print(
+                f&#34;\n*****************Epoch {epoch}**************************&#34;)
+
+            # Training
+            print(&#34;Trn:&#34;)
+            self.net.train()
+            trnloss, trnaccu, trntt = self._train_and_get_loss_and_accuracy()
+
+            # Save model every n epochs
+            if epoch in self.ckpt_save_epochs:
+                ckpt_loc = f&#34;{self.work_dir}/epoch_{epoch}.pth&#34;
+                self._save_model(epoch, trnloss, ckpt_loc)
+
+            # Validation
+            print(&#34;Val:&#34;)
+            self.net.eval()
+            valloss, valaccu, valtt = self._get_val_loss_and_accuracy()
+
+            # If this is best validation accuracy save the ckpt
+            if valaccu &gt; best_val_acc:
+                ckpt_loc = f&#34;{self.work_dir}/best_vacc_epoch_{epoch}.pth&#34;
+                self._save_model(epoch, trnloss, ckpt_loc)
+                best_val_acc = valaccu
+                best_val_acc_epoch = epoch
+
+            # Print useful information per epoch
+            trnstr = (
+                f&#39;{{&#34;mode&#34;: &#34;train&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{trnaccu}, &#39;
+                f&#39;&#34;loss&#34;:{trnloss} &#34;time???&lt;--need correction&#34;:{trntt} }}&#39;)
+            valstr = (
+                f&#39;{{&#34;mode&#34;: &#34;val&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{valaccu}, &#39;
+                f&#39;&#34;loss&#34;:{valloss} &#34;time???&lt;---need correction&#34;:{valtt}}}&#39;)
+
+            # Write log file (this will slow down trainning &lt;&lt;&lt; How much?)
+            self.log.write(f&#34;\n{trnstr}\n{valstr}&#34;)
+
+            # Print to console
+            print(f&#34;Trn: {trnstr}&#34;)
+            print(f&#34;Val: {valstr}&#34;)
+
+        # Close log file
+        best_str = (f&#39;{{ &#34;mode&#34;:&#34;best&#34;, &#34;epoch&#34;:{best_val_acc_epoch},&#39;
+                    f&#39;&#34;val_acc&#34;:{best_val_acc} }}&#39;)
+        print(f&#34;\n{best_str}&#34;)
+
+        # Recording end time
+        now = datetime.now()
+        self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;end_time&#34;:{now} }}&#39;)
+
+        self.log.close()
+
+    def _train_and_get_loss_and_accuracy(self):
+        &#34;&#34;&#34; Trains and returns avrage training loss and accuracy
+        &#34;&#34;&#34;
+        # Training Iteration loop
+        trngt_lst = []
+        trntt_lst = []
+        trnloss_lst = []
+        trnpred_lst = []
+        for idx, data in enumerate(Bar(self.trainloader)):
+
+            # Train for current iteration
+            trnloss, trnpred, trngt, tt = self._train_cur_iter(data)
+
+            # Collect training loss and prediction and time taken
+            trntt_lst += [tt]
+            trngt_lst += trngt
+            trnloss_lst += [trnloss]
+            trnpred_lst += trnpred
+
+        # Training loss and prediction accuracy per epoch
+        trngt_lst = [round(x) for x in trngt_lst]
+        trnpred_lst = [round(x) for x in trnpred_lst]
+        tot_tt = round(sum(trntt_lst), 5)
+        trnaccu = accuracy_score(trngt_lst, trnpred_lst)
+        avg_trnloss = round(sum(trnloss_lst) / len(trnloss_lst), 2)
+
+        return avg_trnloss, trnaccu, tot_tt
+
+    def _train_cur_iter(self, data):
+        &#34;&#34;&#34; Trains f
+        &#34;&#34;&#34;
+        # Label and input tensors
+        labels, inputs = (data[0].to(self.device, non_blocking=True),
+                          data[1].to(self.device, non_blocking=True))
+        labels = torch.reshape(labels.float(), (-1, 1))
+
+        # Training Core
+        st = time.time()  # Start time
+        self.optimizer.zero_grad()  # Zeroing the gradient
+        outputs = self.net(inputs)  # Prediction
+        loss = self.criterion(outputs, labels)  # Calculate loss
+        loss.backward()  # Back propagation
+        self.optimizer.step()  # Update the gradients
+        et = time.time()  # End time
+        tt = round(et - st, 5)  # time taken
+
+        # Collecting information to cpu memory and to list
+        ipred = outputs.data.clone()
+        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+        iloss = loss.data.clone()
+        iloss = iloss.to(&#34;cpu&#34;).numpy().tolist()
+        ilabels = labels.data.clone()
+        ilabels = ilabels.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        return iloss, ipred, ilabels, tt
+
+    def _get_val_loss_and_accuracy(self):
+        &#34;&#34;&#34; Returns validation accuracy and loss
+        &#34;&#34;&#34;
+        with torch.no_grad():
+            valloss_lst = []
+            valpred_lst = []
+            valgt_lst = []
+            valtt_lst = []
+            for idx, data in enumerate(Bar(self.valloader)):
+                valloss, valpred, valgt, valtt = self._eval_cur_iter(data)
+
+                # Collect validation loss and prediction
+                valloss_lst += [valloss]
+                valpred_lst += valpred
+                valtt_lst += [valtt]
+                valgt_lst += valgt
+
+            # Validation loss and prediction accuracy
+            valgt_lst = [round(x) for x in valgt_lst]
+            valpred_lst = [round(x) for x in valpred_lst]
+            tot_valtt = round(sum(valtt_lst), 5)
+            avg_valloss = round(sum(valloss_lst) / len(valloss_lst), 2)
+            valaccu = accuracy_score(valgt_lst, valpred_lst)
+
+        return avg_valloss, valaccu, tot_valtt
+
+    def _eval_cur_iter(self, data):
+        &#34;&#34;&#34; Tests
+        &#34;&#34;&#34;
+        labels, inputs = (data[0].to(self.device, non_blocking=True),
+                          data[1].to(self.device, non_blocking=True))
+        labels = torch.reshape(labels.float(), (-1, 1))
+        ilabels = labels.data.clone()
+        ilabels = ilabels.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        st = time.time()
+        outputs = self.net(inputs)
+        et = time.time()
+        ipred = outputs.data.clone()
+        ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+
+        # Loss
+        loss = self.criterion(outputs, labels)
+        iloss = loss.data.clone()
+        iloss = iloss.to(&#34;cpu&#34;).numpy().tolist()
+
+        # Time taken
+        tt = round(et - st, 5)
+
+        return iloss, ipred, ilabels, tt
+
+    def _save_model(self, epoch, trnloss, ckpt_loc):
+        &#34;&#34;&#34; Saves model as pth file
+        &#34;&#34;&#34;
+        torch.save(
+            {
+                &#39;epoch&#39;: epoch,
+                &#39;model_state_dict&#39;: self.net.state_dict(),
+                &#39;optimizer_state_dict&#39;: self.optimizer.state_dict(),
+                &#39;loss&#39;: trnloss,
+            }, ckpt_loc)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal.train"><code class="name flex">
+<span>def <span class="ident">train</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Trains a network with specified dataloaser.</p>
+<h2 id="parameters">Parameters</h2></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def train(self):
+    &#34;&#34;&#34; Trains a network with specified dataloaser.
+    
+    Parameters
+    ----------
+
+    &#34;&#34;&#34;
+    print(f&#34;INFO: Starting training for {self.max_epochs} epochs&#34;)
+    now = datetime.now()
+    self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;start_time&#34;:{now} }}&#39;)
+
+    # Epoch loop
+    best_val_acc = 0
+    for epoch in range(self.max_epochs):
+        print(
+            f&#34;\n*****************Epoch {epoch}**************************&#34;)
+
+        # Training
+        print(&#34;Trn:&#34;)
+        self.net.train()
+        trnloss, trnaccu, trntt = self._train_and_get_loss_and_accuracy()
+
+        # Save model every n epochs
+        if epoch in self.ckpt_save_epochs:
+            ckpt_loc = f&#34;{self.work_dir}/epoch_{epoch}.pth&#34;
+            self._save_model(epoch, trnloss, ckpt_loc)
+
+        # Validation
+        print(&#34;Val:&#34;)
+        self.net.eval()
+        valloss, valaccu, valtt = self._get_val_loss_and_accuracy()
+
+        # If this is best validation accuracy save the ckpt
+        if valaccu &gt; best_val_acc:
+            ckpt_loc = f&#34;{self.work_dir}/best_vacc_epoch_{epoch}.pth&#34;
+            self._save_model(epoch, trnloss, ckpt_loc)
+            best_val_acc = valaccu
+            best_val_acc_epoch = epoch
+
+        # Print useful information per epoch
+        trnstr = (
+            f&#39;{{&#34;mode&#34;: &#34;train&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{trnaccu}, &#39;
+            f&#39;&#34;loss&#34;:{trnloss} &#34;time???&lt;--need correction&#34;:{trntt} }}&#39;)
+        valstr = (
+            f&#39;{{&#34;mode&#34;: &#34;val&#34;, &#34;epoch&#34;:{epoch}, &#34;acc&#34;:{valaccu}, &#39;
+            f&#39;&#34;loss&#34;:{valloss} &#34;time???&lt;---need correction&#34;:{valtt}}}&#39;)
+
+        # Write log file (this will slow down trainning &lt;&lt;&lt; How much?)
+        self.log.write(f&#34;\n{trnstr}\n{valstr}&#34;)
+
+        # Print to console
+        print(f&#34;Trn: {trnstr}&#34;)
+        print(f&#34;Val: {valstr}&#34;)
+
+    # Close log file
+    best_str = (f&#39;{{ &#34;mode&#34;:&#34;best&#34;, &#34;epoch&#34;:{best_val_acc_epoch},&#39;
+                f&#39;&#34;val_acc&#34;:{best_val_acc} }}&#39;)
+    print(f&#34;\n{best_str}&#34;)
+
+    # Recording end time
+    now = datetime.now()
+    self.log.write(f&#39;{{&#34;mode&#34;: &#34;info&#34;, &#34;end_time&#34;:{now} }}&#39;)
+
+    self.log.close()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua.nn.trainer" href="index.html">aqua.nn.trainer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal" href="#aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal">SGPU_TrnAndVal</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal.train" href="#aqua.nn.trainer.sgpu_trn_and_val.SGPU_TrnAndVal.train">train</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

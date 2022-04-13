@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\..\\..\\shared_tool_kits\\pytkit"
+		},
+		{
+			"path": "..\\..\\haq-doc\\HAQ-doc-final"
+		},
+		{
+			"path": "..\\..\\..\\..\\org\\projects\\active\\HAQ"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.data_tools.aolme.activity_labels.standardize API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.data_tools.aolme.activity_labels.standardize</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import sys
+import pdb
+import wget
+import pandas as pd
+import aqua
+import skvideo.io as skvio
+
+
+class Standardize:
+    def __init__(self, rdir, fname, fr, overwrite):
+        &#34;&#34;&#34;
+        Methods to standardize AOLME Activity labels data. The
+        primary focus is to standardize frame rate.
+
+        Parameters
+        ----------
+        rdir: str
+            Path to directory having activity labels.
+        fname: str
+            Name of file having activity labels
+        fr: int
+            Required frame rate
+        overwrite: bool
+            Overwrite previously standardized videos and activity
+            labels?
+        &#34;&#34;&#34;
+        self._rdir = rdir
+        self._fname = fname
+        self._fr = fr
+        self._overwrite = overwrite
+
+    def create_activity_labels_at_fr(self):
+        &#34;&#34;&#34; Creates activity labes at required frame rate.
+        &#34;&#34;&#34;
+        ifiles = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+        for ifile in ifiles:
+
+            # Input file properties
+            ipth = ifile
+            idir = os.path.dirname(ifile)
+            iname = os.path.basename(ifile)
+            idf = pd.read_csv(ipth)
+            itag = &#34;, &#34;.join(idf.iloc[0][&#39;name&#39;].split(&#34;-&#34;)[1:4])
+
+            # Output file properties
+            odir = idir
+            oname = (f&#34;{os.path.splitext(iname)[0]}&#34; f&#34;_{self._fr}fps.csv&#34;)
+            opth = f&#34;{odir}/{oname}&#34;
+            oexists = os.path.isfile(opth)
+
+            # If output exists and overwrite is `False` skip
+            if oexists and (self._overwrite == False):
+                print(f&#34;INFO: Skipping activity labels for --- {itag}&#34;)
+
+            # Create activity lables with new frame rate
+            else:
+                print(f&#34;INFO: Deleting {opth}&#34;)
+                os.remove(opth)
+
+                ifr = idf[&#39;FPS&#39;].unique()
+                if len(ifr) &gt; 1:
+                    raise Exception(
+                        f&#34;ERROR: {ipth} has two unique frame rates {ifr}&#34;)
+                ifr = round(ifr[0])
+
+                print(f&#34;INFO: Creating activity labels for --- {itag}\n&#34;)
+
+                # loop through each activity instance
+                odf = idf.copy()
+                for i, row in idf.iterrows():
+
+                    # Number of frames in activity instance video
+                    ivname = row[&#39;name&#39;]
+                    ovname = (f&#34;{os.path.splitext(ivname)[0]}&#34;
+                              f&#34;_{self._fr}fps.mp4&#34;)
+                    ovpth = f&#34;{odir}/{ovname}&#34;
+                    if not os.path.isfile(ovpth):
+                        raise Exception(f&#34;ERROR: {ovpth} does not exist&#34;)
+                    ov = aqua.video_tools.Vid(ovpth)
+                    ov_nfrms = int(ov.props[&#39;num_frames&#39;])
+
+                    # Calculating multiplication factor for converting frame rate and
+                    # numbers
+                    mfac = self._fr / round(row[&#39;FPS&#39;])
+
+                    # New frame numbers and FPS
+                    new_fps = round(row[&#39;FPS&#39;] * mfac)
+                    new_f0 = round(row[&#39;f0&#39;] * mfac)
+                    new_f = round(row[&#39;f&#39;] * mfac)
+
+                    # A check to make sure we did not have activity labels
+                    # outside video
+                    final_frame = new_f0 + new_f
+                    if final_frame &gt; ov_nfrms:
+                        raise Exception(
+                            f&#34;ERROR: activity label final frame &#34;
+                            f&#34;crossed total number of frames, {ovpth} &#34;
+                            f&#34;{final_frame} &gt; {ov_nfrms}&#34;)
+
+                    # Change the required fields
+                    odf.loc[i, &#39;name&#39;] = ovname
+                    odf.loc[i, &#39;FPS&#39;] = new_fps
+                    odf.loc[i, &#39;f0&#39;] = new_f0
+                    odf.loc[i, &#39;f&#39;] = new_f
+                    odf.to_csv(opth)
+
+    def transcode_videos_at_fr(self, vdb_path):
+        &#34;&#34;&#34;
+        Downloads (if required) and transcodes
+        videos having activity labels at `fr` frame rate.
+
+        Parameters
+        ----------
+        vdb_path: str
+            Path to video data base csv file.
+        &#34;&#34;&#34;
+        # Loading database having download links to videos
+        vinfo_df = self._load_vdb(vdb_path)
+
+        # Creating a list of activity label files
+        files = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+        # Activity label file loop
+        for cfile in files:
+
+            # Read all videos present in the directory containing
+            # activity labels
+            cfile_path = os.path.dirname(cfile)
+            vfiles_present = aqua.get_file_paths_with_kws(cfile_path, [&#34;.mp4&#34;])
+
+            # Videos having activity labels
+            cact_df = pd.read_csv(cfile)
+            vnames = cact_df.name.unique().tolist()
+
+            # Loop over each video
+            for vname in vnames:
+
+                # Video name without extension
+                vname_noext = os.path.splitext(vname)[0]
+
+                # Input video instance
+                iv_path = f&#34;{cfile_path}/{vname_noext}.mp4&#34;
+                iv = aqua.video_tools.Vid(iv_path)
+
+                # Output video instance
+                ov_path = (f&#34;{cfile_path}/&#34; f&#34;{vname_noext}_{self._fr}fps.mp4&#34;)
+                ov = aqua.video_tools.Vid(ov_path)
+
+                # Transcode video to required frame rate
+                if self._overwrite == True:
+
+                    # Download if input video `iv` is not valid
+                    if iv.props[&#39;islocal&#39;] == False:
+                        self._download_video(iv, vinfo_df)
+
+                    # Transcode video
+                    ffmpeg_cmd = (
+                        f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                        f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                    os.system(ffmpeg_cmd)
+
+                    # Remove original video
+                    os.remove(iv_path)
+                else:
+
+                    # Duration of input and output
+                    iv_dur = self._get_video_dur(iv, vinfo_df)
+                    ov_dur = ov.props[&#39;duration&#39;]
+
+                    # Skip if already transcoded properly
+                    if ((ov.props[&#39;islocal&#39;] == True)
+                            and (iv_dur - 1 &lt;= ov_dur &lt;= iv_dur)):
+                        print_str = (
+                            f&#34;INFO: Skipping {ov.props[&#39;name&#39;]} &#34;
+                            f&#34;(in,out) = ({iv_dur}, {ov_dur}) seconds&#34;)
+                        if iv_dur != ov_dur:
+                            print_str = f&#34;{print_str} WARNING!!!&#34;
+                        print(f&#34;{print_str}&#34;)
+
+                    else:
+                        # Download if `iv` if not present locally
+                        if iv.props[&#39;islocal&#39;] == False:
+                            self._download_video(iv, vinfo_df)
+
+                        # Transcode video
+                        ffmpeg_cmd = (
+                            f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                            f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                        os.system(ffmpeg_cmd)
+
+                        # Remove original video
+                        os.remove(iv_path)
+
+    def _load_vdb(self, vdb):
+        &#34;&#34;&#34; Loads data base file (exported from AOLME
+        website).
+
+        Also to make further processing easy make sure
+        &#34;video_name&#34; has &#34;.mp4&#34; extension.
+
+        Parameters
+        ----------
+        vdb: str
+            Video data base having download link to videos.
+        &#34;&#34;&#34;
+        df = pd.read_csv(vdb)
+        df_nomp4 = df[~df[&#39;video_name&#39;].str.contains(&#34;.mp4&#34;)]
+        df_nomp4[&#39;video_name&#39;] += &#34;.mp4&#34;
+        df_mp4 = df[df[&#39;video_name&#39;].str.contains(&#34;.mp4&#34;)]
+        df = pd.concat([df_nomp4, df_mp4])
+        return df
+
+    def _download_video(self, iv, vinfo_df):
+        &#34;&#34;&#34; Downloads video from AOLME Data server
+
+        Parameters
+        ----------
+        iv: Vid instance
+            video instance from `aqua.video_tools`
+        df: DataFrame
+            Video information as data frame.
+        &#34;&#34;&#34;
+        vname = iv.props[&#39;name&#39;] + iv.props[&#39;extension&#39;]
+        vpath = iv.props[&#39;dir_loc&#39;] + &#34;/&#34; + vname
+        vinfo = vinfo_df[vinfo_df[&#34;video_name&#34;] == vname]
+
+        # Raise exception for more than 1 hit in video
+        # data base
+        if len(vinfo) != 1:
+            raise Exception(f&#34;ERROR: {vname} has &#34; f&#34;{len(vinfo)} hits.&#34;)
+
+        # Download
+        vlink = vinfo[&#39;link&#39;].item()
+        print(f&#34;INFO: Downloading {vname}&#34;)
+        wget.download(vlink, vpath)
+
+    def _get_video_dur(self, iv, vinfo_df):
+        &#34;&#34;&#34; Returns video duration
+
+        Parameters
+        ----------
+        iv: Vid instance
+            video instance from `aqua.video_tools`
+        df: DataFrame
+            Video information as data frame.
+
+        Returns
+        -------
+        Duration of video as `int`
+        &#34;&#34;&#34;
+        # Return duration for locally present video
+        if iv.props[&#39;islocal&#39;]:
+            return iv.props[&#39;duration&#39;]
+
+        # Get url from video data base
+        vname = iv.props[&#39;name&#39;] + iv.props[&#39;extension&#39;]
+        vpath = iv.props[&#39;dir_loc&#39;] + &#34;/&#34; + vname
+        vinfo = vinfo_df[vinfo_df[&#34;video_name&#34;] == vname]
+        if len(vinfo) != 1:
+            raise Exception(f&#34;ERROR: {vname} has &#34; f&#34;{len(vinfo)} hits.&#34;)
+        vlink = vinfo[&#39;link&#39;].item()
+
+        # Get duration from video meta data
+        vmeta = skvio.ffprobe(vlink)
+        vdur = round(float(vmeta[&#39;video&#39;][&#39;@duration&#39;]))
+
+        return vdur</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.data_tools.aolme.activity_labels.standardize.Standardize"><code class="flex name class">
+<span>class <span class="ident">Standardize</span></span>
+<span>(</span><span>rdir, fname, fr, overwrite)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Methods to standardize AOLME Activity labels data. The
+primary focus is to standardize frame rate.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to directory having activity labels.</dd>
+<dt><strong><code>fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of file having activity labels</dd>
+<dt><strong><code>fr</code></strong> :&ensp;<code>int</code></dt>
+<dd>Required frame rate</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Overwrite previously standardized videos and activity
+labels?</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Standardize:
+    def __init__(self, rdir, fname, fr, overwrite):
+        &#34;&#34;&#34;
+        Methods to standardize AOLME Activity labels data. The
+        primary focus is to standardize frame rate.
+
+        Parameters
+        ----------
+        rdir: str
+            Path to directory having activity labels.
+        fname: str
+            Name of file having activity labels
+        fr: int
+            Required frame rate
+        overwrite: bool
+            Overwrite previously standardized videos and activity
+            labels?
+        &#34;&#34;&#34;
+        self._rdir = rdir
+        self._fname = fname
+        self._fr = fr
+        self._overwrite = overwrite
+
+    def create_activity_labels_at_fr(self):
+        &#34;&#34;&#34; Creates activity labes at required frame rate.
+        &#34;&#34;&#34;
+        ifiles = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+        for ifile in ifiles:
+
+            # Input file properties
+            ipth = ifile
+            idir = os.path.dirname(ifile)
+            iname = os.path.basename(ifile)
+            idf = pd.read_csv(ipth)
+            itag = &#34;, &#34;.join(idf.iloc[0][&#39;name&#39;].split(&#34;-&#34;)[1:4])
+
+            # Output file properties
+            odir = idir
+            oname = (f&#34;{os.path.splitext(iname)[0]}&#34; f&#34;_{self._fr}fps.csv&#34;)
+            opth = f&#34;{odir}/{oname}&#34;
+            oexists = os.path.isfile(opth)
+
+            # If output exists and overwrite is `False` skip
+            if oexists and (self._overwrite == False):
+                print(f&#34;INFO: Skipping activity labels for --- {itag}&#34;)
+
+            # Create activity lables with new frame rate
+            else:
+                print(f&#34;INFO: Deleting {opth}&#34;)
+                os.remove(opth)
+
+                ifr = idf[&#39;FPS&#39;].unique()
+                if len(ifr) &gt; 1:
+                    raise Exception(
+                        f&#34;ERROR: {ipth} has two unique frame rates {ifr}&#34;)
+                ifr = round(ifr[0])
+
+                print(f&#34;INFO: Creating activity labels for --- {itag}\n&#34;)
+
+                # loop through each activity instance
+                odf = idf.copy()
+                for i, row in idf.iterrows():
+
+                    # Number of frames in activity instance video
+                    ivname = row[&#39;name&#39;]
+                    ovname = (f&#34;{os.path.splitext(ivname)[0]}&#34;
+                              f&#34;_{self._fr}fps.mp4&#34;)
+                    ovpth = f&#34;{odir}/{ovname}&#34;
+                    if not os.path.isfile(ovpth):
+                        raise Exception(f&#34;ERROR: {ovpth} does not exist&#34;)
+                    ov = aqua.video_tools.Vid(ovpth)
+                    ov_nfrms = int(ov.props[&#39;num_frames&#39;])
+
+                    # Calculating multiplication factor for converting frame rate and
+                    # numbers
+                    mfac = self._fr / round(row[&#39;FPS&#39;])
+
+                    # New frame numbers and FPS
+                    new_fps = round(row[&#39;FPS&#39;] * mfac)
+                    new_f0 = round(row[&#39;f0&#39;] * mfac)
+                    new_f = round(row[&#39;f&#39;] * mfac)
+
+                    # A check to make sure we did not have activity labels
+                    # outside video
+                    final_frame = new_f0 + new_f
+                    if final_frame &gt; ov_nfrms:
+                        raise Exception(
+                            f&#34;ERROR: activity label final frame &#34;
+                            f&#34;crossed total number of frames, {ovpth} &#34;
+                            f&#34;{final_frame} &gt; {ov_nfrms}&#34;)
+
+                    # Change the required fields
+                    odf.loc[i, &#39;name&#39;] = ovname
+                    odf.loc[i, &#39;FPS&#39;] = new_fps
+                    odf.loc[i, &#39;f0&#39;] = new_f0
+                    odf.loc[i, &#39;f&#39;] = new_f
+                    odf.to_csv(opth)
+
+    def transcode_videos_at_fr(self, vdb_path):
+        &#34;&#34;&#34;
+        Downloads (if required) and transcodes
+        videos having activity labels at `fr` frame rate.
+
+        Parameters
+        ----------
+        vdb_path: str
+            Path to video data base csv file.
+        &#34;&#34;&#34;
+        # Loading database having download links to videos
+        vinfo_df = self._load_vdb(vdb_path)
+
+        # Creating a list of activity label files
+        files = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+        # Activity label file loop
+        for cfile in files:
+
+            # Read all videos present in the directory containing
+            # activity labels
+            cfile_path = os.path.dirname(cfile)
+            vfiles_present = aqua.get_file_paths_with_kws(cfile_path, [&#34;.mp4&#34;])
+
+            # Videos having activity labels
+            cact_df = pd.read_csv(cfile)
+            vnames = cact_df.name.unique().tolist()
+
+            # Loop over each video
+            for vname in vnames:
+
+                # Video name without extension
+                vname_noext = os.path.splitext(vname)[0]
+
+                # Input video instance
+                iv_path = f&#34;{cfile_path}/{vname_noext}.mp4&#34;
+                iv = aqua.video_tools.Vid(iv_path)
+
+                # Output video instance
+                ov_path = (f&#34;{cfile_path}/&#34; f&#34;{vname_noext}_{self._fr}fps.mp4&#34;)
+                ov = aqua.video_tools.Vid(ov_path)
+
+                # Transcode video to required frame rate
+                if self._overwrite == True:
+
+                    # Download if input video `iv` is not valid
+                    if iv.props[&#39;islocal&#39;] == False:
+                        self._download_video(iv, vinfo_df)
+
+                    # Transcode video
+                    ffmpeg_cmd = (
+                        f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                        f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                    os.system(ffmpeg_cmd)
+
+                    # Remove original video
+                    os.remove(iv_path)
+                else:
+
+                    # Duration of input and output
+                    iv_dur = self._get_video_dur(iv, vinfo_df)
+                    ov_dur = ov.props[&#39;duration&#39;]
+
+                    # Skip if already transcoded properly
+                    if ((ov.props[&#39;islocal&#39;] == True)
+                            and (iv_dur - 1 &lt;= ov_dur &lt;= iv_dur)):
+                        print_str = (
+                            f&#34;INFO: Skipping {ov.props[&#39;name&#39;]} &#34;
+                            f&#34;(in,out) = ({iv_dur}, {ov_dur}) seconds&#34;)
+                        if iv_dur != ov_dur:
+                            print_str = f&#34;{print_str} WARNING!!!&#34;
+                        print(f&#34;{print_str}&#34;)
+
+                    else:
+                        # Download if `iv` if not present locally
+                        if iv.props[&#39;islocal&#39;] == False:
+                            self._download_video(iv, vinfo_df)
+
+                        # Transcode video
+                        ffmpeg_cmd = (
+                            f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                            f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                        os.system(ffmpeg_cmd)
+
+                        # Remove original video
+                        os.remove(iv_path)
+
+    def _load_vdb(self, vdb):
+        &#34;&#34;&#34; Loads data base file (exported from AOLME
+        website).
+
+        Also to make further processing easy make sure
+        &#34;video_name&#34; has &#34;.mp4&#34; extension.
+
+        Parameters
+        ----------
+        vdb: str
+            Video data base having download link to videos.
+        &#34;&#34;&#34;
+        df = pd.read_csv(vdb)
+        df_nomp4 = df[~df[&#39;video_name&#39;].str.contains(&#34;.mp4&#34;)]
+        df_nomp4[&#39;video_name&#39;] += &#34;.mp4&#34;
+        df_mp4 = df[df[&#39;video_name&#39;].str.contains(&#34;.mp4&#34;)]
+        df = pd.concat([df_nomp4, df_mp4])
+        return df
+
+    def _download_video(self, iv, vinfo_df):
+        &#34;&#34;&#34; Downloads video from AOLME Data server
+
+        Parameters
+        ----------
+        iv: Vid instance
+            video instance from `aqua.video_tools`
+        df: DataFrame
+            Video information as data frame.
+        &#34;&#34;&#34;
+        vname = iv.props[&#39;name&#39;] + iv.props[&#39;extension&#39;]
+        vpath = iv.props[&#39;dir_loc&#39;] + &#34;/&#34; + vname
+        vinfo = vinfo_df[vinfo_df[&#34;video_name&#34;] == vname]
+
+        # Raise exception for more than 1 hit in video
+        # data base
+        if len(vinfo) != 1:
+            raise Exception(f&#34;ERROR: {vname} has &#34; f&#34;{len(vinfo)} hits.&#34;)
+
+        # Download
+        vlink = vinfo[&#39;link&#39;].item()
+        print(f&#34;INFO: Downloading {vname}&#34;)
+        wget.download(vlink, vpath)
+
+    def _get_video_dur(self, iv, vinfo_df):
+        &#34;&#34;&#34; Returns video duration
+
+        Parameters
+        ----------
+        iv: Vid instance
+            video instance from `aqua.video_tools`
+        df: DataFrame
+            Video information as data frame.
+
+        Returns
+        -------
+        Duration of video as `int`
+        &#34;&#34;&#34;
+        # Return duration for locally present video
+        if iv.props[&#39;islocal&#39;]:
+            return iv.props[&#39;duration&#39;]
+
+        # Get url from video data base
+        vname = iv.props[&#39;name&#39;] + iv.props[&#39;extension&#39;]
+        vpath = iv.props[&#39;dir_loc&#39;] + &#34;/&#34; + vname
+        vinfo = vinfo_df[vinfo_df[&#34;video_name&#34;] == vname]
+        if len(vinfo) != 1:
+            raise Exception(f&#34;ERROR: {vname} has &#34; f&#34;{len(vinfo)} hits.&#34;)
+        vlink = vinfo[&#39;link&#39;].item()
+
+        # Get duration from video meta data
+        vmeta = skvio.ffprobe(vlink)
+        vdur = round(float(vmeta[&#39;video&#39;][&#39;@duration&#39;]))
+
+        return vdur</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.data_tools.aolme.activity_labels.standardize.Standardize.create_activity_labels_at_fr"><code class="name flex">
+<span>def <span class="ident">create_activity_labels_at_fr</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates activity labes at required frame rate.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_activity_labels_at_fr(self):
+    &#34;&#34;&#34; Creates activity labes at required frame rate.
+    &#34;&#34;&#34;
+    ifiles = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+    for ifile in ifiles:
+
+        # Input file properties
+        ipth = ifile
+        idir = os.path.dirname(ifile)
+        iname = os.path.basename(ifile)
+        idf = pd.read_csv(ipth)
+        itag = &#34;, &#34;.join(idf.iloc[0][&#39;name&#39;].split(&#34;-&#34;)[1:4])
+
+        # Output file properties
+        odir = idir
+        oname = (f&#34;{os.path.splitext(iname)[0]}&#34; f&#34;_{self._fr}fps.csv&#34;)
+        opth = f&#34;{odir}/{oname}&#34;
+        oexists = os.path.isfile(opth)
+
+        # If output exists and overwrite is `False` skip
+        if oexists and (self._overwrite == False):
+            print(f&#34;INFO: Skipping activity labels for --- {itag}&#34;)
+
+        # Create activity lables with new frame rate
+        else:
+            print(f&#34;INFO: Deleting {opth}&#34;)
+            os.remove(opth)
+
+            ifr = idf[&#39;FPS&#39;].unique()
+            if len(ifr) &gt; 1:
+                raise Exception(
+                    f&#34;ERROR: {ipth} has two unique frame rates {ifr}&#34;)
+            ifr = round(ifr[0])
+
+            print(f&#34;INFO: Creating activity labels for --- {itag}\n&#34;)
+
+            # loop through each activity instance
+            odf = idf.copy()
+            for i, row in idf.iterrows():
+
+                # Number of frames in activity instance video
+                ivname = row[&#39;name&#39;]
+                ovname = (f&#34;{os.path.splitext(ivname)[0]}&#34;
+                          f&#34;_{self._fr}fps.mp4&#34;)
+                ovpth = f&#34;{odir}/{ovname}&#34;
+                if not os.path.isfile(ovpth):
+                    raise Exception(f&#34;ERROR: {ovpth} does not exist&#34;)
+                ov = aqua.video_tools.Vid(ovpth)
+                ov_nfrms = int(ov.props[&#39;num_frames&#39;])
+
+                # Calculating multiplication factor for converting frame rate and
+                # numbers
+                mfac = self._fr / round(row[&#39;FPS&#39;])
+
+                # New frame numbers and FPS
+                new_fps = round(row[&#39;FPS&#39;] * mfac)
+                new_f0 = round(row[&#39;f0&#39;] * mfac)
+                new_f = round(row[&#39;f&#39;] * mfac)
+
+                # A check to make sure we did not have activity labels
+                # outside video
+                final_frame = new_f0 + new_f
+                if final_frame &gt; ov_nfrms:
+                    raise Exception(
+                        f&#34;ERROR: activity label final frame &#34;
+                        f&#34;crossed total number of frames, {ovpth} &#34;
+                        f&#34;{final_frame} &gt; {ov_nfrms}&#34;)
+
+                # Change the required fields
+                odf.loc[i, &#39;name&#39;] = ovname
+                odf.loc[i, &#39;FPS&#39;] = new_fps
+                odf.loc[i, &#39;f0&#39;] = new_f0
+                odf.loc[i, &#39;f&#39;] = new_f
+                odf.to_csv(opth)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.aolme.activity_labels.standardize.Standardize.transcode_videos_at_fr"><code class="name flex">
+<span>def <span class="ident">transcode_videos_at_fr</span></span>(<span>self, vdb_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Downloads (if required) and transcodes
+videos having activity labels at <code>fr</code> frame rate.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>vdb_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to video data base csv file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def transcode_videos_at_fr(self, vdb_path):
+    &#34;&#34;&#34;
+    Downloads (if required) and transcodes
+    videos having activity labels at `fr` frame rate.
+
+    Parameters
+    ----------
+    vdb_path: str
+        Path to video data base csv file.
+    &#34;&#34;&#34;
+    # Loading database having download links to videos
+    vinfo_df = self._load_vdb(vdb_path)
+
+    # Creating a list of activity label files
+    files = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+    # Activity label file loop
+    for cfile in files:
+
+        # Read all videos present in the directory containing
+        # activity labels
+        cfile_path = os.path.dirname(cfile)
+        vfiles_present = aqua.get_file_paths_with_kws(cfile_path, [&#34;.mp4&#34;])
+
+        # Videos having activity labels
+        cact_df = pd.read_csv(cfile)
+        vnames = cact_df.name.unique().tolist()
+
+        # Loop over each video
+        for vname in vnames:
+
+            # Video name without extension
+            vname_noext = os.path.splitext(vname)[0]
+
+            # Input video instance
+            iv_path = f&#34;{cfile_path}/{vname_noext}.mp4&#34;
+            iv = aqua.video_tools.Vid(iv_path)
+
+            # Output video instance
+            ov_path = (f&#34;{cfile_path}/&#34; f&#34;{vname_noext}_{self._fr}fps.mp4&#34;)
+            ov = aqua.video_tools.Vid(ov_path)
+
+            # Transcode video to required frame rate
+            if self._overwrite == True:
+
+                # Download if input video `iv` is not valid
+                if iv.props[&#39;islocal&#39;] == False:
+                    self._download_video(iv, vinfo_df)
+
+                # Transcode video
+                ffmpeg_cmd = (
+                    f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                    f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                os.system(ffmpeg_cmd)
+
+                # Remove original video
+                os.remove(iv_path)
+            else:
+
+                # Duration of input and output
+                iv_dur = self._get_video_dur(iv, vinfo_df)
+                ov_dur = ov.props[&#39;duration&#39;]
+
+                # Skip if already transcoded properly
+                if ((ov.props[&#39;islocal&#39;] == True)
+                        and (iv_dur - 1 &lt;= ov_dur &lt;= iv_dur)):
+                    print_str = (
+                        f&#34;INFO: Skipping {ov.props[&#39;name&#39;]} &#34;
+                        f&#34;(in,out) = ({iv_dur}, {ov_dur}) seconds&#34;)
+                    if iv_dur != ov_dur:
+                        print_str = f&#34;{print_str} WARNING!!!&#34;
+                    print(f&#34;{print_str}&#34;)
+
+                else:
+                    # Download if `iv` if not present locally
+                    if iv.props[&#39;islocal&#39;] == False:
+                        self._download_video(iv, vinfo_df)
+
+                    # Transcode video
+                    ffmpeg_cmd = (
+                        f&#34;ffmpeg -threads 0 -y -i &#39;{iv_path}&#39; -filter:v &#34;
+                        f&#34;fps=fps={self._fr} &#39;{ov_path}&#39;&#34;)
+                    os.system(ffmpeg_cmd)
+
+                    # Remove original video
+                    os.remove(iv_path)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua.data_tools.aolme.activity_labels" href="index.html">aqua.data_tools.aolme.activity_labels</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.data_tools.aolme.activity_labels.standardize.Standardize" href="#aqua.data_tools.aolme.activity_labels.standardize.Standardize">Standardize</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.data_tools.aolme.activity_labels.standardize.Standardize.create_activity_labels_at_fr" href="#aqua.data_tools.aolme.activity_labels.standardize.Standardize.create_activity_labels_at_fr">create_activity_labels_at_fr</a></code></li>
+<li><code><a title="aqua.data_tools.aolme.activity_labels.standardize.Standardize.transcode_videos_at_fr" href="#aqua.data_tools.aolme.activity_labels.standardize.Standardize.transcode_videos_at_fr">transcode_videos_at_fr</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

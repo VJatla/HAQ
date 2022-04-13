@@ -75,7 +75,7 @@ class SGPU_TrnOnly:
             range(0, self.max_epochs, ckpt_save_interval))
 
         # Save model diagram in model.txt
-        model_stats = summary(self.net, params['input_shape'], verbose=0)
+        model_stats = summary(self.net, params['input_shape'])
         summary_str = str(model_stats)
         model_floc = f"{os.path.dirname(self.params['log_pth'])}/model.txt"
         model_f = open(model_floc, "w")

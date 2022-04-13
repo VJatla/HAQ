@@ -1,6 +1,6 @@
 """
-DESCRIPTION
------------
+WARNING: DESCRIPTION
+--------------------
 This script generates activity map from activity labels. Activity 
 labels are given using excel sheets.
 
@@ -12,7 +12,7 @@ python generate_activity_map.py <config json file>
 EXAMPLE
 -------
 # Windows
-python .\generate_activity_map.py C:\\Users\\vj\\Dropbox\\AOLME_Activity_Maps\\GT\\C1L1P-E\\20170302\\all_activities_win.json
+python generate_activity_map.py C:\\Users\\vj\\Dropbox\\AOLME_Activity_Maps\\GT\\C1L1P-E\\20170302\\all_activities_win.json
 
 # Linux
 python generate_activity_map.py /home/vj/Dropbox/AOLME_Activity_Maps/GT/C1L1P-E/20170302/writing_lin.json
@@ -116,7 +116,8 @@ def get_persons(cfg_dict):
     """
     persons = cfg_dict["Persons"]
     pseudonyms = cfg_dict["Pseudonyms"]
-    return persons, pseudonyms
+    student_code = cfg_dict["student_code"]
+    return persons, pseudonyms, student_code
         
 
 
@@ -144,13 +145,14 @@ def get_session_properties(cfg_dict):
     tdur = get_session_dur(cfg_dict["session_properties"])
 
     # Get persons and pseudonyms
-    persons, pseudonyms = get_persons(cfg_dict)
+    persons, pseudonyms, student_code = get_persons(cfg_dict)
 
     # Adding data to session properties dictionary
     props["activities"] = activities
     props["tdur"] = tdur
     props["persons"] = persons
     props["pseudonyms"] = pseudonyms
+    props["student_code"] = student_code
 
     return props
 
@@ -181,8 +183,11 @@ def get_df(cfg_dict, cluster_name, activity, clus_col):
         df = pd.read_excel(xlsx_pth, sheet_name="BLC-HR")
     elif clus_col == "Pseudonym":
         df = pd.read_excel(xlsx_pth, sheet_name="Human readable")
+    elif clus_col == "Student code":
+        df = pd.read_excel(xlsx_pth, sheet_name="Human readable")
     else:
         raise Exception(f"Unknown column {clus_col}")
+
     df = df[df[clus_col] == cluster_name].copy()
     
     return df
@@ -250,6 +255,9 @@ def main():
         elif cfg_dict['cluster_col_name'] == "cluster_id_annotated":
             cluster_name = sess_props['pseudonyms'][pidx]
             cluster_id = cluster_name
+        elif cfg_dict['cluster_col_name'] == "Student code":
+            cluster_name = sess_props['student_code'][pidx]
+            cluster_id = cluster_name
         else:
             raise Exception (f"{cfg_dict['cluster_col_name']} is not supported")
 
@@ -273,15 +281,11 @@ def main():
             # Video loop
             show_legend = True
             uniq_videos = df['Video name'].unique()
+
             for vidx, video_name in enumerate(uniq_videos):
-                vidx_db = get_vidx_from_groups_db(
-                    video_name,
-                    cfg_dict['groups_db']
-                )
+                vidx_db = get_vidx_from_groups_db(video_name, cfg_dict['groups_db'])
                 dfv = df[df['Video name'] == video_name].copy()
-                prev_dur = int(
-                    sdf[sdf['name'] == video_name].prev_dur.item()
-                )
+                prev_dur = int(sdf[sdf['name'] == video_name].prev_dur.item())
 
                 # Activity instance loop
                 for inst_idx, act in dfv.iterrows():
@@ -303,6 +307,7 @@ def main():
                     y[start_idx:stop_idx] = [y_val]*(
                         stop_idx - start_idx
                     )
+                    import pdb; pdb.set_trace()
                     
                     yaxis_range = [0, max(y)+1]
                     legend_group = f"{activity}"
@@ -357,7 +362,7 @@ def main():
     fig.update_layout(yaxis_range=[0,len(y_ticks) + 1])
     fig.update_yaxes(
         title=cfg_dict['cluster_col_name'],
-        title_font={"size": axes_title_font},
+        title_font={"size": axes_stitle_font},
         tickvals=np.arange(1, len(y_ticks) + 1),
         ticktext=y_ticks,
         tickfont=dict(size=tick_font))

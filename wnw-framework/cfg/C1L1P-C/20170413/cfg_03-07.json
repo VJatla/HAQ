@@ -1,0 +1,7 @@
+{
+    "video": "/home/vj/Dropbox/writing-nowriting-GT/C1L1P-C/20170413/G-C1L1P-Apr13-C-Windy_q2_03-07_30fps.mp4",
+    "hands": "/home/vj/Dropbox/objectdetection-aolme/hand-tensorflow/C1L1P-C/20170413/G-C1L1P-Apr13-C-Windy_q2_03-07_30fps_detection.csv",
+    "table_roi": "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170413/video_roi.csv",
+    "depth": 4,
+    "ckpt": "/home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ/wnw-framework/ckpt.pth"
+}

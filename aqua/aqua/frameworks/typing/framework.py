@@ -81,7 +81,7 @@ class Typing:
 
 
     def _check_for_typing(self, proposal_df):
-        """ Checks for writing in the proposal data frame.
+        """ Checks for typing in the proposal data frame.
 
         Parameters
         ----------
@@ -92,6 +92,7 @@ class Typing:
         1. Here I am trimming -> writing to hdd -> loading. This is not
            recommended for speed. Please try to improve.
         """
+        import pdb; pdb.set_trace()
         # Loop over proposal dataframe
         for i, row in proposal_df.iterrows():
 

@@ -1,3 +1,9 @@
+"""
+DEPRICATION WARNING
+
+The following performance evaluation class is replaced by ../../performance-metrics/spatio_temporal_act_det.py
+"""
+
 import os
 import glob
 from tqdm import tqdm

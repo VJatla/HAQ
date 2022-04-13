@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.act_maps_and_perf API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.act_maps_and_perf</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from aqua.act_maps_and_perf.plotly_maps import ActMapsAndPerf
+
+# Load moduels from fd_ops.py
+__all__ = [&#34;ActMapsAndPerf&#34;]</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="aqua.act_maps_and_perf.plotly_maps" href="plotly_maps.html">aqua.act_maps_and_perf.plotly_maps</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf"><code class="flex name class">
+<span>class <span class="ident">ActMapsAndPerf</span></span>
+<span>(</span><span>idir, odir, vdb, act)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Methods and techniques to evaluate spatio-temporal
+activity detection performance. This class also contain
+methods that help us visualize the performance by using
+activity maps.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>idir</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Input directory that has required files. They are,
+1. gt-ty-30fps.xlsx
+: Excel file having typing instances from ground truth.
+2. alg-ty-30fps.xlsx
+: Excel file having typing instances from algorithm.
+3. properties_session.csv : Session properties</dd>
+<dt><strong><code>odir</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Output directory to store performance and visualizations
+(activity maps).</dd>
+<dt><strong><code>vdb</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Path to csv file containing group video database. This file is
+exported from AOLME website Cpanel.</dd>
+<dt><strong><code>act</code></strong> :&ensp;<code>Str</code></dt>
+<dd>Activity, {typing, writing}</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ActMapsAndPerf():
+
+    act = &#34;&#34;
+    &#34;&#34;&#34; Activity, {typing, writing} &#34;&#34;&#34;
+
+    alg_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having activity localization using algorithm &#34;&#34;&#34;
+
+    gt_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having activity localization from ground turth &#34;&#34;&#34;
+
+    sess_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having session properties &#34;&#34;&#34;
+
+    perf_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame having current session performance calculated
+    every second. &#34;&#34;&#34;
+
+    vdb_df = pd.DataFrame()
+    &#34;&#34;&#34; Data frame containing group videos data-base. &#34;&#34;&#34;
+
+
+    def __init__(self, idir, odir, vdb, act):
+        &#34;&#34;&#34; Methods and techniques to evaluate spatio-temporal
+        activity detection performance. This class also contain
+        methods that help us visualize the performance by using
+        activity maps.
+
+        Parameters
+        ----------
+        idir: Str
+            Input directory that has required files. They are,
+                1. gt-ty-30fps.xlsx       : Excel file having typing instances from ground truth.
+                2. alg-ty-30fps.xlsx      : Excel file having typing instances from algorithm.
+                3. properties_session.csv : Session properties
+        odir: Str
+            Output directory to store performance and visualizations
+            (activity maps).
+        vdb: Str
+            Path to csv file containing group video database. This file is
+            exported from AOLME website Cpanel.
+        act: Str
+            Activity, {typing, writing}
+        &#34;&#34;&#34;
+        idir = pk.check_dir_existance(idir)
+        odir = pk.check_dir_existance(odir)
+
+        # Check if required files exist
+        alg_pth  = pk.check_file_existance(f&#34;{idir}/alg-ty-30fps.xlsx&#34;)
+        gt_pth   = pk.check_file_existance(f&#34;{idir}/gt-ty-30fps.xlsx&#34;)
+        prop_pth = pk.check_file_existance(f&#34;{idir}/properties_session.csv&#34;)
+        
+        # Load as data frames
+        self.alg_df  = pd.read_excel(alg_pth, sheet_name=&#34;Machine readable&#34;)
+        self.gt_df   = pd.read_excel(gt_pth, sheet_name=&#34;Machine readable&#34;)
+        self.sess_df = pd.read_csv(prop_pth)
+        self.vdb_df  = pd.read_csv(vdb)
+
+        # Activity we are interested in
+        self.act = act
+
+        # Check for performance csv, if not available create one.
+        if not os.path.isfile(f&#34;{idir}/perf_per_sec.csv&#34;):
+            self.perf_df = self._calc_perf_per_sec()
+            self.perf_df.to_csv(f&#34;{idir}/perf_per_sec.csv&#34;, index=False)
+        else:
+            self.perf_df = pd.read_csv(f&#34;{idir}/perf_per_sec.csv&#34;)
+        
+
+    def _calc_perf_per_sec(self):
+        &#34;&#34;&#34; Evaluates algorithm activity instances against ground
+        truth. It produces a data frame with each row representing
+        a second.
+
+        Parameters
+        ----------
+        &#34;&#34;&#34;
+
+        # Duration column
+        dur_col = self._get_dur_column()
+
+        # video_name column
+        video_name_col = self._get_video_name_column()
+
+        # W, H, FPS columns
+        W, H, FPS = self._get_W_H_FPS()
+        W_col   = [W]*len(dur_col)
+        H_col   = [H]*len(dur_col)
+        FPS_col = [FPS]*len(dur_col)
+
+        # f0 and f
+        f0_col   = self._get_f0_column(FPS)
+        f_col    = [FPS]*len(dur_col)
+
+        # f0_sess
+        f0_sess_col = np.arange(0, len(dur_col)*FPS, FPS).tolist()
+
+        # Get student_codes, union of GT and Alg.
+        student_codes, student_codes_col = self._get_student_codes(dur_col)        
+
+        # Ground truth columns
+        act_gt_col, bbox_gt_col, fn_gt_col = self._get_act_columns(
+            self.gt_df.copy(), video_name_col, f0_col, f_col, student_codes_col
+        )
+
+        # Algorithm column
+        act_alg_col, bbox_alg_col, fn_alg_col = self._get_act_columns(
+            self.alg_df.copy(), video_name_col, f0_col, f_col, student_codes_col
+        )
+
+        # Confusion matrix label
+        cf_label_col = self._get_cf_mat_labels(act_gt_col, act_alg_col)
+
+        # IoU &lt;--- ??? Should do after meeting
+
+        # Creating an empty data frame with required columns
+        df = pd.DataFrame(
+            list(zip(video_name_col, dur_col, W_col, H_col, FPS_col,
+                     f0_col, f_col, f0_sess_col, student_codes_col,
+                     bbox_gt_col, act_gt_col, fn_gt_col,
+                     bbox_alg_col, act_alg_col, fn_alg_col,
+                     cf_label_col)),
+            columns=[
+                &#39;video_name&#39;, &#39;dur&#39;, &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;,
+                &#39;f0&#39;, &#39;f&#39;, &#39;f0_sess&#39;, &#39;student_codes&#39;,
+                &#39;bbox_gt&#39;,&#39;act_gt&#39;,&#39;fn_gt&#39;,
+                &#39;bbox_alg&#39;,&#39;act_alg&#39;, &#39;fn_alg&#39;,
+                &#39;cf_label&#39;
+        ])
+
+        return df
+
+
+        
+    def _get_cf_mat_labels(self, gt, alg):
+        &#34;&#34;&#34; 
+        Creates confusion matrix labels for each student. It is
+        in the form of &#34;TP:TN:FP:FN&#34;.
+        &#34;&#34;&#34;
+        cf_col = [&#34;&#34;]*len(gt)
+        for i in range(0,len(gt)):
+            
+            gti  = [x for x in gt[i].split(&#34;:&#34;)]
+            algi = [x for x in alg[i].split(&#34;:&#34;)]
+            cfi = []
+            
+            for j in range(0,len(gti)):
+                
+                gtij = gti[j].strip()
+                algij = algi[j].strip()
+
+                if gtij == f&#34;no_{self.act}&#34; and algij == f&#34;no_{self.act}&#34;:
+                    cfi += [&#34;TN&#34;]
+                    
+                elif gtij == f&#34;{self.act}&#34; and algij == f&#34;{self.act}&#34;:
+                    cfi += [&#34;TP&#34;]
+                    
+                elif gtij == f&#34;no_{self.act}&#34; and algij == f&#34;{self.act}&#34;:
+                    cfi += [&#34;FP&#34;]
+
+                elif gtij == f&#34;{self.act}&#34; and algij == f&#34;no_{self.act}&#34;:
+                    cfi += [&#34;TN&#34;]
+                    
+                else:
+                    import pdb; pdb.set_trace()
+                    raise Exception(f&#34;Something is wrong&#34;)
+                
+            cfi = &#34;:&#34;.join(cfi)
+            cf_col[i] = cfi
+
+        return cf_col
+
+                
+
+        
+    def _get_student_codes(self, dur_col):
+        &#34;&#34;&#34; Returns student_codes by considering students from both
+        ground truth and algorithm.
+        &#34;&#34;&#34;
+        gt_sc = self.gt_df[&#39;student_code&#39;].unique()
+        alg_sc = self.alg_df[&#39;student_code&#39;].unique()
+        union_sc = list(set().union(gt_sc, alg_sc))
+        
+        for i,x in enumerate(union_sc):
+            if i == 0:
+                student_code_str = f&#34;{x}&#34;
+            else:
+                student_code_str += f&#34;:{x}&#34;
+                
+        return union_sc, [student_code_str]*len(dur_col)
+    
+
+    def _get_act_columns(self, df, video_name_col, f0_col, f_col, student_codes_col):
+        &#34;&#34;&#34; Checks every second and labels it as activity or
+        no-activity. If labeled as activity it returns bounding box
+        with hyphen separated values, &#39;w0-h0-w-h&#39;.
+        &#34;&#34;&#34;
+        act_col = []
+        bbox_col = []
+        fn_col = []
+
+        # Loop every second
+        for i, f0 in enumerate(f0_col):
+
+            f = f_col[i]
+            video_name = video_name_col[i]
+            student_codes = student_codes_col[i]
+            
+            act_, bbox, fn_gt= self._get_act_label(
+                df.copy(), video_name, f0, f, student_codes
+            )
+            
+            act_col += [act_]
+            bbox_col += [bbox]
+            fn_col += [fn_gt]
+
+        return act_col, bbox_col, fn_col
+            
+
+            
+    def _get_act_label(self, df, vname, f0, f, student_codes):
+        &#34;&#34;&#34; If there are &gt;= 1/2*frames between f0 and f0+f are
+        classified as &#39;activity&#39; we return &lt;self.act&gt;, else
+        we return no_&lt;self.act&gt;
+        &#34;&#34;&#34;
+        # Get student codes from string
+        student_codes = [x for x in student_codes.split(&#34;:&#34;)]
+
+        # Current video instances
+        df = df[df[&#39;name&#39;] == vname].copy()
+
+        # Filtering events that happened before or after current
+        # frames, (f0,f)
+        df[&#39;f1&#39;] = df[&#39;f0&#39;] + df[&#39;f&#39;]
+        df = df[ f0 &lt;= df[&#39;f1&#39;] ]
+        df = df[ f0 + f &gt;= df[&#39;f0&#39;] ]
+
+        # Loop through each student
+        bboxs = &#34;&#34;
+        activities = &#34;&#34;
+        fns = &#34;&#34;
+        for i,student_code in enumerate(student_codes):
+
+            # Data frame having entries for current student
+            dfs = df[df[&#39;student_code&#39;] == student_code].copy()
+
+            
+            # Calculating number of frames in time interval
+            fn = 0
+            w0 = 0; h0 = 0; w = 0; h = 0
+            for j,row in dfs.iterrows():
+                fn += min(f0+f, row[&#39;f1&#39;]) - max(f0,row[&#39;f0&#39;])
+                w0 += row[&#39;w0&#39;]
+                h0 += row[&#39;h0&#39;]
+                w += row[&#39;w&#39;]
+                h += row[&#39;h&#39;]
+
+            # Bounding box
+            if not dfs.empty:
+                bbox = (
+                    f&#34;{w0/len(dfs)}-{h0/len(dfs)}-{w/len(dfs)}-{h/len(dfs)}&#34;
+                )
+            else:
+                bbox = &#34;0-0-0-0&#34;
+            
+            
+            # If we have activity for more than 50% of frames
+            # in current time interval, we label it as self.act
+            if fn &gt;= 0.5*(f):
+                act = self.act
+            else:
+                act = f&#34;no_{self.act}&#34;
+
+            # Creating a string for bounding boxes, student_code and
+            # activities
+            if i == 0:
+                bboxs = f&#34;{bbox}&#34;
+                activities = f&#34;{act}&#34;
+                fns = f&#34;{fn}&#34;
+            else:
+                bboxs += f&#34; :{bbox}&#34;
+                activities += f&#34; :{act}&#34;
+                fns += f&#34; :{fn}&#34;
+
+        return activities, bboxs, fns
+        
+        
+    def _get_f0_column(self, FPS):
+        &#34;&#34;&#34; Returns f0 column &#34;&#34;&#34;
+        
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        f0_col = []
+        for ridx, row in sdf.iterrows():
+          f0_col += np.arange(0, FPS*row[&#39;dur&#39;], FPS).tolist()
+        return f0_col
+            
+
+    def _get_W_H_FPS(self):
+        &#34;&#34;&#34; Returns Width, Height and FPS &#34;&#34;&#34;
+        W   = self.sess_df[&#39;width&#39;].unique()[0].astype(&#39;int&#39;)
+        H   = self.sess_df[&#39;height&#39;].unique()[0].astype(&#39;int&#39;)
+        FPS = self.sess_df[&#39;FPS&#39;].unique()[0].astype(&#39;int&#39;)
+
+        return W, H, FPS
+
+    def _get_video_name_column(self):
+        &#34;&#34;&#34; Make a column with video names &#34;&#34;&#34;
+
+        # Copy session data frame and drop last row
+        sdf = self.sess_df.copy()
+        sdf = sdf[:-1]
+
+        # Loop over each row of session dataframe
+        video_name_col = []
+        for ridx, row in sdf.iterrows():
+            video_name_col += [row[&#39;name&#39;]]*int(row[&#39;dur&#39;])
+            
+        return video_name_col
+
+
+
+        
+        
+
+    def _get_dur_column(self):
+        &#34;&#34;&#34; Get session duration &#34;&#34;&#34;        
+
+        sess_df   = self.sess_df.copy()
+        total_row = sess_df[sess_df[&#39;name&#39;] == &#39;total&#39;]
+        total_dur = total_row[&#39;dur&#39;].item()
+        dur_col   = np.arange(0,total_dur).tolist()
+
+        return dur_col
+
+    def _plot_cf_labels(self, fig, sidx, cf_labels, label, labels_traced):
+        &#34;&#34;&#34; Plots confusion matrix labels on `fig`.
+        &#34;&#34;&#34;
+        # Show legend flag
+        show_legend = False
+        
+        # X values
+        x_vals = np.arange(0, len(cf_labels)).tolist()
+
+        # Calculating y value and color
+        if label == &#34;TP&#34;:
+            y_val = (sidx + 1) - 0.1
+            color = &#34;green&#34;
+            if labels_traced[&#39;TP&#39;] == False:
+                show_legend=True
+                labels_traced[&#39;TP&#39;] = True
+        elif label == &#34;FN&#34;:
+            y_val = (sidx + 1)
+            color = &#34;red&#34;
+            if labels_traced[&#39;FN&#39;] == False:
+                show_legend=True
+                labels_traced[&#39;FN&#39;] = True
+        elif label == &#34;FP&#34;:
+            y_val = (sidx + 1) + 0.1
+            color = &#34;orange&#34;
+            if labels_traced[&#39;FP&#39;] == False:
+                show_legend=True
+                labels_traced[&#39;FP&#39;] = True
+        else:
+            raise Exception(f&#34;The label, {label}, is not supported&#34;)
+
+        # Creating y values list
+        y_vals = [y_val*(x == label) for x in cf_labels]
+        y_vals = [np.nan if x==0 else x for x in y_vals]
+
+        # Tracing using plotly
+        fig.add_trace(
+            go.Scatter(
+                x=x_vals, y=y_vals,
+                mode=&#39;lines&#39;,
+                line=dict(color=color, width=20),
+                legendgroup=label,
+                name=f&#34;{label}&#34;,
+                showlegend=show_legend
+            ))
+        
+
+        return fig, labels_traced
+
+
+    def _get_x_labels(self, x_vals):
+        &#34;&#34;&#34;
+        Get x labels of the format, {video idx}, {#min}min.
+
+        For example at 3 minutes of &lt;video name&gt;_01_05_30fps.mp4 will
+        be labeled, 01, 3min.
+        &#34;&#34;&#34;
+        df = self.perf_df.copy()
+        FPS = self.sess_df[&#39;FPS&#39;].unique()[0].astype(&#39;int&#39;)
+
+        x_labels = []
+        for x in x_vals:
+            name = df[df[&#39;f0_sess&#39;] == FPS*x][&#39;video_name&#39;].item()
+            f0 = df[df[&#39;f0_sess&#39;] == FPS*x][&#39;f0&#39;].item()
+            vidx = name.split(&#39;-&#39;)[4].split(&#39;_&#39;)[-1]
+            x_labels += [f&#34;{int(f0/(FPS*60))} min&#34;]
+
+        return x_labels
+
+
+    def _create_cf_mat_map(self, fig):
+        &#34;&#34;&#34; Creates activity map.
+        &#34;&#34;&#34;
+        student_codes = self.perf_df[&#39;student_codes&#39;].tolist()
+        cf_labels = self.perf_df[&#39;cf_label&#39;].tolist()
+
+        # Creating a 2D matrix
+        student_codes = [x.split(&#34;:&#34;) for x in student_codes]
+        cf_labels = [x.split(&#34;:&#34;) for x in cf_labels]
+
+        # Labels dicitonary to keep track of labels that are already
+        # traced. This helps in not having multiple legends with
+        # same name.
+        labels_traced = {&#34;TP&#34;:False, &#34;TN&#34;: False, &#34;FP&#34;: False, &#34;FN&#34;: False}
+
+        # Loop over each student
+        for sidx in range(0, len(student_codes[0])):
+
+            # Current student confusion matrix labels
+            cur_cf_labels = [x[sidx] for x in cf_labels]
+            cur_student = student_codes[0][sidx]
+
+            # Plot TP, FP, FN
+            fig, labels_traced = self._plot_cf_labels(fig, sidx, cur_cf_labels, &#34;TP&#34;, labels_traced)
+            fig, labels_traced = self._plot_cf_labels(fig, sidx, cur_cf_labels, &#34;FP&#34;, labels_traced)
+            fig, labels_traced = self._plot_cf_labels(fig,  sidx, cur_cf_labels, &#34;FN&#34;, labels_traced)
+            
+        # Updating y_ticks
+        y_vals = np.arange(1, len(student_codes) + 1)
+        y_labels = student_codes[0]
+        fig.update_yaxes(
+        title_font={&#34;size&#34;: 32},
+        tickvals=y_vals,
+        ticktext=y_labels,
+        tickfont=dict(size=20))
+
+        # Updating x_ticks: we will be having a label every
+        # 3 minutes
+        x_vals = np.arange(0, len(cf_labels), 60*5).tolist()
+        x_labels = self._get_x_labels(x_vals)
+        fig.update_xaxes(
+        title_font={&#34;size&#34;: 32},
+        tickvals=x_vals,
+        ticktext=x_labels,
+        tickfont=dict(size=20))
+
+
+        # Legend font
+        fig.update_layout(
+            legend = dict(font = dict(size = 20))
+        )
+
+
+        return fig
+
+
+    def _get_cur_student_act_start_end(self, cur_act_labels):
+        &#34;&#34;&#34; Returns a list of tuples with starting and ending index of
+        activity.
+
+        Example
+        -------
+        [(50, 60), (300, 800)]
+        &#34;&#34;&#34;
+        act_list = [1*(x == self.act) for x in cur_act_labels]
+
+        act_start_end_list = []
+        start_idx_flag = True
+        for i, v in enumerate(act_list):
+
+            if v == 0 and start_idx_flag:
+                continue
+            elif v == 1 and not(start_idx_flag):
+                continue
+            
+            elif v == 1 and start_idx_flag:
+                start_idx = i
+                start_idx_flag = False
+                
+            elif v == 0 and not(start_idx_flag):
+                end_idx = i - 1
+                act_start_end_list += [(start_idx, end_idx)]
+                start_idx_flag = True
+
+            else:
+                pdb.set_trace()
+                raise Exception(f&#34;Haha I am not sure what is happening&#34;)
+
+        return act_start_end_list
+
+
+    def _get_time_in_min(self, f0):
+        &#34;&#34;&#34; Returns time as &#39;MM:SS&#39; format
+        &#34;&#34;&#34;
+        FPS = self.sess_df[&#39;FPS&#39;].unique()[0].astype(&#39;int&#39;)
+        # Seconds
+        sec = int(f0/FPS)
+
+        # Minutes
+        min_ = int(sec//60)
+
+        # seconds
+        sec_ = int(sec%60)
+
+        return sec, f&#34;{min_:02d}:{sec_:02d}&#34;
+
+    def _get_vidx_from_groups_db(self, name):
+        &#34;&#34;&#34;
+        Returns video index from groups database file.
+
+        Parameters
+        ----------
+        name : str
+            Video name
+        &#34;&#34;&#34;
+        # removing _30fps from name
+        name = name.replace(&#34;_30fps&#34;,&#34;&#34;)
+        df = self.vdb_df.copy()
+        vidx = df[df[&#39;video_name&#39;] == name][&#39;idx&#39;].item()
+        return vidx
+
+
+    def _create_act_map(self, fig, method, annotation_delta_time=1):
+        &#34;&#34;&#34; Creates ground truth activity map
+        &#34;&#34;&#34;
+        
+        # Get student codes and activity labels from performance dataframe
+        student_codes = self.perf_df[&#39;student_codes&#39;].tolist()
+        act_labels = self.perf_df[f&#39;act_{method}&#39;].tolist()
+                
+
+        # Creating a 2D matrix
+        student_codes = [x.split(&#34;:&#34;) for x in student_codes]
+        act_labels = [x.split(&#34;:&#34;) for x in act_labels]
+
+        # Loop over each student
+        for sidx in range(0, len(student_codes[0])):
+
+            # Current student confusion matrix labels
+            cur_act_labels = [x[sidx].strip() for x in act_labels]
+            cur_student = student_codes[0][sidx]
+
+            # Plot typing instances or current student
+            x_vals = np.arange(0,len(cur_act_labels)).tolist()
+            y_val = (sidx + 1)
+            y_vals = [y_val*(x == self.act) for x in cur_act_labels]
+            y_vals = [np.nan if x==0 else x for x in y_vals]
+
+            fig.add_trace(
+                go.Scatter(
+                    x=x_vals, y=y_vals,
+                    mode=&#39;lines&#39;,
+                    line=dict(color=&#34;green&#34;, width=20),
+                    name=f&#34;{cur_student}&#34;,
+                    showlegend=False
+                )
+            )
+
+            # Get starting and ending indexes of each event for
+            # current student. The time duration is at session level.
+            start_end = self._get_cur_student_act_start_end(cur_act_labels)
+
+            # Annotate event. Make sure that each annotation is
+            # atleast 1 minute apart
+            prev_end_time = 0
+            for cur_act_start_end in start_end:
+
+                # Current start and end time at session level
+                start, end = cur_act_start_end
+
+                # Set annotation flag based on prev_end_time and
+                # current end time
+                delta_time = end - prev_end_time
+                if delta_time/60 &gt; annotation_delta_time:
+                    annotate_falg = True
+                    prev_end_time = end
+                else:
+                    annotate_falg = False
+                
+                # Annotate only if annotation flag is true
+                if annotate_falg:
+
+                    start_vname = self.perf_df.iloc[start][&#39;video_name&#39;]
+                    end_vname = self.perf_df.iloc[end][&#39;video_name&#39;]
+                    if start_vname != end_vname:
+                        raise Exception (&#34;&#34;&#34;
+                        The activity should be in the same video. But the starting
+                        and ending event indexes contradict that!
+                        &#34;&#34;&#34;)
+
+                    # Time w.r.t the video
+                    f0_start               = self.perf_df.iloc[start][&#39;f0&#39;]
+                    f0_end                 = self.perf_df.iloc[end][&#39;f0&#39;]
+                    start_sec, start_mm_ss = self._get_time_in_min(f0_start)
+                    end_sec, end_mm_ss     = self._get_time_in_min(f0_end)
+                    time_str               = f&#34;{start_mm_ss} to {end_mm_ss}&#34;
+
+                    # Update link with video index and start and end time
+                    link = &#34;https://aolme.unm.edu/researcher/activity_maps/video.php&#34;
+                    vidx = self._get_vidx_from_groups_db(start_vname)
+                    link = f&#34;{link}?vidx={vidx}&amp;start_time={start_sec}&amp;end_time={end_sec}&#34;
+                    
+                    # On hover show the following information
+                    hover_tempalte = (
+                        f&#34;&lt;b&gt;Video:&lt;/b&gt; {start_vname}&lt;br&gt;&#34;
+                        f&#34;&lt;b&gt;Time:&lt;/b&gt; {time_str}&#34;
+                    )
+
+                    fig.add_annotation(
+                        x=(start+end)/2,
+                        y=y_val,
+                        hovertext=hover_tempalte,
+                        width=5,
+                        text=f&#34;&lt;a href=&#39;{link}&#39;&gt;*&lt;/a&gt;&#34;,
+                        showarrow=True
+                    )
+                
+        
+        # Updating y_ticks
+        y_vals = np.arange(1, len(student_codes) + 1)
+        y_labels = student_codes[0]
+        fig.update_yaxes(
+        title_font={&#34;size&#34;: 32},
+        tickvals=y_vals,
+        ticktext=y_labels,
+        tickfont=dict(size=20))
+
+        # Updating x_ticks: we will be having a label every
+        # 3 minutes
+        x_vals = np.arange(0, len(act_labels), 60*5).tolist()
+        x_labels = self._get_x_labels(x_vals)
+        fig.update_xaxes(
+        title_font={&#34;size&#34;: 32},
+        tickvals=x_vals,
+        ticktext=x_labels,
+        tickfont=dict(size=20))
+
+
+        # Legend font
+        fig.update_layout(
+            legend = dict(font = dict(size = 20))
+        )
+
+
+        return fig
+    
+    def visualize_maps(self):
+        &#34;&#34;&#34; Helps in visualizing confusion matrix for activity
+        detection as activity map.
+        &#34;&#34;&#34;
+
+        # Initialize figure handle
+        cf_map_fig = go.Figure()
+        gt_fig     = go.Figure()
+        alg_fig    = go.Figure()
+
+        # Create maps
+        cf_map_fig = self._create_cf_mat_map(cf_map_fig)
+        gt_fig     = self._create_act_map(gt_fig, &#34;gt&#34;)
+        alg_fig    = self._create_act_map(alg_fig, &#34;alg&#34;, annotation_delta_time=2)
+                
+
+        # Show maps
+        cf_map_fig.show()
+        gt_fig.show()
+        alg_fig.show()
+
+    def write_maps(self, out_path):
+        &#34;&#34;&#34; Writes maps to a directory
+        &#34;&#34;&#34;
+        # Initialize figure handle
+        cf_map_fig = go.Figure()
+        gt_fig     = go.Figure()
+        alg_fig    = go.Figure()
+
+        # Create maps
+        cf_map_fig = self._create_cf_mat_map(cf_map_fig)
+        gt_fig     = self._create_act_map(gt_fig, &#34;gt&#34;)
+        alg_fig    = self._create_act_map(alg_fig, &#34;alg&#34;, annotation_delta_time=2)
+                
+
+        # Write maps
+        
+        cf_map_fig.write_html(f&#34;{out_path}/gt_vs_alg.html&#34;)
+        gt_fig.write_html(f&#34;{out_path}/gt.html&#34;)
+        alg_fig.write_html(f&#34;{out_path}/alg.html&#34;)
+
+
+    def save_cf_mat_per_person(self, out_path):
+        &#34;&#34;&#34; Prints confusion matrix per person
+        &#34;&#34;&#34;
+        df = self.perf_df.copy()
+
+        # Student codes
+        student_codes = [x.split(&#39;:&#39;) for x in df[&#39;student_codes&#39;].tolist()][0]
+
+        # confusion matrix labels
+        cf_labels = [x.split(&#39;:&#39;) for x in df[&#39;cf_label&#39;].tolist()]
+
+        # Loop through each student
+        rows = []
+        for i in range(0,len(student_codes)):
+            
+            # Getting current student information
+            student_i = student_codes[i]
+            cf_labels_i = [x[i] for x in cf_labels]
+
+            # TP, TN, FP, FN
+            TP_i = cf_labels_i.count(&#34;TP&#34;)
+            TN_i = cf_labels_i.count(&#34;TN&#34;)
+            FP_i = cf_labels_i.count(&#34;FP&#34;)
+            FN_i = cf_labels_i.count(&#34;FN&#34;)
+
+            rows += [[student_i, TP_i, TN_i, FP_i, FN_i]]
+            
+        # Save the csv file
+        df_out = pd.DataFrame(
+            rows, columns=[&#39;student_code&#39;,&#39;TP&#39;, &#39;TN&#39;, &#39;FP&#39;, &#39;FN&#39;]
+        )
+        df_out.to_csv(out_path, index=False)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.act"><code class="name">var <span class="ident">act</span></code></dt>
+<dd>
+<div class="desc"><p>Activity, {typing, writing}</p></div>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.alg_df"><code class="name">var <span class="ident">alg_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having activity localization using algorithm</p></div>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.gt_df"><code class="name">var <span class="ident">gt_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having activity localization from ground turth</p></div>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.perf_df"><code class="name">var <span class="ident">perf_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having current session performance calculated
+every second.</p></div>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.sess_df"><code class="name">var <span class="ident">sess_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame having session properties</p></div>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.vdb_df"><code class="name">var <span class="ident">vdb_df</span></code></dt>
+<dd>
+<div class="desc"><p>Data frame containing group videos data-base.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.save_cf_mat_per_person"><code class="name flex">
+<span>def <span class="ident">save_cf_mat_per_person</span></span>(<span>self, out_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints confusion matrix per person</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_cf_mat_per_person(self, out_path):
+    &#34;&#34;&#34; Prints confusion matrix per person
+    &#34;&#34;&#34;
+    df = self.perf_df.copy()
+
+    # Student codes
+    student_codes = [x.split(&#39;:&#39;) for x in df[&#39;student_codes&#39;].tolist()][0]
+
+    # confusion matrix labels
+    cf_labels = [x.split(&#39;:&#39;) for x in df[&#39;cf_label&#39;].tolist()]
+
+    # Loop through each student
+    rows = []
+    for i in range(0,len(student_codes)):
+        
+        # Getting current student information
+        student_i = student_codes[i]
+        cf_labels_i = [x[i] for x in cf_labels]
+
+        # TP, TN, FP, FN
+        TP_i = cf_labels_i.count(&#34;TP&#34;)
+        TN_i = cf_labels_i.count(&#34;TN&#34;)
+        FP_i = cf_labels_i.count(&#34;FP&#34;)
+        FN_i = cf_labels_i.count(&#34;FN&#34;)
+
+        rows += [[student_i, TP_i, TN_i, FP_i, FN_i]]
+        
+    # Save the csv file
+    df_out = pd.DataFrame(
+        rows, columns=[&#39;student_code&#39;,&#39;TP&#39;, &#39;TN&#39;, &#39;FP&#39;, &#39;FN&#39;]
+    )
+    df_out.to_csv(out_path, index=False)</code></pre>
+</details>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.visualize_maps"><code class="name flex">
+<span>def <span class="ident">visualize_maps</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Helps in visualizing confusion matrix for activity
+detection as activity map.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def visualize_maps(self):
+    &#34;&#34;&#34; Helps in visualizing confusion matrix for activity
+    detection as activity map.
+    &#34;&#34;&#34;
+
+    # Initialize figure handle
+    cf_map_fig = go.Figure()
+    gt_fig     = go.Figure()
+    alg_fig    = go.Figure()
+
+    # Create maps
+    cf_map_fig = self._create_cf_mat_map(cf_map_fig)
+    gt_fig     = self._create_act_map(gt_fig, &#34;gt&#34;)
+    alg_fig    = self._create_act_map(alg_fig, &#34;alg&#34;, annotation_delta_time=2)
+            
+
+    # Show maps
+    cf_map_fig.show()
+    gt_fig.show()
+    alg_fig.show()</code></pre>
+</details>
+</dd>
+<dt id="aqua.act_maps_and_perf.ActMapsAndPerf.write_maps"><code class="name flex">
+<span>def <span class="ident">write_maps</span></span>(<span>self, out_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes maps to a directory</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_maps(self, out_path):
+    &#34;&#34;&#34; Writes maps to a directory
+    &#34;&#34;&#34;
+    # Initialize figure handle
+    cf_map_fig = go.Figure()
+    gt_fig     = go.Figure()
+    alg_fig    = go.Figure()
+
+    # Create maps
+    cf_map_fig = self._create_cf_mat_map(cf_map_fig)
+    gt_fig     = self._create_act_map(gt_fig, &#34;gt&#34;)
+    alg_fig    = self._create_act_map(alg_fig, &#34;alg&#34;, annotation_delta_time=2)
+            
+
+    # Write maps
+    
+    cf_map_fig.write_html(f&#34;{out_path}/gt_vs_alg.html&#34;)
+    gt_fig.write_html(f&#34;{out_path}/gt.html&#34;)
+    alg_fig.write_html(f&#34;{out_path}/alg.html&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua" href="../index.html">aqua</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="aqua.act_maps_and_perf.plotly_maps" href="plotly_maps.html">aqua.act_maps_and_perf.plotly_maps</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf" href="#aqua.act_maps_and_perf.ActMapsAndPerf">ActMapsAndPerf</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.act" href="#aqua.act_maps_and_perf.ActMapsAndPerf.act">act</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.alg_df" href="#aqua.act_maps_and_perf.ActMapsAndPerf.alg_df">alg_df</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.gt_df" href="#aqua.act_maps_and_perf.ActMapsAndPerf.gt_df">gt_df</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.perf_df" href="#aqua.act_maps_and_perf.ActMapsAndPerf.perf_df">perf_df</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.save_cf_mat_per_person" href="#aqua.act_maps_and_perf.ActMapsAndPerf.save_cf_mat_per_person">save_cf_mat_per_person</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.sess_df" href="#aqua.act_maps_and_perf.ActMapsAndPerf.sess_df">sess_df</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.vdb_df" href="#aqua.act_maps_and_perf.ActMapsAndPerf.vdb_df">vdb_df</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.visualize_maps" href="#aqua.act_maps_and_perf.ActMapsAndPerf.visualize_maps">visualize_maps</a></code></li>
+<li><code><a title="aqua.act_maps_and_perf.ActMapsAndPerf.write_maps" href="#aqua.act_maps_and_perf.ActMapsAndPerf.write_maps">write_maps</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

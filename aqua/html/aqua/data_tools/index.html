@@ -1,0 +1,1707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>aqua.data_tools API documentation</title>
+<meta name="description" content="Documentation of complete data_tools goes here" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>aqua.data_tools</code></h1>
+</header>
+<section id="section-intro">
+<p>Documentation of complete data_tools goes here</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Documentation of complete data_tools goes here
+&#34;&#34;&#34;
+from aqua.data_tools.aolme import AOLMETrimmedVideos
+from aqua.data_tools.aolme import AOLMEActivityLabels
+from aqua.data_tools.aolme import TrimStat
+__all__ = [&#34;AOLMETrimmedVideos&#34;,
+           &#34;AOLMEActivityLabels&#34;,&#34;TrimStat&#34;]</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="aqua.data_tools.aolme" href="aolme/index.html">aqua.data_tools.aolme</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="aqua.data_tools.AOLMEActivityLabels"><code class="flex name class">
+<span>class <span class="ident">AOLMEActivityLabels</span></span>
+<span>(</span><span>rdir, labels_fname)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Methods to (1). Standardize, (2). Analyze
+and (3). Process activity labels.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory path having activity labels.</dd>
+<dt><strong><code>labels_fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the file that has activity labels.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AOLMEActivityLabels:
+    def __init__(self, rdir, labels_fname):
+        &#34;&#34;&#34; Methods to (1). Standardize, (2). Analyze
+        and (3). Process activity labels.
+
+        Parameters
+        ----------
+        rdir: str
+            Directory path having activity labels.
+        labels_fname: str
+            Name of the file that has activity labels.
+        &#34;&#34;&#34;
+        self._rdir = rdir
+        self._fname = labels_fname
+
+    def create_labeled_videos(self, names_csv, activity):
+        &#34;&#34;&#34;
+        The following method overlays labeles on video.
+
+        Assumptions
+        -----------
+        1. The videos are present in the same directory as csv file
+           containing the labels.
+
+        Parameters
+        ----------
+        names_csv: str
+            Path to csv file having numeric names and pseudonyms
+        activity: str
+            Activity that is being processed
+        &#34;&#34;&#34;
+        # Loading data from csv files to dataframes
+        df = pd.read_csv(f&#34;{self._rdir}/{self._fname}&#34;)
+        tydf = df[df[&#39;activity&#39;] == activity].copy()
+        
+        # Loading dataframe that contains pseudonyms
+        ndf = pd.read_csv(f&#34;{names_csv}&#34;)
+        
+        # Initializing visualization instance
+        viz = Visualize(self._rdir, tydf)
+        viz.to_video_ffmpeg(names_df = ndf)
+
+
+
+    def get_person_codes(self, ndf, row, person_code, person_code_type):
+        &#34;&#34;&#34; Returns person information.
+        &#34;&#34;&#34;
+        
+        if person_code_type == &#39;numeric_code&#39;:
+            numeric_code = row[person_code]
+            pseudonym = ndf[ndf[person_code_type] == numeric_code][&#39;pseudonym&#39;].item()
+            student_code = ndf[ndf[person_code_type] == numeric_code][&#39;student_code&#39;].item()
+            
+        elif person_code_type == &#39;student_code&#39;:
+            student_code = row[person_code]
+            pseudonym = ndf[ndf[person_code_type] == student_code][&#39;pseudonym&#39;].item()
+            numeric_code = ndf[ndf[person_code_type] == student_code][&#39;numeric_code&#39;].item()
+                        
+        elif person_code_type == &#39;pseudonym&#39;:
+            pseudonym = row[person_code]
+            numeric_code = ndf[ndf[person_code_type] == pseudonym][&#39;numeric_code&#39;].item()
+            student_code = ndf[ndf[person_code_type] == pseudonym][&#39;student_code&#39;].item()
+            
+        else:
+            print(f&#34;Does not support {person_code_type}&#34;)
+
+        
+        return numeric_code, pseudonym, student_code
+
+    def create_xlsx(self, names_csv, out_xlsx, activity, person_code, person_code_type):
+        &#34;&#34;&#34;
+        The following code parses ground truth csv file to xlsx sheets.
+        This is done to provide easy access to education researchers.
+
+        NOTE
+        ----
+        This method assumes the existance of `properties_session.csv` file.
+        This file contains information related every video in the session.
+        
+
+        Parameters
+        ----------
+        names_csv: str
+            Path to csv file having numeric names and pseudonyms
+        out_xlsx: str
+            Path to output xlsx file
+        activity: str
+            Activity that is being processed
+        person_code: str
+            Column name having student identification
+        person_code_type: str
+            Type of student identification used, {numeric_code, student_code, pseudonym}
+        &#34;&#34;&#34;
+        # Session properties
+        sprops = pd.read_csv(f&#34;{self._rdir}/properties_session.csv&#34;)
+        sdur_sec = sprops[sprops[&#39;name&#39;] == &#39;total&#39;][&#39;dur&#39;].item()
+
+        # Loading dataframe that contains pseudonyms
+        ndf = pd.read_csv(f&#34;{names_csv}&#34;)
+
+        # Load dataframe that has typing instances
+        df = pd.read_csv(f&#34;{self._rdir}/{self._fname}&#34;)
+        tydf = df[df[&#39;activity&#39;] == activity].copy()
+        persons = tydf[person_code].unique()
+
+        # Loop over all typing instances and collect information
+        hrlist = [] # Human readable
+        for ridx, row in tydf.iterrows():
+
+            # Information of tydf
+            name = row[&#39;name&#39;]
+            stime = math.ceil(row[&#39;f0&#39;]/row[&#39;FPS&#39;])
+            stime_str = str(datetime.timedelta(seconds=stime))
+            etime = math.floor(stime + (row[&#39;f&#39;]/row[&#39;FPS&#39;]))
+            etime_str = str(datetime.timedelta(seconds=etime))
+            dur_sec = etime - stime
+            dur_min = round(dur_sec/60.0, 2)
+            dur_str = str(datetime.timedelta(seconds=dur_sec))
+            w0 = math.floor(row[&#39;w0&#39;])
+            h0 = math.floor(row[&#39;h0&#39;])
+            w = math.floor(row[&#39;w&#39;])
+            h = math.floor(row[&#39;h&#39;])
+            
+            # Getting person name information
+            numeric_code, pseudonym, student_code = self.get_person_codes(ndf, row, person_code, person_code_type)
+
+            # Creating list
+            hrlist += [[name, numeric_code, pseudonym, student_code,
+                        stime_str, etime_str, dur_str,
+                        w0, h0, w, h]]
+
+
+
+
+            
+        
+        # Output dataframe
+        try:
+            odf = pd.DataFrame(hrlist, columns=[&#39;Video name&#39;, &#39;Numeric code&#39;, &#39;Pseudonym&#39;, &#39;Student code&#39;,
+                                            &#39;Start time&#39;, &#39;End time&#39;, &#39;Duration&#39;,
+                                            &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;])
+        except:
+            import pdb; pdb.set_trace()
+
+        # Export to excel
+        
+        print(f&#34;INFO: Writing {out_xlsx}&#34;)
+        writer = pd.ExcelWriter(out_xlsx, engine=&#39;xlsxwriter&#39;)
+        odf.to_excel(writer, sheet_name=&#34;Human readable&#34;, index=False)
+
+        # Adding pseudonym, numeric_code, student_code to tydf
+        tydf[&#39;pseudonym&#39;] = [row[2] for row in hrlist]
+        tydf[&#39;numeric_code&#39;] = [row[1] for row in hrlist]
+        tydf[&#39;student_code&#39;] = [row[3] for row in hrlist]
+        tydf.to_excel(writer, sheet_name=&#34;Machine readable&#34;, index=False)
+        writer.save()
+        
+
+    def save_summary_to_json(self):
+        &#34;&#34;&#34; Method that summarizes activity labels to a text
+        file. The file is saved as `summary.json` in the root
+        directory.
+        &#34;&#34;&#34;
+        flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+        # Create a data frame from all the activity labels
+        df = self._load_all_activity_labels(flist)
+
+        # Add time column to data frame
+        df = self._add_time(df)
+
+        # Creating sumarize instance
+        summary = Summarize(df)
+
+        # Sumamry file path
+        opth = f&#34;{self._rdir}/summary.json&#34;
+
+        # Summarize to text file
+        summary.to_json(opth)
+
+    def hist_of_activity_labels(self, title):
+        &#34;&#34;&#34; The following method saves histograms of
+        width, height and duration of bounding boxes.
+        &#34;&#34;&#34;
+        flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+        # Create a data frame from all the activity labels
+        df = self._load_all_activity_labels(flist)
+
+        # Add time duration in seconds to data frame
+        df = self._add_time(df)
+
+        # Write code from here
+        pdb.set_trace()
+
+    def standardize_activity_labels(self, fr=30, overwrite=False):
+        &#34;&#34;&#34; Standardizes activity labels.
+
+        Parameters
+        ----------
+        fr: int, optional
+            Required frame rate.
+        overwrite: bool, optional
+            Overwrites. Defaults to False
+        &#34;&#34;&#34;
+        # Standardizing activity labels
+        std = Standardize(self._rdir, self._fname, fr, overwrite)
+        std.create_activity_labels_at_fr()
+
+    def standardize_videos(self, vdb_path, fr=30, overwrite=False):
+        &#34;&#34;&#34; Standardizes video frame rate in videos.
+
+        Parameters
+        ----------
+        vdb_path: str
+            Video data base path having download link to videos.
+        fr: int, optional
+            Required frame rate.
+        overwrite: bool, optional
+            Overwrites. Defaults to False
+        &#34;&#34;&#34;
+        # Standardizing videos
+        std = Standardize(self._rdir, self._fname, fr, overwrite)
+        std.transcode_videos_at_fr(vdb_path)
+
+    def create_spatiotemporal_trims(self,
+                                    odir,
+                                    trims_per_instance=1,
+                                    dur=3,
+                                    overwrite=False):
+        &#34;&#34;&#34; Creates one spatiotemporal trim per one instance of activity
+        label.
+
+        Parameters
+        ----------
+        odir: str
+            Path of direcotry to store trims.
+        trims_per_instance: int,
+            Number of trims to be extracted from one instance of
+            activity label. -1 implies that we trim completely.
+        dur: int, optional
+            Duration of each trim in seconds. Defaults to 3.
+        overwrite: bool, optional
+            Overwrites. Defaults to False
+        &#34;&#34;&#34;
+        flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+        # Create a data frame from all the activity labels
+        df = self._load_all_activity_labels(flist)
+
+        # Add time column to data frame
+        df = self._add_time(df)
+
+        proc = Process(self._rdir, self._fname)
+        if trims_per_instance == 1:
+            proc.one_trim_per_instance(odir, dur, overwrite)
+        elif trims_per_instance == -1:
+            proc.trim_instances(odir, overwrite)
+        else:
+            raise Exception(&#34;Invalid trims per instance, &#34;
+                            f&#34;{trims_per_instance}&#34;)
+
+    def _load_all_activity_labels(self, flist):
+        &#34;&#34;&#34; Loads all activity labels present under rood directory inot
+        one dataframe.
+
+        Parameters
+        ----------
+        flist: list of str
+            List of csv file paths having activity labels.
+        &#34;&#34;&#34;
+        dflst = []
+        for f in flist:
+            dflst += [pd.read_csv(f)]
+
+        return pd.concat(dflst, ignore_index=True)
+
+    def _add_time(self, df):
+        &#34;&#34;&#34; Adds time column to data frame
+        
+        Parameters
+        ----------
+        df: DataFrame
+            DataFrame having activity label instances
+        &#34;&#34;&#34;
+        fps = df[&#39;FPS&#39;].to_numpy()
+        f = df[&#39;f&#39;].to_numpy()
+        t = np.round(f / fps, 2)
+
+        df[&#39;t&#39;] = t
+
+        return df</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.data_tools.AOLMEActivityLabels.create_labeled_videos"><code class="name flex">
+<span>def <span class="ident">create_labeled_videos</span></span>(<span>self, names_csv, activity)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The following method overlays labeles on video.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ol>
+<li>The videos are present in the same directory as csv file
+containing the labels.</li>
+</ol>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>names_csv</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to csv file having numeric names and pseudonyms</dd>
+<dt><strong><code>activity</code></strong> :&ensp;<code>str</code></dt>
+<dd>Activity that is being processed</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_labeled_videos(self, names_csv, activity):
+    &#34;&#34;&#34;
+    The following method overlays labeles on video.
+
+    Assumptions
+    -----------
+    1. The videos are present in the same directory as csv file
+       containing the labels.
+
+    Parameters
+    ----------
+    names_csv: str
+        Path to csv file having numeric names and pseudonyms
+    activity: str
+        Activity that is being processed
+    &#34;&#34;&#34;
+    # Loading data from csv files to dataframes
+    df = pd.read_csv(f&#34;{self._rdir}/{self._fname}&#34;)
+    tydf = df[df[&#39;activity&#39;] == activity].copy()
+    
+    # Loading dataframe that contains pseudonyms
+    ndf = pd.read_csv(f&#34;{names_csv}&#34;)
+    
+    # Initializing visualization instance
+    viz = Visualize(self._rdir, tydf)
+    viz.to_video_ffmpeg(names_df = ndf)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.create_spatiotemporal_trims"><code class="name flex">
+<span>def <span class="ident">create_spatiotemporal_trims</span></span>(<span>self, odir, trims_per_instance=1, dur=3, overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates one spatiotemporal trim per one instance of activity
+label.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path of direcotry to store trims.</dd>
+<dt><strong><code>trims_per_instance</code></strong> :&ensp;<code>int,</code></dt>
+<dd>Number of trims to be extracted from one instance of
+activity label. -1 implies that we trim completely.</dd>
+<dt><strong><code>dur</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Duration of each trim in seconds. Defaults to 3.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Overwrites. Defaults to False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_spatiotemporal_trims(self,
+                                odir,
+                                trims_per_instance=1,
+                                dur=3,
+                                overwrite=False):
+    &#34;&#34;&#34; Creates one spatiotemporal trim per one instance of activity
+    label.
+
+    Parameters
+    ----------
+    odir: str
+        Path of direcotry to store trims.
+    trims_per_instance: int,
+        Number of trims to be extracted from one instance of
+        activity label. -1 implies that we trim completely.
+    dur: int, optional
+        Duration of each trim in seconds. Defaults to 3.
+    overwrite: bool, optional
+        Overwrites. Defaults to False
+    &#34;&#34;&#34;
+    flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+    # Create a data frame from all the activity labels
+    df = self._load_all_activity_labels(flist)
+
+    # Add time column to data frame
+    df = self._add_time(df)
+
+    proc = Process(self._rdir, self._fname)
+    if trims_per_instance == 1:
+        proc.one_trim_per_instance(odir, dur, overwrite)
+    elif trims_per_instance == -1:
+        proc.trim_instances(odir, overwrite)
+    else:
+        raise Exception(&#34;Invalid trims per instance, &#34;
+                        f&#34;{trims_per_instance}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.create_xlsx"><code class="name flex">
+<span>def <span class="ident">create_xlsx</span></span>(<span>self, names_csv, out_xlsx, activity, person_code, person_code_type)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The following code parses ground truth csv file to xlsx sheets.
+This is done to provide easy access to education researchers.</p>
+<h2 id="note">Note</h2>
+<p>This method assumes the existance of <code>properties_session.csv</code> file.
+This file contains information related every video in the session.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>names_csv</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to csv file having numeric names and pseudonyms</dd>
+<dt><strong><code>out_xlsx</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to output xlsx file</dd>
+<dt><strong><code>activity</code></strong> :&ensp;<code>str</code></dt>
+<dd>Activity that is being processed</dd>
+<dt><strong><code>person_code</code></strong> :&ensp;<code>str</code></dt>
+<dd>Column name having student identification</dd>
+<dt><strong><code>person_code_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Type of student identification used, {numeric_code, student_code, pseudonym}</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_xlsx(self, names_csv, out_xlsx, activity, person_code, person_code_type):
+    &#34;&#34;&#34;
+    The following code parses ground truth csv file to xlsx sheets.
+    This is done to provide easy access to education researchers.
+
+    NOTE
+    ----
+    This method assumes the existance of `properties_session.csv` file.
+    This file contains information related every video in the session.
+    
+
+    Parameters
+    ----------
+    names_csv: str
+        Path to csv file having numeric names and pseudonyms
+    out_xlsx: str
+        Path to output xlsx file
+    activity: str
+        Activity that is being processed
+    person_code: str
+        Column name having student identification
+    person_code_type: str
+        Type of student identification used, {numeric_code, student_code, pseudonym}
+    &#34;&#34;&#34;
+    # Session properties
+    sprops = pd.read_csv(f&#34;{self._rdir}/properties_session.csv&#34;)
+    sdur_sec = sprops[sprops[&#39;name&#39;] == &#39;total&#39;][&#39;dur&#39;].item()
+
+    # Loading dataframe that contains pseudonyms
+    ndf = pd.read_csv(f&#34;{names_csv}&#34;)
+
+    # Load dataframe that has typing instances
+    df = pd.read_csv(f&#34;{self._rdir}/{self._fname}&#34;)
+    tydf = df[df[&#39;activity&#39;] == activity].copy()
+    persons = tydf[person_code].unique()
+
+    # Loop over all typing instances and collect information
+    hrlist = [] # Human readable
+    for ridx, row in tydf.iterrows():
+
+        # Information of tydf
+        name = row[&#39;name&#39;]
+        stime = math.ceil(row[&#39;f0&#39;]/row[&#39;FPS&#39;])
+        stime_str = str(datetime.timedelta(seconds=stime))
+        etime = math.floor(stime + (row[&#39;f&#39;]/row[&#39;FPS&#39;]))
+        etime_str = str(datetime.timedelta(seconds=etime))
+        dur_sec = etime - stime
+        dur_min = round(dur_sec/60.0, 2)
+        dur_str = str(datetime.timedelta(seconds=dur_sec))
+        w0 = math.floor(row[&#39;w0&#39;])
+        h0 = math.floor(row[&#39;h0&#39;])
+        w = math.floor(row[&#39;w&#39;])
+        h = math.floor(row[&#39;h&#39;])
+        
+        # Getting person name information
+        numeric_code, pseudonym, student_code = self.get_person_codes(ndf, row, person_code, person_code_type)
+
+        # Creating list
+        hrlist += [[name, numeric_code, pseudonym, student_code,
+                    stime_str, etime_str, dur_str,
+                    w0, h0, w, h]]
+
+
+
+
+        
+    
+    # Output dataframe
+    try:
+        odf = pd.DataFrame(hrlist, columns=[&#39;Video name&#39;, &#39;Numeric code&#39;, &#39;Pseudonym&#39;, &#39;Student code&#39;,
+                                        &#39;Start time&#39;, &#39;End time&#39;, &#39;Duration&#39;,
+                                        &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;])
+    except:
+        import pdb; pdb.set_trace()
+
+    # Export to excel
+    
+    print(f&#34;INFO: Writing {out_xlsx}&#34;)
+    writer = pd.ExcelWriter(out_xlsx, engine=&#39;xlsxwriter&#39;)
+    odf.to_excel(writer, sheet_name=&#34;Human readable&#34;, index=False)
+
+    # Adding pseudonym, numeric_code, student_code to tydf
+    tydf[&#39;pseudonym&#39;] = [row[2] for row in hrlist]
+    tydf[&#39;numeric_code&#39;] = [row[1] for row in hrlist]
+    tydf[&#39;student_code&#39;] = [row[3] for row in hrlist]
+    tydf.to_excel(writer, sheet_name=&#34;Machine readable&#34;, index=False)
+    writer.save()</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.get_person_codes"><code class="name flex">
+<span>def <span class="ident">get_person_codes</span></span>(<span>self, ndf, row, person_code, person_code_type)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns person information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_person_codes(self, ndf, row, person_code, person_code_type):
+    &#34;&#34;&#34; Returns person information.
+    &#34;&#34;&#34;
+    
+    if person_code_type == &#39;numeric_code&#39;:
+        numeric_code = row[person_code]
+        pseudonym = ndf[ndf[person_code_type] == numeric_code][&#39;pseudonym&#39;].item()
+        student_code = ndf[ndf[person_code_type] == numeric_code][&#39;student_code&#39;].item()
+        
+    elif person_code_type == &#39;student_code&#39;:
+        student_code = row[person_code]
+        pseudonym = ndf[ndf[person_code_type] == student_code][&#39;pseudonym&#39;].item()
+        numeric_code = ndf[ndf[person_code_type] == student_code][&#39;numeric_code&#39;].item()
+                    
+    elif person_code_type == &#39;pseudonym&#39;:
+        pseudonym = row[person_code]
+        numeric_code = ndf[ndf[person_code_type] == pseudonym][&#39;numeric_code&#39;].item()
+        student_code = ndf[ndf[person_code_type] == pseudonym][&#39;student_code&#39;].item()
+        
+    else:
+        print(f&#34;Does not support {person_code_type}&#34;)
+
+    
+    return numeric_code, pseudonym, student_code</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.hist_of_activity_labels"><code class="name flex">
+<span>def <span class="ident">hist_of_activity_labels</span></span>(<span>self, title)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The following method saves histograms of
+width, height and duration of bounding boxes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hist_of_activity_labels(self, title):
+    &#34;&#34;&#34; The following method saves histograms of
+    width, height and duration of bounding boxes.
+    &#34;&#34;&#34;
+    flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+    # Create a data frame from all the activity labels
+    df = self._load_all_activity_labels(flist)
+
+    # Add time duration in seconds to data frame
+    df = self._add_time(df)
+
+    # Write code from here
+    pdb.set_trace()</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.save_summary_to_json"><code class="name flex">
+<span>def <span class="ident">save_summary_to_json</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method that summarizes activity labels to a text
+file. The file is saved as <code>summary.json</code> in the root
+directory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_summary_to_json(self):
+    &#34;&#34;&#34; Method that summarizes activity labels to a text
+    file. The file is saved as `summary.json` in the root
+    directory.
+    &#34;&#34;&#34;
+    flist = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+
+    # Create a data frame from all the activity labels
+    df = self._load_all_activity_labels(flist)
+
+    # Add time column to data frame
+    df = self._add_time(df)
+
+    # Creating sumarize instance
+    summary = Summarize(df)
+
+    # Sumamry file path
+    opth = f&#34;{self._rdir}/summary.json&#34;
+
+    # Summarize to text file
+    summary.to_json(opth)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.standardize_activity_labels"><code class="name flex">
+<span>def <span class="ident">standardize_activity_labels</span></span>(<span>self, fr=30, overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Standardizes activity labels.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>fr</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Required frame rate.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Overwrites. Defaults to False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def standardize_activity_labels(self, fr=30, overwrite=False):
+    &#34;&#34;&#34; Standardizes activity labels.
+
+    Parameters
+    ----------
+    fr: int, optional
+        Required frame rate.
+    overwrite: bool, optional
+        Overwrites. Defaults to False
+    &#34;&#34;&#34;
+    # Standardizing activity labels
+    std = Standardize(self._rdir, self._fname, fr, overwrite)
+    std.create_activity_labels_at_fr()</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMEActivityLabels.standardize_videos"><code class="name flex">
+<span>def <span class="ident">standardize_videos</span></span>(<span>self, vdb_path, fr=30, overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Standardizes video frame rate in videos.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>vdb_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Video data base path having download link to videos.</dd>
+<dt><strong><code>fr</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Required frame rate.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Overwrites. Defaults to False</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def standardize_videos(self, vdb_path, fr=30, overwrite=False):
+    &#34;&#34;&#34; Standardizes video frame rate in videos.
+
+    Parameters
+    ----------
+    vdb_path: str
+        Video data base path having download link to videos.
+    fr: int, optional
+        Required frame rate.
+    overwrite: bool, optional
+        Overwrites. Defaults to False
+    &#34;&#34;&#34;
+    # Standardizing videos
+    std = Standardize(self._rdir, self._fname, fr, overwrite)
+    std.transcode_videos_at_fr(vdb_path)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos"><code class="flex name class">
+<span>class <span class="ident">AOLMETrimmedVideos</span></span>
+<span>(</span><span>rdir, vext)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Methods that operate on trimmed activity videos.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Root directory that has trimmed videos. The instance assumes
+a directory strcuture. For example a directory that has
+three activities with three video samples per activity has
+following directory structure:
+<code>bash
+├── act1
+│
+├── v1.mp4
+│
+├── v2.mp4
+│
+└── v3.mp4
+├── act2
+│
+├── v1.mp4
+│
+├── v2.mp4
+│
+└── v3.mp4
+└── act3
+├── v1.mp4
+├── v2.mp4
+└── v3.mp4</code></dd>
+<dt><strong><code>vext</code></strong> :&ensp;<code>str</code></dt>
+<dd>Extension of trimmed videos being processed</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AOLMETrimmedVideos:
+    _paths = []
+
+    def __init__(self, rdir, vext):
+        &#34;&#34;&#34; Methods that operate on trimmed activity videos.
+
+        Parameters
+        ----------
+        rdir: str
+            Root directory that has trimmed videos. The instance assumes
+            a directory strcuture. For example a directory that has
+            three activities with three video samples per activity has
+            following directory structure:
+            ```bash
+            ├── act1
+            │   ├── v1.mp4
+            │   ├── v2.mp4
+            │   └── v3.mp4
+            ├── act2
+            │   ├── v1.mp4
+            │   ├── v2.mp4
+            │   └── v3.mp4
+            └── act3
+                ├── v1.mp4
+                ├── v2.mp4
+                └── v3.mp4
+            ```
+        vext: str
+            Extension of trimmed videos being processed
+        &#34;&#34;&#34;
+        self._paths = aqua.fd_ops.get_file_paths_with_kws(rdir, vext)
+
+    def extract_images_for_classification(self,
+                                          odir,
+                                          class_label,
+                                          split_info_file,
+                                          imgs_per_vid=1):
+        &#34;&#34;&#34; Extract images for classification and stores in
+        corresponding split (trn, tst, val).
+
+        Parameters
+        ----------
+        odir: str
+            output directory
+        class_label: str
+            Class label of the frame we are extracting.
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        imgs_per_vid: int, optional
+            Number of images to extract from each video        
+        &#34;&#34;&#34;
+
+        # Loop through each video and extract frames
+        for tvpath in self._paths:
+
+            # Creating video instance
+            tv = aqua.video_tools.Vid(tvpath)
+
+            # get split label for current video
+            split_label = self._get_split_label(tv.props[&#39;name&#39;],
+                                                split_info_file)
+
+            # image saving directory and path
+            save_dir = (f&#34;{odir}/{split_label}/{class_label}&#34;)
+            if not os.path.isdir(save_dir):
+                os.makedirs(save_dir)
+
+            # Choosing frames that are 10 frames apart starting from
+            # 10th frame (maximum = 8 frames for 90 frame video)
+            frm_numbers = list(range(10, int(tv.props[&#39;num_frames&#39;]),
+                                     10))[0:imgs_per_vid]
+
+            for frm_number in frm_numbers:
+                save_pth = (f&#34;{save_dir}/{tv.props[&#39;name&#39;]}_{frm_number}.png&#34;)
+                tv.extract_frame(frm_number, save_dir)
+
+    def _get_split_label(self, vname, split_info_file):
+        &#34;&#34;&#34; Get trimmed video split label
+        
+        Parameters
+        ----------
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        &#34;&#34;&#34;
+
+        # Load split information as data frame
+        split_info_df = pd.read_csv(split_info_file)
+
+        # Extract information from name
+        info_from_name = aqua.data_tools.aolme.name_parser.parse_video_name(
+            vname)
+
+        # Creating search string to search in split information data frame
+        group_str = (f&#34;C{info_from_name[&#39;cohort&#39;]}&#34;
+                     f&#34;L{info_from_name[&#39;level&#39;]}&#34;
+                     f&#34;{info_from_name[&#39;school&#39;]}&#34;
+                     f&#34;-{info_from_name[&#39;group&#39;]}&#34;)
+
+        # Select corresponding row from split information data frame
+        cvid_split_info = split_info_df.loc[
+            (split_info_df[&#39;group&#39;] == group_str)
+            &amp; (split_info_df[&#39;date&#39;] == info_from_name[&#39;date&#39;])].copy()
+
+        # If no hits or more than 1 hit throw error
+        if not len(cvid_split_info) == 1:
+            print(cvid_split_info)
+            raise Exception(f&#34;{vname}&#34;)
+
+        # return label
+        return cvid_split_info[&#39;label&#39;].item()
+
+    def create_tsn_tvt_lists(self, rfdir, odir, labels_dict, split_info_file):
+        &#34;&#34;&#34;
+        Creates training, validation and testing lists from trimmed
+        videos in the format TSN understands. 
+
+        It specifically creates the following text files,
+        1. trn_videos.txt
+        2. trn_rawframes.txt
+        3. val_videos.txt
+        4. val_rawframes.txt
+        5. tst_videos.txt
+        6. tst_rawframes.txt
+
+        *_videos.txt file have following entries,
+        ```
+        &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+        ```
+        *_rawframes.txt file has following entries,
+        ```
+        &lt;video directory&gt;/&lt;video name&gt; &lt;num frames -1&gt; &lt;numerical label&gt;
+        ```
+
+        Parameters
+        ----------
+        rfdir: str
+            Path to directory having raw frames (extracted using TSN tools)
+        odir: str
+            Output directory path
+        labels_dict: Dict
+            A dictionary having activity and corresponding label
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        &#34;&#34;&#34;
+        # Creating tsn data tools instance
+        tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                                  split_info_file)
+
+        # Creating video list files
+        tsn_dtools._create_video_list_files(odir)
+
+        # Creating rawframe list files
+        tsn_dtools._create_rawframes_list_files(rfdir, odir)
+
+    def create_video_tvt_lists(self, odir, labels_dict, split_info_file):
+        &#34;&#34;&#34;
+        Creates training, validation and testing lists from trimmed
+        videos in the format `mmaction2` understands. 
+
+        It specifically creates the following text files,
+        1. trn_videos.txt
+        3. val_videos.txt
+        5. tst_videos.txt
+
+        *_videos.txt file have following entries,
+        ```
+        &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+        ```
+
+        Parameters
+        ----------
+        odir: str
+            Output directory path
+        labels_dict: Dict
+            A dictionary having activity and corresponding label
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        &#34;&#34;&#34;
+        # Creating tsn data tools instance
+        tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                                  split_info_file)
+
+        # Creating video list files
+        tsn_dtools._create_video_list_files(odir)
+
+    def create_subsampled_tvt_lists(self, odir, labels_dict, split_info_file,
+                                    samples_per_act):
+        &#34;&#34;&#34;
+        Creates training, validation and testing subsampled lists from trimmed
+        videos in the format `mmaction2` understands. 
+
+        It specifically creates the following text files,
+        1. trn_videos.txt
+        3. val_videos.txt
+        5. tst_videos.txt
+
+        *_videos.txt file have following entries,
+        ```
+        &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+        ```
+
+        Parameters
+        ----------
+        odir: str
+            Output directory path
+        labels_dict: Dict
+            A dictionary having activity and corresponding label
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        samples_per_act: Tuple of ints
+            (&lt;no. trn samples&gt;, &lt;no. val samples&gt;, &lt;no. tst samples&gt;). To
+            use all samples give (-1,-1,-1)
+        &#34;&#34;&#34;
+        # Creating tsn data tools instance
+        tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                                  split_info_file)
+
+        # Creating video list files
+        tsn_dtools._create_subsampled_video_list_files(odir, samples_per_act)
+
+
+
+
+    def check_videos(self):
+        &#34;&#34;&#34; checks all the videos 
+        &#34;&#34;&#34;
+        invalid_videos = []
+        for pth in self._paths:
+
+            # Create video object
+            vid = aqua.video_tools.Vid(pth)
+
+            # List of invalid videos
+            if vid.props[&#39;num_frames&#39;] == 0:
+                invalid_videos += [pth]
+
+        # Print properties of invalid videos
+        for pth in invalid_videos:
+
+            # Create video object
+            vid = aqua.video_tools.Vid(pth)
+
+            # Printing properties
+            print(vid.props)
+
+        print(f&#34;Invalid videos:\n{invalid_videos}&#34;)
+
+    def resize(self, vsize, odir):
+        &#34;&#34;&#34;
+        This method resizes all trimmed videos to `visze` on the
+        longer edge.
+
+        Parameters
+        ----------
+        vsize: int
+            Long edge size required
+        odir: str
+            Output directory
+        &#34;&#34;&#34;
+        # if output directory does not exist make it
+        if not os.path.isdir(odir):
+            os.makedirs(odir)
+
+        for pth in self._paths:
+            vid = aqua.video_tools.Vid(pth)
+
+            # Output full path
+            opth = (
+                f&#34;{odir}/&#34;
+                f&#34;{vid.props[&#39;name&#39;]}_rzto_{vsize}{vid.props[&#39;extension&#39;]}&#34;)
+            vid.resize_on_longer_edge(vsize, opth)
+
+
+    def create_leave_onegroup_out_lists(self, groups, odir, labels_dict, split_info_file):
+        &#34;&#34;&#34;
+        Creates `(trn, val).txt` files having samples under `odir/&lt;group&gt;` directory. The
+        `trn.txt` file has trimmed videos from all the groups except for `&lt;group&gt;`, 
+        while `val.txt` has trimmed videos from `&lt;group&gt;`.
+
+        Parameters
+        ----------
+        groups: list of str
+            Groups that are considered for training. If it is empty all groups
+            are considered.
+        odir: str
+            Output directory path
+        labels_dict: Dict
+            A dictionary having activity and corresponding label
+        split_info_file: str
+            Path to file having trn, val and tst splits information
+        &#34;&#34;&#34;
+        # If output directory does not exist crete it
+        if not os.path.isdir(odir):
+            print(f&#34;INFO: Creating {odir}&#34;)
+            os.makedirs(odir)
+        else:
+            print(f&#34;INFO: Removing directory&#34;)
+            shutil.rmtree(odir)
+            print(f&#34;INFO: Creating {odir}&#34;)
+            os.makedirs(odir)
+            
+        # Creating data splitting instance
+        splitter = DSplitter(self._paths.copy(), groups, labels_dict,
+                          split_info_file)
+        splitter._create_group_leave_one_out(odir)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.check_videos"><code class="name flex">
+<span>def <span class="ident">check_videos</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>checks all the videos</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_videos(self):
+    &#34;&#34;&#34; checks all the videos 
+    &#34;&#34;&#34;
+    invalid_videos = []
+    for pth in self._paths:
+
+        # Create video object
+        vid = aqua.video_tools.Vid(pth)
+
+        # List of invalid videos
+        if vid.props[&#39;num_frames&#39;] == 0:
+            invalid_videos += [pth]
+
+    # Print properties of invalid videos
+    for pth in invalid_videos:
+
+        # Create video object
+        vid = aqua.video_tools.Vid(pth)
+
+        # Printing properties
+        print(vid.props)
+
+    print(f&#34;Invalid videos:\n{invalid_videos}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.create_leave_onegroup_out_lists"><code class="name flex">
+<span>def <span class="ident">create_leave_onegroup_out_lists</span></span>(<span>self, groups, odir, labels_dict, split_info_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates <code>(trn, val).txt</code> files having samples under <code>odir/&lt;group&gt;</code> directory. The
+<code>trn.txt</code> file has trimmed videos from all the groups except for <code>&lt;group&gt;</code>,
+while <code>val.txt</code> has trimmed videos from <code>&lt;group&gt;</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>groups</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>Groups that are considered for training. If it is empty all groups
+are considered.</dd>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output directory path</dd>
+<dt><strong><code>labels_dict</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>A dictionary having activity and corresponding label</dd>
+<dt><strong><code>split_info_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to file having trn, val and tst splits information</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_leave_onegroup_out_lists(self, groups, odir, labels_dict, split_info_file):
+    &#34;&#34;&#34;
+    Creates `(trn, val).txt` files having samples under `odir/&lt;group&gt;` directory. The
+    `trn.txt` file has trimmed videos from all the groups except for `&lt;group&gt;`, 
+    while `val.txt` has trimmed videos from `&lt;group&gt;`.
+
+    Parameters
+    ----------
+    groups: list of str
+        Groups that are considered for training. If it is empty all groups
+        are considered.
+    odir: str
+        Output directory path
+    labels_dict: Dict
+        A dictionary having activity and corresponding label
+    split_info_file: str
+        Path to file having trn, val and tst splits information
+    &#34;&#34;&#34;
+    # If output directory does not exist crete it
+    if not os.path.isdir(odir):
+        print(f&#34;INFO: Creating {odir}&#34;)
+        os.makedirs(odir)
+    else:
+        print(f&#34;INFO: Removing directory&#34;)
+        shutil.rmtree(odir)
+        print(f&#34;INFO: Creating {odir}&#34;)
+        os.makedirs(odir)
+        
+    # Creating data splitting instance
+    splitter = DSplitter(self._paths.copy(), groups, labels_dict,
+                      split_info_file)
+    splitter._create_group_leave_one_out(odir)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.create_subsampled_tvt_lists"><code class="name flex">
+<span>def <span class="ident">create_subsampled_tvt_lists</span></span>(<span>self, odir, labels_dict, split_info_file, samples_per_act)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates training, validation and testing subsampled lists from trimmed
+videos in the format <code>mmaction2</code> understands. </p>
+<p>It specifically creates the following text files,
+1. trn_videos.txt
+3. val_videos.txt
+5. tst_videos.txt</p>
+<p>*_videos.txt file have following entries,</p>
+<pre><code>&lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output directory path</dd>
+<dt><strong><code>labels_dict</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>A dictionary having activity and corresponding label</dd>
+<dt><strong><code>split_info_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to file having trn, val and tst splits information</dd>
+<dt><strong><code>samples_per_act</code></strong> :&ensp;<code>Tuple</code> of <code>ints</code></dt>
+<dd>(<no. trn samples>, <no. val samples>, <no. tst samples>). To
+use all samples give (-1,-1,-1)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_subsampled_tvt_lists(self, odir, labels_dict, split_info_file,
+                                samples_per_act):
+    &#34;&#34;&#34;
+    Creates training, validation and testing subsampled lists from trimmed
+    videos in the format `mmaction2` understands. 
+
+    It specifically creates the following text files,
+    1. trn_videos.txt
+    3. val_videos.txt
+    5. tst_videos.txt
+
+    *_videos.txt file have following entries,
+    ```
+    &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+    ```
+
+    Parameters
+    ----------
+    odir: str
+        Output directory path
+    labels_dict: Dict
+        A dictionary having activity and corresponding label
+    split_info_file: str
+        Path to file having trn, val and tst splits information
+    samples_per_act: Tuple of ints
+        (&lt;no. trn samples&gt;, &lt;no. val samples&gt;, &lt;no. tst samples&gt;). To
+        use all samples give (-1,-1,-1)
+    &#34;&#34;&#34;
+    # Creating tsn data tools instance
+    tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                              split_info_file)
+
+    # Creating video list files
+    tsn_dtools._create_subsampled_video_list_files(odir, samples_per_act)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.create_tsn_tvt_lists"><code class="name flex">
+<span>def <span class="ident">create_tsn_tvt_lists</span></span>(<span>self, rfdir, odir, labels_dict, split_info_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates training, validation and testing lists from trimmed
+videos in the format TSN understands. </p>
+<p>It specifically creates the following text files,
+1. trn_videos.txt
+2. trn_rawframes.txt
+3. val_videos.txt
+4. val_rawframes.txt
+5. tst_videos.txt
+6. tst_rawframes.txt</p>
+<p>*_videos.txt file have following entries,</p>
+<pre><code>&lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+</code></pre>
+<p>*_rawframes.txt file has following entries,</p>
+<pre><code>&lt;video directory&gt;/&lt;video name&gt; &lt;num frames -1&gt; &lt;numerical label&gt;
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rfdir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to directory having raw frames (extracted using TSN tools)</dd>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output directory path</dd>
+<dt><strong><code>labels_dict</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>A dictionary having activity and corresponding label</dd>
+<dt><strong><code>split_info_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to file having trn, val and tst splits information</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_tsn_tvt_lists(self, rfdir, odir, labels_dict, split_info_file):
+    &#34;&#34;&#34;
+    Creates training, validation and testing lists from trimmed
+    videos in the format TSN understands. 
+
+    It specifically creates the following text files,
+    1. trn_videos.txt
+    2. trn_rawframes.txt
+    3. val_videos.txt
+    4. val_rawframes.txt
+    5. tst_videos.txt
+    6. tst_rawframes.txt
+
+    *_videos.txt file have following entries,
+    ```
+    &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+    ```
+    *_rawframes.txt file has following entries,
+    ```
+    &lt;video directory&gt;/&lt;video name&gt; &lt;num frames -1&gt; &lt;numerical label&gt;
+    ```
+
+    Parameters
+    ----------
+    rfdir: str
+        Path to directory having raw frames (extracted using TSN tools)
+    odir: str
+        Output directory path
+    labels_dict: Dict
+        A dictionary having activity and corresponding label
+    split_info_file: str
+        Path to file having trn, val and tst splits information
+    &#34;&#34;&#34;
+    # Creating tsn data tools instance
+    tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                              split_info_file)
+
+    # Creating video list files
+    tsn_dtools._create_video_list_files(odir)
+
+    # Creating rawframe list files
+    tsn_dtools._create_rawframes_list_files(rfdir, odir)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.create_video_tvt_lists"><code class="name flex">
+<span>def <span class="ident">create_video_tvt_lists</span></span>(<span>self, odir, labels_dict, split_info_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates training, validation and testing lists from trimmed
+videos in the format <code>mmaction2</code> understands. </p>
+<p>It specifically creates the following text files,
+1. trn_videos.txt
+3. val_videos.txt
+5. tst_videos.txt</p>
+<p>*_videos.txt file have following entries,</p>
+<pre><code>&lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output directory path</dd>
+<dt><strong><code>labels_dict</code></strong> :&ensp;<code>Dict</code></dt>
+<dd>A dictionary having activity and corresponding label</dd>
+<dt><strong><code>split_info_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to file having trn, val and tst splits information</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_video_tvt_lists(self, odir, labels_dict, split_info_file):
+    &#34;&#34;&#34;
+    Creates training, validation and testing lists from trimmed
+    videos in the format `mmaction2` understands. 
+
+    It specifically creates the following text files,
+    1. trn_videos.txt
+    3. val_videos.txt
+    5. tst_videos.txt
+
+    *_videos.txt file have following entries,
+    ```
+    &lt;video directory&gt;/&lt;video name&gt; &lt;numerical label&gt;
+    ```
+
+    Parameters
+    ----------
+    odir: str
+        Output directory path
+    labels_dict: Dict
+        A dictionary having activity and corresponding label
+    split_info_file: str
+        Path to file having trn, val and tst splits information
+    &#34;&#34;&#34;
+    # Creating tsn data tools instance
+    tsn_dtools = TSNDataTools(self._paths.copy(), labels_dict,
+                              split_info_file)
+
+    # Creating video list files
+    tsn_dtools._create_video_list_files(odir)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.extract_images_for_classification"><code class="name flex">
+<span>def <span class="ident">extract_images_for_classification</span></span>(<span>self, odir, class_label, split_info_file, imgs_per_vid=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extract images for classification and stores in
+corresponding split (trn, tst, val).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>output directory</dd>
+<dt><strong><code>class_label</code></strong> :&ensp;<code>str</code></dt>
+<dd>Class label of the frame we are extracting.</dd>
+<dt><strong><code>split_info_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to file having trn, val and tst splits information</dd>
+<dt><strong><code>imgs_per_vid</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of images to extract from each video</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_images_for_classification(self,
+                                      odir,
+                                      class_label,
+                                      split_info_file,
+                                      imgs_per_vid=1):
+    &#34;&#34;&#34; Extract images for classification and stores in
+    corresponding split (trn, tst, val).
+
+    Parameters
+    ----------
+    odir: str
+        output directory
+    class_label: str
+        Class label of the frame we are extracting.
+    split_info_file: str
+        Path to file having trn, val and tst splits information
+    imgs_per_vid: int, optional
+        Number of images to extract from each video        
+    &#34;&#34;&#34;
+
+    # Loop through each video and extract frames
+    for tvpath in self._paths:
+
+        # Creating video instance
+        tv = aqua.video_tools.Vid(tvpath)
+
+        # get split label for current video
+        split_label = self._get_split_label(tv.props[&#39;name&#39;],
+                                            split_info_file)
+
+        # image saving directory and path
+        save_dir = (f&#34;{odir}/{split_label}/{class_label}&#34;)
+        if not os.path.isdir(save_dir):
+            os.makedirs(save_dir)
+
+        # Choosing frames that are 10 frames apart starting from
+        # 10th frame (maximum = 8 frames for 90 frame video)
+        frm_numbers = list(range(10, int(tv.props[&#39;num_frames&#39;]),
+                                 10))[0:imgs_per_vid]
+
+        for frm_number in frm_numbers:
+            save_pth = (f&#34;{save_dir}/{tv.props[&#39;name&#39;]}_{frm_number}.png&#34;)
+            tv.extract_frame(frm_number, save_dir)</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.AOLMETrimmedVideos.resize"><code class="name flex">
+<span>def <span class="ident">resize</span></span>(<span>self, vsize, odir)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method resizes all trimmed videos to <code>visze</code> on the
+longer edge.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>vsize</code></strong> :&ensp;<code>int</code></dt>
+<dd>Long edge size required</dd>
+<dt><strong><code>odir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output directory</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resize(self, vsize, odir):
+    &#34;&#34;&#34;
+    This method resizes all trimmed videos to `visze` on the
+    longer edge.
+
+    Parameters
+    ----------
+    vsize: int
+        Long edge size required
+    odir: str
+        Output directory
+    &#34;&#34;&#34;
+    # if output directory does not exist make it
+    if not os.path.isdir(odir):
+        os.makedirs(odir)
+
+    for pth in self._paths:
+        vid = aqua.video_tools.Vid(pth)
+
+        # Output full path
+        opth = (
+            f&#34;{odir}/&#34;
+            f&#34;{vid.props[&#39;name&#39;]}_rzto_{vsize}{vid.props[&#39;extension&#39;]}&#34;)
+        vid.resize_on_longer_edge(vsize, opth)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="aqua.data_tools.TrimStat"><code class="flex name class">
+<span>class <span class="ident">TrimStat</span></span>
+<span>(</span><span>rdir, labels_fname, act_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The following class contains methods to anaylse trim video statistics</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rdir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory path having activity labels.</dd>
+<dt><strong><code>labels_fname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the file that has activity labels.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TrimStat:
+    &#34;The following class contains methods to anaylse trim video statistics&#34;
+
+    def __init__(self, rdir, labels_fname, act_name):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        rdir: str
+            Directory path having activity labels.
+        labels_fname: str
+            Name of the file that has activity labels.
+        &#34;&#34;&#34;
+        self._rdir = rdir
+        self._fname = labels_fname
+        self._actname = act_name
+
+    def calculate_act_dur(self):
+        &#34;This method calculate duration of activity and no-activity&#34;
+        files = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+        df_full_act = pd.DataFrame()
+        df_full_noact = pd.DataFrame()
+        for ifile in files:
+            file = ifile
+            df = pd.read_csv(file)
+            for index, row in df.iterrows():
+                if row.activity == &#34;typing&#34;:
+                    df_full_act = df_full_act.append(row)
+                if row.activity == &#34;notyping&#34;:
+                    df_full_noact = df_full_noact.append(row)
+                if row.activity == &#34;writing&#34;:
+                    df_full_act = df_full_act.append(row)
+                if row.activity == &#34;nowriting&#34;:
+                    df_full_noact = df_full_noact.append(row)
+        act_dur = df_full_act.f.sum()/(30*60*60)
+        noact_dur = df_full_noact.f.sum()/(30*60*60)
+        act_series  = (df_full_act.f/30).to_list()
+        noact_series = (df_full_noact.f/30).to_list()
+        print(self._actname)
+        print(&#34;Activity duration(hrs):&#34;, act_dur)
+        print(&#34;No-Activity duration(hrs):&#34;, noact_dur)
+        print(&#34;No. of activity isntances&#34;, len(df_full_act))
+        print(&#34;No. of no-activity isntances&#34;, len(df_full_noact))
+        return act_series, noact_series
+
+    def plot_histogram(self, act_series,act_name):
+        df = pd.DataFrame({&#39;Activity Duration&#39;:act_series})
+        min_dur = str(round(np.min(act_series),2))
+        max_dur = str(round(np.max(act_series),2))
+        med_dur = str(round(np.median(act_series),2))
+        #pdb.set_trace()
+        hist = df.hist(bins=30)
+        textstr = &#34;min_dur: &#34; + min_dur +&#34;\n&#34; + &#34;max_dur : &#34; + max_dur +&#34;\n&#34; + &#34;median_dur : &#34; + med_dur
+        plt.text(180, 180, textstr, horizontalalignment=&#39;center&#39;,
+            verticalalignment=&#39;center&#39;)
+        plt.title(act_name)
+        plt.show()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="aqua.data_tools.TrimStat.calculate_act_dur"><code class="name flex">
+<span>def <span class="ident">calculate_act_dur</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method calculate duration of activity and no-activity</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calculate_act_dur(self):
+    &#34;This method calculate duration of activity and no-activity&#34;
+    files = aqua.get_file_paths_with_kws(self._rdir, [self._fname])
+    df_full_act = pd.DataFrame()
+    df_full_noact = pd.DataFrame()
+    for ifile in files:
+        file = ifile
+        df = pd.read_csv(file)
+        for index, row in df.iterrows():
+            if row.activity == &#34;typing&#34;:
+                df_full_act = df_full_act.append(row)
+            if row.activity == &#34;notyping&#34;:
+                df_full_noact = df_full_noact.append(row)
+            if row.activity == &#34;writing&#34;:
+                df_full_act = df_full_act.append(row)
+            if row.activity == &#34;nowriting&#34;:
+                df_full_noact = df_full_noact.append(row)
+    act_dur = df_full_act.f.sum()/(30*60*60)
+    noact_dur = df_full_noact.f.sum()/(30*60*60)
+    act_series  = (df_full_act.f/30).to_list()
+    noact_series = (df_full_noact.f/30).to_list()
+    print(self._actname)
+    print(&#34;Activity duration(hrs):&#34;, act_dur)
+    print(&#34;No-Activity duration(hrs):&#34;, noact_dur)
+    print(&#34;No. of activity isntances&#34;, len(df_full_act))
+    print(&#34;No. of no-activity isntances&#34;, len(df_full_noact))
+    return act_series, noact_series</code></pre>
+</details>
+</dd>
+<dt id="aqua.data_tools.TrimStat.plot_histogram"><code class="name flex">
+<span>def <span class="ident">plot_histogram</span></span>(<span>self, act_series, act_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_histogram(self, act_series,act_name):
+    df = pd.DataFrame({&#39;Activity Duration&#39;:act_series})
+    min_dur = str(round(np.min(act_series),2))
+    max_dur = str(round(np.max(act_series),2))
+    med_dur = str(round(np.median(act_series),2))
+    #pdb.set_trace()
+    hist = df.hist(bins=30)
+    textstr = &#34;min_dur: &#34; + min_dur +&#34;\n&#34; + &#34;max_dur : &#34; + max_dur +&#34;\n&#34; + &#34;median_dur : &#34; + med_dur
+    plt.text(180, 180, textstr, horizontalalignment=&#39;center&#39;,
+        verticalalignment=&#39;center&#39;)
+    plt.title(act_name)
+    plt.show()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="aqua" href="../index.html">aqua</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="aqua.data_tools.aolme" href="aolme/index.html">aqua.data_tools.aolme</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="aqua.data_tools.AOLMEActivityLabels" href="#aqua.data_tools.AOLMEActivityLabels">AOLMEActivityLabels</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.create_labeled_videos" href="#aqua.data_tools.AOLMEActivityLabels.create_labeled_videos">create_labeled_videos</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.create_spatiotemporal_trims" href="#aqua.data_tools.AOLMEActivityLabels.create_spatiotemporal_trims">create_spatiotemporal_trims</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.create_xlsx" href="#aqua.data_tools.AOLMEActivityLabels.create_xlsx">create_xlsx</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.get_person_codes" href="#aqua.data_tools.AOLMEActivityLabels.get_person_codes">get_person_codes</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.hist_of_activity_labels" href="#aqua.data_tools.AOLMEActivityLabels.hist_of_activity_labels">hist_of_activity_labels</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.save_summary_to_json" href="#aqua.data_tools.AOLMEActivityLabels.save_summary_to_json">save_summary_to_json</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.standardize_activity_labels" href="#aqua.data_tools.AOLMEActivityLabels.standardize_activity_labels">standardize_activity_labels</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMEActivityLabels.standardize_videos" href="#aqua.data_tools.AOLMEActivityLabels.standardize_videos">standardize_videos</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="aqua.data_tools.AOLMETrimmedVideos" href="#aqua.data_tools.AOLMETrimmedVideos">AOLMETrimmedVideos</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.check_videos" href="#aqua.data_tools.AOLMETrimmedVideos.check_videos">check_videos</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.create_leave_onegroup_out_lists" href="#aqua.data_tools.AOLMETrimmedVideos.create_leave_onegroup_out_lists">create_leave_onegroup_out_lists</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.create_subsampled_tvt_lists" href="#aqua.data_tools.AOLMETrimmedVideos.create_subsampled_tvt_lists">create_subsampled_tvt_lists</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.create_tsn_tvt_lists" href="#aqua.data_tools.AOLMETrimmedVideos.create_tsn_tvt_lists">create_tsn_tvt_lists</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.create_video_tvt_lists" href="#aqua.data_tools.AOLMETrimmedVideos.create_video_tvt_lists">create_video_tvt_lists</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.extract_images_for_classification" href="#aqua.data_tools.AOLMETrimmedVideos.extract_images_for_classification">extract_images_for_classification</a></code></li>
+<li><code><a title="aqua.data_tools.AOLMETrimmedVideos.resize" href="#aqua.data_tools.AOLMETrimmedVideos.resize">resize</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="aqua.data_tools.TrimStat" href="#aqua.data_tools.TrimStat">TrimStat</a></code></h4>
+<ul class="">
+<li><code><a title="aqua.data_tools.TrimStat.calculate_act_dur" href="#aqua.data_tools.TrimStat.calculate_act_dur">calculate_act_dur</a></code></li>
+<li><code><a title="aqua.data_tools.TrimStat.plot_histogram" href="#aqua.data_tools.TrimStat.plot_histogram">plot_histogram</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

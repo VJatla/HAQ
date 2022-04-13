@@ -48,7 +48,6 @@ def main():
     # Creating a network instance
     cnn3d = DyadicCNN3D(argd['ndyads'], [3, 90, 224, 224])
     summary(cnn3d,(3,90,224,224))
-    pdb.set_trace() #ST
     ty = Typing(argd['video'], argd['bboxes'], cnn3d, argd['ckpt'], tydur=3)
     ty.write_to_csv()
 
