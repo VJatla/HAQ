@@ -1,0 +1,30 @@
+{
+    "alg_paths":[
+	"/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-sota-i3d_30fps.xlsx",
+	"/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-sota-slowfast_30fps.xlsx",
+	"/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-sota-tsm_30fps.xlsx",
+	"/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-sota-tsn_30fps.xlsx",
+	"/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-ours-3DCNN_30fps.xlsx"
+    ],
+    
+    "alg_names":[
+	"I3D",
+	"SlowFast",
+	"TSM",
+	"TSN",
+	"ours"
+    ],
+
+    "roc_colors":[
+	"green",
+	"blue",
+	"black",
+	"red",
+	"magenta",
+	"orange"
+    ],
+    
+    "gt_path": "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/gt-wr-30fps.xlsx",
+
+    "out_roc_path": "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/wnw-roi-sota_30fps.png"
+}

@@ -1,9 +1,7 @@
-""" This is description. """
+"""This is description."""
 
 
 import argparse
-import numpy as np
-import pandas as pd
 
 
 def _arguments():
@@ -21,7 +19,7 @@ def _arguments():
     return args_dict
 
 
-# Execution starts from here
+# Execution starts from here???
 if __name__ == "__main__":
     args = _arguments()
     print(args)

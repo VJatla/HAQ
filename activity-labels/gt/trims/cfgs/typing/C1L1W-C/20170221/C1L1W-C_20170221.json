@@ -1,0 +1,14 @@
+{
+    "videos_dir": "/home/vj/Dropbox/typing-notyping/C1L1W-C/20170221",
+    "video_names":[
+	"G-C1L1W-Feb21-C-Kushal_q2_03-09_30fps.mp4"
+    ],
+
+    "activity": "typing",
+    "gt_csv_path": "/home/vj/Dropbox/typing-notyping/C1L1W-C/20170221/gTruth-tynty_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C1L1W-C/20170221",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/typing-notyping-trims/C1L1W-C/20170221"
+}

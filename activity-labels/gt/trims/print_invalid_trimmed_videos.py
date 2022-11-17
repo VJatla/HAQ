@@ -1,5 +1,6 @@
 """
-Checks video files within a root directory.
+Checks video files within a root directory and prints out file that
+are not valid.
 """
 import argparse
 from aqua.data_tools.aolme import AOLMETrimmedVideos

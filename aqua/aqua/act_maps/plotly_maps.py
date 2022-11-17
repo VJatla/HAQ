@@ -440,8 +440,9 @@ class ActMapsPlotly:
         Parameters
         ----------
         fig: Plotly Figure object
-            Plotly figure object on which we need to trace
-        annotation_delta_time: Int
+             Plotly figure object on which we need to trace
+        
+        annotation_delta_time : Int
             Two activities that end withing `annotation_delata_time` are not
             required to be marked.
         """
@@ -449,6 +450,7 @@ class ActMapsPlotly:
         # Get student codes and activity labels from per second dataframe
         student_codes = df["student_codes"].tolist()
         act_labels = df[f"act"].tolist()
+        import pdb; pdb.set_trace()
 
         # Creating a 2D matrix
         student_codes = [x.split(":") for x in student_codes]

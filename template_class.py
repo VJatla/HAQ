@@ -11,9 +11,8 @@ EXAMPLE
 import argparse
 import pdb
 import pandas as pd
-
-# User defined libraries
 import pytkit as pk
+
 
 class Name:
     """<Class intro> """
@@ -56,6 +55,7 @@ def _arguments():
     # Return arguments as dictionary
     # Hello world how are you doing
     return args_dict
+
 
 # Calling as script
 if __name__ == "__main__":

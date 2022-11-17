@@ -1,0 +1,15 @@
+{
+    "videos_dir": "/home/vj/Dropbox/writing-nowriting/C1L1W-A/20170404",
+    "video_names":[
+	"G-C1L1W-Apr04-A-Marios_q2_02-05_30fps.mp4",
+	"G-C1L1W-Apr04-A-Marios_q2_05-05_30fps.mp4"
+    ],
+
+    "activity": "writing",
+    "gt_csv_path": "/home/vj/Dropbox/writing-nowriting/C1L1W-A/20170404/gTruth-wnw_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C1L1W-A/20170404",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/writing-nowriting-trims/training_validation_testing/C1L1W-A/20170404"
+}

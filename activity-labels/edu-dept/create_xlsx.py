@@ -1,9 +1,9 @@
 """
 Description 
 ----------- 
-The following code parses ground truth csv
-file to xlsx sheets.  This is done to provide easy access to education
-researchers.
+The following code parses  csv file to xlsx sheets in a more human readable
+format. This is used for both ground truth csv and the csv produced by
+typing framework algorithm.
 
 Output
 ------
@@ -12,12 +12,25 @@ directory as input csv file.
 
 Example
 -------
+# To create ground truth xlsx file
 python create_xlsx.py \
    ~/Dropbox/typing-notyping/C1L1P-E/20170302/gTruth-tynty_30fps.csv \
    ~/Dropbox/typing-notyping/kid-pseudonym-mapping.csv \
    ~/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx \
    typing person numeric_code
 
+# To create algorithm xlsx file
+python create_xlsx.py \
+   ~/Dropbox/typing-notyping/C1L1P-E/20170302/gTruth-tynty_30fps.csv \
+   ~/Dropbox/typing-notyping/kid-pseudonym-mapping.csv \
+   ~/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx \
+   typing person numeric_code
+
+python create_xlsx.py \
+    ~/Dropbox/typing-notyping/C2L1P-B/20180223/alg-tynty_30fps.csv \
+    ~/Dropbox/typing-notyping/kid-pseudonym-mapping.csv \
+    ~/Dropbox/typing-notyping/C2L1P-B/20180223/alg-ty-30fps.xlsx \
+    typing pseudonym pseudonym
 """
 
 

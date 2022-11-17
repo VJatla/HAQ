@@ -73,7 +73,10 @@ class DyadicCNN3D(nn.Module):
             elif isinstance(layer, nn.Dropout):
                 x = layer(x)
             elif isinstance(layer, nn.Linear):
-                x = torch.sigmoid(layer(x))  # Dense layer
+                if layer.out_features > 1:
+                    x = layer(x)  # Dense layer
+                else:
+                    x = torch.sigmoid(layer(x))  # Sigmoid layer
             else:
                 raise Exception(f"{lname} is not supported")
         return x
@@ -107,16 +110,16 @@ class DyadicCNN3D(nn.Module):
                 oc = nk[didx]
 
             # CNN3D
-            model_dict[f'Conv_{didx}'] = nn.Conv3d(in_channels=ic,
+            model_dict[f'Conv_{didx}_0'] = nn.Conv3d(in_channels=ic,
                                                    out_channels=oc,
                                                    kernel_size=3,
                                                    stride=1,
                                                    padding=1,
                                                    padding_mode="zeros")
-
-            # BN
             ic = oc
             oc = oc
+            
+            # BN
             model_dict[f'BN_{didx}'] = nn.BatchNorm3d(ic)
 
             # Maxpooling
@@ -125,12 +128,27 @@ class DyadicCNN3D(nn.Module):
             if 0 in ishape:
                 raise Exception(f"ERROR: Shape = {ishape} after {didx} dyads")
 
+
+
+        # Network proposed in proposal
         # After dyads flatten and give input to dense layer
         model_dict['Flatten'] = nn.Flatten()
-        model_dict['Dropout'] = nn.Dropout(p=0.5)  # 50% dropout
-
-        # Dense layer
+        model_dict['Dropout-Flatten'] = nn.Dropout(p=0.5)  # 50% dropout
         ic = np.prod(ishape) * oc
         model_dict['Dense'] = nn.Linear(ic, 1)
+
+        # # A more complex network FCN
+        # # After dyads flatten and give input to dense layer
+        # model_dict['Flatten'] = nn.Flatten()
+        # # model_dict['Dropout-Flatten'] = nn.Dropout(p=0.5)  # 50% dropout
+
+        # # Dense layer
+        # ic = np.prod(ishape) * oc
+        # model_dict['Dense-1'] = nn.Linear(ic, 32)
+        # # model_dict['Dropout-Dense-1'] = nn.Dropout(p=0.5)  # 50% dropout
+        # model_dict['Dense-2'] = nn.Linear(32, 8)
+        # # model_dict['Dropout-Dense-2'] = nn.Dropout(p=0.5)  # 50% dropout
+        # model_dict['Dense-3'] = nn.Linear(8, 2)
+        # model_dict['Dense-4'] = nn.Linear(2, 1)
 
         return model_dict

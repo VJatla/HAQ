@@ -1,0 +1,24 @@
+{
+    "videos_dir": "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170225",
+    "video_names":[
+	"G-C1L1P-Feb25-C-Windy_q2_01-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_02-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_03-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_04-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_05-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_06-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_07-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_08-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_10-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_14-15_30fps.mp4",
+	"G-C1L1P-Feb25-C-Windy_q2_15-15_30fps.mp4"
+    ],
+
+    "activity": "typing",
+    "gt_csv_path": "/home/vj/Dropbox/typing-notyping/C1L1P-C/20170225/gTruth-tynty_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170225",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/typing-notyping-trims/training/C1L1P-C/20170225"
+}

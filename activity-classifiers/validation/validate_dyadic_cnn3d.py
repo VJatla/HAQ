@@ -66,7 +66,7 @@ def main():
     argd = _arguments()
 
     # Dataset locations and properties
-    max_epochs = 50
+    max_epochs = 12
     ndyads = argd['ndyads']
     workdir = argd['workdir']
     vdir = argd['vdir']

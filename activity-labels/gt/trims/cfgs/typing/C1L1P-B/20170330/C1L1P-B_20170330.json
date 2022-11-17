@@ -1,0 +1,14 @@
+{
+    "videos_dir": "/home/vj/Dropbox/typing-notyping/C1L1P-B/20170330",
+    "video_names":[
+	"G-C1L1P-Mar30-B-Scott_q2_01-07_30fps.mp4"
+    ],
+
+    "activity": "typing",
+    "gt_csv_path": "/home/vj/Dropbox/typing-notyping/C1L1P-B/20170330/gTruth-tynty_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C1L1P-B/20170330",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/typing-notyping-trims/C1L1P-B/20170330"
+}

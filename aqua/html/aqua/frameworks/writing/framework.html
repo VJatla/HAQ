@@ -63,9 +63,6 @@ class Writing:
 
     cfg = {}
     &#34;&#34;&#34; Configuration dictionary &#34;&#34;&#34;
-    
-    net = None
-    &#34;&#34;&#34; Dyadic 3D CNN instance. &#34;&#34;&#34;
 
     ivid = None
     &#34;&#34;&#34; Input video instance. &#34;&#34;&#34;
@@ -100,9 +97,6 @@ class Writing:
         # Checking configuration file
         self._check_cfg(cfg)
 
-        # Loading neural network into GPU
-        # self._load_net(cfg)
-
         # Loading video
         self.ivid = pk.Vid(cfg[&#39;video&#39;], &#39;read&#39;)
         
@@ -119,8 +113,8 @@ class Writing:
             Path of csv file containing manually annotated table regions.
         &#34;&#34;&#34;
         
-        # Creating an empty hand region proposal dataframe
-        hrp = pd.DataFrame()
+        # Creating an empty writing region proposal dataframe
+        wrp = pd.DataFrame()
 
         # Load hands and table roi csvs
         hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
@@ -130,8 +124,7 @@ class Writing:
         # Calcuating hand region proposals every 3 seconds
         fps = hands_df[&#39;FPS&#39;].unique().item()
         new_rows = []
-        print(f&#34;Calculating region proposals...&#34;)
-        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps), desc=&#34;INFO: Writing proposals&#34;):
 
             # Get hands and table regions for 3 seconds
             hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
@@ -162,23 +155,98 @@ class Writing:
             new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
 
 
-        hrp = pd.DataFrame(new_rows, columns=[
+        wrp = pd.DataFrame(new_rows, columns=[
                 &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
                 &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
             ])
             
-        return hrp
+        return wrp
 
-    def classify_writing_proposals(self, hrp):
+    def classify_writing_proposals(self, wrp, debug=True):
         &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+        Todo
+        ----
+        This function evaluates one proposal at a time. This is note
+        optimal. I have to redo this to evaluate multiple proposals
+        at a time. 
 
         Parameters
         ----------
-        hrp : Pandas DataFrame instance
-            
+        wrp : Pandas DataFrame instance
+            DataFrame having writing region proposals
+        debug : Bool
+            When True we will save the class probability and trimmed
+            videos.
+
+        Return
+        ------
+        A DataFrame with `writing` column with labels 1 and 0 for
+        writing and no-writing respectively.
         &#34;&#34;&#34;
+        
+        # Output location to save trims and writing csv file
+        oloc = self.ivid.props[&#39;dir_loc&#39;]
+        
+        # Creating another column in writing region proposal dataframe
+        wrp[&#39;writing&#39;] = -1
+        if debug:
+            print(f&#34;INFO: RUNNING IN DEBUG MODE!&#34;)
+            wrp[&#39;p&#39;] = -1
+            wrp[&#39;trim_path&#39;] = &#34;&#34;
+            os.system(f&#34;rm -r {oloc}/trims&#34;)
+            os.system(f&#34;mkdir -p {oloc}/trims/0&#34;)
+            os.system(f&#34;mkdir -p {oloc}/trims/1&#34;)
+        
+        # Loading neural network into GPU
+        net = self._load_net(self.cfg)
 
+        # Loop through writing proposal
+        for i, row in tqdm(wrp.iterrows(), total=wrp.shape[0], desc=&#34;INFO: Classifying&#34;):
 
+            # Spatio temporal trim coordinates
+            bbox = [row[&#39;w0&#39;],row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+            sfrm = row[&#39;f0&#39;]
+            efrm = sfrm + row[&#39;f&#39;]
+            opth = (f&#34;{oloc}/temp.mp4&#34;)
+
+            # Spatio temporal trim
+            self.ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
+
+            # Creating a temporary text file `temp.txt` having
+            # temp.mp4 and a dummy label (100)
+            with open(f&#34;{oloc}/temp.txt&#34;, &#34;w&#34;) as f:
+                f.write(&#34;temp.mp4 100&#34;)
+
+                    
+
+            # Intialize AOLME data loader instance
+            tst_data = AOLMETrmsDLoader(
+                oloc, f&#34;{oloc}/temp.txt&#34;, oshape=(224, 224)
+            )
+            tst_loader = DataLoader(
+                tst_data, batch_size=1, num_workers=1
+            )
+
+            # Loop over tst data (??? goes over only once. I am desparate so I kept the loop)
+            for data in tst_loader:
+                dummy_labels, inputs = (
+                    data[0].to(&#34;cuda:0&#34;, non_blocking=True),
+                    data[1].to(&#34;cuda:0&#34;, non_blocking=True)
+                )
+                with torch.no_grad():
+                    outputs = net(inputs)
+                    ipred = outputs.data.clone()
+                    ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+                    wrp.at[i, &#39;writing&#39;] = round(ipred[0])
+                    if debug:
+                        trim_pth = f&#34;{oloc}/trims/{round(ipred[0])}/trim_{i}.mp4&#34;
+                        os.system(f&#34;cp {oloc}/temp.mp4 {trim_pth}&#34;)
+                        wrp.at[i, &#39;p&#39;] = ipred[0]
+                        wrp.at[i, &#39;trim_path&#39;] = f&#34;{round(ipred[0])}/trim_{i}.mp4&#34;
+        return wrp
+
+                    
     def _get_union_of_hand_detections(self, df, f0, f):
         &#34;&#34;&#34; Returns hand detection regions using union of all the detections
         in an interval.
@@ -429,19 +497,25 @@ class Writing:
     def _load_net(self, cfg):
         &#34;&#34;&#34; Load neural network to GPU. &#34;&#34;&#34;
 
+        print(&#34;INFO: Loading Trained network to GPU ...&#34;)
+
         # Checkpoint and depth from cfg file.
         ckpt = cfg[&#39;ckpt&#39;]
         depth = cfg[&#39;depth&#39;]
 
         # Creating an instance of Dyadic 3D-CNN
-        self.net = DyadicCNN3D(depth, [3, 90, 224, 224])
-        self.net.to(&#34;cuda:0&#34;)
-        summary(self.net, (3, 90, 224, 224))
+        net = DyadicCNN3D(depth, [3, 90, 224, 224])
+        net.to(&#34;cuda:0&#34;)
+
+        # Print summary of network.
+        # summary(net, (3, 90, 224, 224))
 
         # Loading the net with trained weights to cuda device 0
         ckpt_weights = torch.load(ckpt)
-        self.net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
-        self.net.eval()
+        net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
+        net.eval()
+
+        return net
         
         
 
@@ -670,9 +744,6 @@ class Writing:
 
     cfg = {}
     &#34;&#34;&#34; Configuration dictionary &#34;&#34;&#34;
-    
-    net = None
-    &#34;&#34;&#34; Dyadic 3D CNN instance. &#34;&#34;&#34;
 
     ivid = None
     &#34;&#34;&#34; Input video instance. &#34;&#34;&#34;
@@ -707,9 +778,6 @@ class Writing:
         # Checking configuration file
         self._check_cfg(cfg)
 
-        # Loading neural network into GPU
-        # self._load_net(cfg)
-
         # Loading video
         self.ivid = pk.Vid(cfg[&#39;video&#39;], &#39;read&#39;)
         
@@ -726,8 +794,8 @@ class Writing:
             Path of csv file containing manually annotated table regions.
         &#34;&#34;&#34;
         
-        # Creating an empty hand region proposal dataframe
-        hrp = pd.DataFrame()
+        # Creating an empty writing region proposal dataframe
+        wrp = pd.DataFrame()
 
         # Load hands and table roi csvs
         hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
@@ -737,8 +805,7 @@ class Writing:
         # Calcuating hand region proposals every 3 seconds
         fps = hands_df[&#39;FPS&#39;].unique().item()
         new_rows = []
-        print(f&#34;Calculating region proposals...&#34;)
-        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+        for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps), desc=&#34;INFO: Writing proposals&#34;):
 
             # Get hands and table regions for 3 seconds
             hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
@@ -769,23 +836,98 @@ class Writing:
             new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
 
 
-        hrp = pd.DataFrame(new_rows, columns=[
+        wrp = pd.DataFrame(new_rows, columns=[
                 &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
                 &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
             ])
             
-        return hrp
+        return wrp
 
-    def classify_writing_proposals(self, hrp):
+    def classify_writing_proposals(self, wrp, debug=True):
         &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+        Todo
+        ----
+        This function evaluates one proposal at a time. This is note
+        optimal. I have to redo this to evaluate multiple proposals
+        at a time. 
 
         Parameters
         ----------
-        hrp : Pandas DataFrame instance
-            
+        wrp : Pandas DataFrame instance
+            DataFrame having writing region proposals
+        debug : Bool
+            When True we will save the class probability and trimmed
+            videos.
+
+        Return
+        ------
+        A DataFrame with `writing` column with labels 1 and 0 for
+        writing and no-writing respectively.
         &#34;&#34;&#34;
+        
+        # Output location to save trims and writing csv file
+        oloc = self.ivid.props[&#39;dir_loc&#39;]
+        
+        # Creating another column in writing region proposal dataframe
+        wrp[&#39;writing&#39;] = -1
+        if debug:
+            print(f&#34;INFO: RUNNING IN DEBUG MODE!&#34;)
+            wrp[&#39;p&#39;] = -1
+            wrp[&#39;trim_path&#39;] = &#34;&#34;
+            os.system(f&#34;rm -r {oloc}/trims&#34;)
+            os.system(f&#34;mkdir -p {oloc}/trims/0&#34;)
+            os.system(f&#34;mkdir -p {oloc}/trims/1&#34;)
+        
+        # Loading neural network into GPU
+        net = self._load_net(self.cfg)
 
+        # Loop through writing proposal
+        for i, row in tqdm(wrp.iterrows(), total=wrp.shape[0], desc=&#34;INFO: Classifying&#34;):
 
+            # Spatio temporal trim coordinates
+            bbox = [row[&#39;w0&#39;],row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+            sfrm = row[&#39;f0&#39;]
+            efrm = sfrm + row[&#39;f&#39;]
+            opth = (f&#34;{oloc}/temp.mp4&#34;)
+
+            # Spatio temporal trim
+            self.ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
+
+            # Creating a temporary text file `temp.txt` having
+            # temp.mp4 and a dummy label (100)
+            with open(f&#34;{oloc}/temp.txt&#34;, &#34;w&#34;) as f:
+                f.write(&#34;temp.mp4 100&#34;)
+
+                    
+
+            # Intialize AOLME data loader instance
+            tst_data = AOLMETrmsDLoader(
+                oloc, f&#34;{oloc}/temp.txt&#34;, oshape=(224, 224)
+            )
+            tst_loader = DataLoader(
+                tst_data, batch_size=1, num_workers=1
+            )
+
+            # Loop over tst data (??? goes over only once. I am desparate so I kept the loop)
+            for data in tst_loader:
+                dummy_labels, inputs = (
+                    data[0].to(&#34;cuda:0&#34;, non_blocking=True),
+                    data[1].to(&#34;cuda:0&#34;, non_blocking=True)
+                )
+                with torch.no_grad():
+                    outputs = net(inputs)
+                    ipred = outputs.data.clone()
+                    ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+                    wrp.at[i, &#39;writing&#39;] = round(ipred[0])
+                    if debug:
+                        trim_pth = f&#34;{oloc}/trims/{round(ipred[0])}/trim_{i}.mp4&#34;
+                        os.system(f&#34;cp {oloc}/temp.mp4 {trim_pth}&#34;)
+                        wrp.at[i, &#39;p&#39;] = ipred[0]
+                        wrp.at[i, &#39;trim_path&#39;] = f&#34;{round(ipred[0])}/trim_{i}.mp4&#34;
+        return wrp
+
+                    
     def _get_union_of_hand_detections(self, df, f0, f):
         &#34;&#34;&#34; Returns hand detection regions using union of all the detections
         in an interval.
@@ -1036,19 +1178,25 @@ class Writing:
     def _load_net(self, cfg):
         &#34;&#34;&#34; Load neural network to GPU. &#34;&#34;&#34;
 
+        print(&#34;INFO: Loading Trained network to GPU ...&#34;)
+
         # Checkpoint and depth from cfg file.
         ckpt = cfg[&#39;ckpt&#39;]
         depth = cfg[&#39;depth&#39;]
 
         # Creating an instance of Dyadic 3D-CNN
-        self.net = DyadicCNN3D(depth, [3, 90, 224, 224])
-        self.net.to(&#34;cuda:0&#34;)
-        summary(self.net, (3, 90, 224, 224))
+        net = DyadicCNN3D(depth, [3, 90, 224, 224])
+        net.to(&#34;cuda:0&#34;)
+
+        # Print summary of network.
+        # summary(net, (3, 90, 224, 224))
 
         # Loading the net with trained weights to cuda device 0
         ckpt_weights = torch.load(ckpt)
-        self.net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
-        self.net.eval()
+        net.load_state_dict(ckpt_weights[&#39;model_state_dict&#39;])
+        net.eval()
+
+        return net
         
         
 
@@ -1235,10 +1383,6 @@ class Writing:
 <dd>
 <div class="desc"><p>Input video instance.</p></div>
 </dd>
-<dt id="aqua.frameworks.writing.framework.Writing.net"><code class="name">var <span class="ident">net</span></code></dt>
-<dd>
-<div class="desc"><p>Dyadic 3D CNN instance.</p></div>
-</dd>
 <dt id="aqua.frameworks.writing.framework.Writing.wrdf"><code class="name">var <span class="ident">wrdf</span></code></dt>
 <dd>
 <div class="desc"><p>Data frame having information on writing instances.
@@ -1263,27 +1407,112 @@ It has following columns,</p>
 <h3>Methods</h3>
 <dl>
 <dt id="aqua.frameworks.writing.framework.Writing.classify_writing_proposals"><code class="name flex">
-<span>def <span class="ident">classify_writing_proposals</span></span>(<span>self, hrp)</span>
+<span>def <span class="ident">classify_writing_proposals</span></span>(<span>self, wrp, debug=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Classify each proposed region as writing / no-writing.</p>
+<h2 id="todo">Todo</h2>
+<p>This function evaluates one proposal at a time. This is note
+optimal. I have to redo this to evaluate multiple proposals
+at a time. </p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>hrp</code></strong> :&ensp;<code>Pandas DataFrame instance</code></dt>
-<dd>&nbsp;</dd>
-</dl></div>
+<dt><strong><code>wrp</code></strong> :&ensp;<code>Pandas DataFrame instance</code></dt>
+<dd>DataFrame having writing region proposals</dd>
+<dt><strong><code>debug</code></strong> :&ensp;<code>Bool</code></dt>
+<dd>When True we will save the class probability and trimmed
+videos.</dd>
+</dl>
+<h2 id="return">Return</h2>
+<p>A DataFrame with <code>writing</code> column with labels 1 and 0 for
+writing and no-writing respectively.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def classify_writing_proposals(self, hrp):
+<pre><code class="python">def classify_writing_proposals(self, wrp, debug=True):
     &#34;&#34;&#34; Classify each proposed region as writing / no-writing.
+
+    Todo
+    ----
+    This function evaluates one proposal at a time. This is note
+    optimal. I have to redo this to evaluate multiple proposals
+    at a time. 
 
     Parameters
     ----------
-    hrp : Pandas DataFrame instance
-        
-    &#34;&#34;&#34;</code></pre>
+    wrp : Pandas DataFrame instance
+        DataFrame having writing region proposals
+    debug : Bool
+        When True we will save the class probability and trimmed
+        videos.
+
+    Return
+    ------
+    A DataFrame with `writing` column with labels 1 and 0 for
+    writing and no-writing respectively.
+    &#34;&#34;&#34;
+    
+    # Output location to save trims and writing csv file
+    oloc = self.ivid.props[&#39;dir_loc&#39;]
+    
+    # Creating another column in writing region proposal dataframe
+    wrp[&#39;writing&#39;] = -1
+    if debug:
+        print(f&#34;INFO: RUNNING IN DEBUG MODE!&#34;)
+        wrp[&#39;p&#39;] = -1
+        wrp[&#39;trim_path&#39;] = &#34;&#34;
+        os.system(f&#34;rm -r {oloc}/trims&#34;)
+        os.system(f&#34;mkdir -p {oloc}/trims/0&#34;)
+        os.system(f&#34;mkdir -p {oloc}/trims/1&#34;)
+    
+    # Loading neural network into GPU
+    net = self._load_net(self.cfg)
+
+    # Loop through writing proposal
+    for i, row in tqdm(wrp.iterrows(), total=wrp.shape[0], desc=&#34;INFO: Classifying&#34;):
+
+        # Spatio temporal trim coordinates
+        bbox = [row[&#39;w0&#39;],row[&#39;h0&#39;], row[&#39;w&#39;], row[&#39;h&#39;]]
+        sfrm = row[&#39;f0&#39;]
+        efrm = sfrm + row[&#39;f&#39;]
+        opth = (f&#34;{oloc}/temp.mp4&#34;)
+
+        # Spatio temporal trim
+        self.ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
+
+        # Creating a temporary text file `temp.txt` having
+        # temp.mp4 and a dummy label (100)
+        with open(f&#34;{oloc}/temp.txt&#34;, &#34;w&#34;) as f:
+            f.write(&#34;temp.mp4 100&#34;)
+
+                
+
+        # Intialize AOLME data loader instance
+        tst_data = AOLMETrmsDLoader(
+            oloc, f&#34;{oloc}/temp.txt&#34;, oshape=(224, 224)
+        )
+        tst_loader = DataLoader(
+            tst_data, batch_size=1, num_workers=1
+        )
+
+        # Loop over tst data (??? goes over only once. I am desparate so I kept the loop)
+        for data in tst_loader:
+            dummy_labels, inputs = (
+                data[0].to(&#34;cuda:0&#34;, non_blocking=True),
+                data[1].to(&#34;cuda:0&#34;, non_blocking=True)
+            )
+            with torch.no_grad():
+                outputs = net(inputs)
+                ipred = outputs.data.clone()
+                ipred = ipred.to(&#34;cpu&#34;).numpy().flatten().tolist()
+                wrp.at[i, &#39;writing&#39;] = round(ipred[0])
+                if debug:
+                    trim_pth = f&#34;{oloc}/trims/{round(ipred[0])}/trim_{i}.mp4&#34;
+                    os.system(f&#34;cp {oloc}/temp.mp4 {trim_pth}&#34;)
+                    wrp.at[i, &#39;p&#39;] = ipred[0]
+                    wrp.at[i, &#39;trim_path&#39;] = f&#34;{round(ipred[0])}/trim_{i}.mp4&#34;
+    return wrp</code></pre>
 </details>
 </dd>
 <dt id="aqua.frameworks.writing.framework.Writing.get_writing_proposals"><code class="name flex">
@@ -1315,8 +1544,8 @@ and manually annotated table region of interest.</p>
         Path of csv file containing manually annotated table regions.
     &#34;&#34;&#34;
     
-    # Creating an empty hand region proposal dataframe
-    hrp = pd.DataFrame()
+    # Creating an empty writing region proposal dataframe
+    wrp = pd.DataFrame()
 
     # Load hands and table roi csvs
     hands_df = pd.read_csv(self.cfg[&#39;hands&#39;])
@@ -1326,8 +1555,7 @@ and manually annotated table region of interest.</p>
     # Calcuating hand region proposals every 3 seconds
     fps = hands_df[&#39;FPS&#39;].unique().item()
     new_rows = []
-    print(f&#34;Calculating region proposals...&#34;)
-    for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps)):
+    for i in tqdm(range(0, troi_df[&#39;f0&#39;].max(), 3*fps), desc=&#34;INFO: Writing proposals&#34;):
 
         # Get hands and table regions for 3 seconds
         hdf = hands_df[hands_df[&#39;f0&#39;].between(i, i + 3*fps - 1)].copy()
@@ -1358,12 +1586,12 @@ and manually annotated table region of interest.</p>
         new_rows += self._get_union_of_hand_detections(hdf.copy(), i, 3*fps)
 
 
-    hrp = pd.DataFrame(new_rows, columns=[
+    wrp = pd.DataFrame(new_rows, columns=[
             &#39;W&#39;, &#39;H&#39;, &#39;FPS&#39;, &#39;f0&#39;, &#39;f&#39;, &#39;class&#39;, &#39;table_boundary&#39;,
             &#39;w0&#39;, &#39;h0&#39;, &#39;w&#39;, &#39;h&#39;
         ])
         
-    return hrp</code></pre>
+    return wrp</code></pre>
 </details>
 </dd>
 <dt id="aqua.frameworks.writing.framework.Writing.write_to_csv"><code class="name flex">
@@ -1438,7 +1666,6 @@ following columns,</p>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.classify_writing_proposals" href="#aqua.frameworks.writing.framework.Writing.classify_writing_proposals">classify_writing_proposals</a></code></li>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.get_writing_proposals" href="#aqua.frameworks.writing.framework.Writing.get_writing_proposals">get_writing_proposals</a></code></li>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.ivid" href="#aqua.frameworks.writing.framework.Writing.ivid">ivid</a></code></li>
-<li><code><a title="aqua.frameworks.writing.framework.Writing.net" href="#aqua.frameworks.writing.framework.Writing.net">net</a></code></li>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.wrdf" href="#aqua.frameworks.writing.framework.Writing.wrdf">wrdf</a></code></li>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.wrdur" href="#aqua.frameworks.writing.framework.Writing.wrdur">wrdur</a></code></li>
 <li><code><a title="aqua.frameworks.writing.framework.Writing.write_to_csv" href="#aqua.frameworks.writing.framework.Writing.write_to_csv">write_to_csv</a></code></li>

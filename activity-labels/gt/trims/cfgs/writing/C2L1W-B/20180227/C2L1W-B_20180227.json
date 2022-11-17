@@ -1,0 +1,16 @@
+{
+    "videos_dir": "/home/vj/Dropbox/writing-nowriting/C2L1W-B/20180227",
+    "video_names":[
+	"G-C2L1W-Feb27-B-Issac_q2_02-04_30fps.mp4",
+	"G-C2L1W-Feb27-B-Issac_q2_03-04_30fps.mp4",
+	"G-C2L1W-Feb27-B-Issac_q2_04-04_30fps.mp4"
+    ],
+
+    "activity": "writing",
+    "gt_csv_path": "/home/vj/Dropbox/writing-nowriting/C2L1W-B/20180227/gTruth-wnw_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C2L1W-B/20180227",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/writing-nowriting-trims/training_validation_testing/C2L1W-B/20180227"
+}

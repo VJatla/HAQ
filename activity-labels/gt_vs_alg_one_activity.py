@@ -1,8 +1,29 @@
 """
+
+
+
+
+
+
 DESCRIPTION
 -----------
 This script compares ground truth and algorithm using activity maps 
 for a single activity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 USAGE
 -----

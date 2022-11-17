@@ -6,7 +6,7 @@ Maps session level region of interests to video level.
 USAGE
 ----- 
 ```sh
-python session_to_video.py /home/vj/Dropbox/table_roi_annotation
+python session_roi_to_video.py /home/vj/Dropbox/table_roi_annotation
 ```
 """
 
@@ -44,40 +44,34 @@ def _arguments():
     # Hello world how are you doing
     return args_dict
 
-
-def get_nframes_and_names(vlist):
-    """
-    Return a list having number of frames.
-    """
-    nfrms = []
-    names = []
-    for vpth in vlist:
-        vo = pk.Vid(vpth, 'read')
-        nfrms += [vo.props['num_frames']]
-        names += [f"{vo.props['name']}.mp4"]
-    return nfrms, names
-
-
 def get_session_videos_info(scsv):
     """
     Extracts session information using `properties_session.csv`. It returns a
     dictionary with following keys,
     1. vpaths  : video paths
     2. nframes : Number of frames
+
+    Parameters:
+    -----------
+    scsv : Str
+        Path to CSV file having region of interests
     """
     # Reading properties_session.csv file
     dir_pth, fname, fext = pk.file_parts(scsv)
+    sess_prop_csv = f"{dir_pth}/properties_session.csv"
+    sdf = pd.read_csv(sess_prop_csv)
+    sdf.drop(sdf.tail(1).index, inplace=True)
+    sdf = sdf.sort_values(by=['name'])
 
-    # Get list of video paths in the session directory
-    vlist = pk.get_file_paths_with_kws(
-        dir_pth, ['.mp4'], no_kw_lst=['session']
-        )
-    vlist.sort()
+    # Get a list of videos
+    names = sdf['name'].tolist()
+    vpaths = [f"{dir_pth}/{x}" for x in names]
 
-    # Get number of frames in each video
-    nframes, names = get_nframes_and_names(vlist)
+    # Number of frames per second in each video that has roi
+    dur = sdf['dur']
+    nframes = [int(x)*30 for x in dur]
 
-    return {"vpaths":vlist, "nframes":nframes, "vnames": names}
+    return {"vpaths":vpaths, "nframes":nframes, "vnames": names}
 
 
 def nframes_check(sinfo, scsv):
@@ -128,8 +122,8 @@ if __name__ == "__main__":
         sinfo = get_session_videos_info(scsv)
 
         # Checking if we have correct number of frames in `session_video.mp4`
-        if not nframes_check(sinfo, scsv):
-            raise Exception(f"ERROR: Frames mismatch")
+        # if not nframes_check(sinfo, scsv):
+        #     raise Exception(f"ERROR: Frames mismatch")
 
         # Loop through each video
         f0 = []
@@ -140,7 +134,7 @@ if __name__ == "__main__":
             
             # Calculate ending row index
             vnframes = sinfo['nframes'][idx]
-            vnframes_extracted = math.floor(vnframes/30) + 1
+            vnframes_extracted = math.floor(vnframes/30)
             end_row_idx = start_row_idx + vnframes_extracted
 
             # Adding current video informaton to the list
@@ -150,6 +144,26 @@ if __name__ == "__main__":
             # update start row index
             start_row_idx = end_row_idx
 
+
+        # if the entries in video_names does not match with sdf
+        # columns then we will adjust the video_names entries
+        diff = len(video_names) - len(sdf)
+        
+        if diff > 0:
+            video_names = video_names[0:len(sdf)]
+            f0 = f0[0:len(sdf)]
+            
+        if diff < 0:
+            last_video_name = video_names[-1]
+            last_f0 = f0[-1]
+            
+            for i in range(0, abs(diff)):
+                video_names += [last_video_name]
+                f0 += [last_f0 + (i+1)*30]
+
+        if abs(diff) > 3:
+            print(f"WARNING: The seconds difference between table roi df and session properties differ by {diff}")
+            
         # Adding columns
         sdf['video_names'] = video_names
         sdf['f0'] = f0

@@ -25,9 +25,7 @@ clc;
 
 
 % Root directory having
-%rdir = '~/Dropbox/table_roi_annotation/C1L1P-C/20170330';
-rdir = 'C:\\Users\\venka\\Dropbox\\table_roi_annotation\\C1L1P-C\\20170330';     % Nimbus
-rdir = 'E:/Dropbox/table_roi_annotation';
+rdir = 'C:\Users\vj\Dropbox\table_roi_annotation\C2L1P-E\20180412';
 min_instance_duration = 3; 
 
 

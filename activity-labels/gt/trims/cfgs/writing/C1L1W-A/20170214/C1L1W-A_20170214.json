@@ -1,0 +1,19 @@
+{
+    "videos_dir": "/home/vj/Dropbox/writing-nowriting/C1L1W-A/20170214",
+    "video_names":[
+	"G-C1L1W-Feb14-A-Elsa_q2_02-09_30fps.mp4",
+	"G-C1L1W-Feb14-A-Elsa_q2_03-09_30fps.mp4",
+	"G-C1L1W-Feb14-A-Elsa_q2_04-09_30fps.mp4",
+	"G-C1L1W-Feb14-A-Elsa_q2_05-09_30fps.mp4",
+	"G-C1L1W-Feb14-A-Elsa_q2_06-09_30fps.mp4",
+	"G-C1L1W-Feb14-A-Elsa_q2_07-09_30fps.mp4"
+    ],
+
+    "activity": "writing",
+    "gt_csv_path": "/home/vj/Dropbox/writing-nowriting/C1L1W-A/20170214/gTruth-wnw_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C1L1W-A/20170214",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/writing-nowriting-trims/training_validation_testing/C1L1W-A/20170214"
+}

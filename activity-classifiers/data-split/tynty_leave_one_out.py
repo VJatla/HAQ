@@ -1,7 +1,7 @@
 """
 The following script creates `trn_videos.txt`, `val_videos.txt` and
 `tst_videos.txt` for aolme trimmed videos dataset in compliance with
-TSN standards. This script is written to run in `mmaction` docker container.
+mmaction2 standards. This script is written to run in `mmaction` docker container.
 """
 import pdb
 from aqua.data_tools import AOLMETrimmedVideos

@@ -5,6 +5,7 @@ import time
 from datetime import datetime
 import torch
 import shutil
+import math
 from barbar import Bar
 from sklearn.metrics import accuracy_score
 from torchsummary import summary
@@ -63,7 +64,9 @@ class SGPU_TrnAndVal:
         os.makedirs(self.work_dir)
 
         # Create log json file
-        self.log = open(self.params['log_pth'], "w")
+        dir_loc = os.path.dirname(self.params['log_pth'])
+        self.trn_log = open(f"{dir_loc}/trn_log.json", "w")
+        self.val_log = open(f"{dir_loc}/val_log.json", "w")
 
         # Epochs for which we need to save checkpoints
         self.max_epochs = self.params['max_epochs']
@@ -72,7 +75,7 @@ class SGPU_TrnAndVal:
             range(0, self.max_epochs, ckpt_save_interval))
 
         # Save model diagram in model.txt
-        model_stats = summary(self.net, params['input_shape'], verbose=0)
+        model_stats = summary(self.net, params['input_shape'])
         summary_str = str(model_stats)
         model_floc = f"{os.path.dirname(self.params['log_pth'])}/model.txt"
         model_f = open(model_floc, "w")
@@ -117,10 +120,14 @@ class SGPU_TrnAndVal:
         """
         print(f"INFO: Starting training for {self.max_epochs} epochs")
         now = datetime.now()
-        self.log.write(f'{{"mode": "info", "start_time":{now} }}')
+        self.trn_log.write(f'{{"mode": "info", "start_time":"{now}" }}')
+        self.val_log.write(f'{{"mode": "info", "start_time":"{now}" }}')
 
         # Epoch loop
         best_val_acc = 0
+        best_val_loss = math.inf
+        num_epochs_worse = 0
+        num_epochs_to_skip = 20
         for epoch in range(self.max_epochs):
             print(
                 f"\n*****************Epoch {epoch}**************************")
@@ -140,38 +147,63 @@ class SGPU_TrnAndVal:
             self.net.eval()
             valloss, valaccu, valtt = self._get_val_loss_and_accuracy()
 
-            # If this is best validation accuracy save the ckpt
-            if valaccu > best_val_acc:
-                ckpt_loc = f"{self.work_dir}/best_vacc_epoch_{epoch}.pth"
+            # Only after `num_epochs_to_skip` epochs check for epoch with best validation loss
+            # If less than `num_epochs_to_skip` epochs best epoch == latest epoch
+            if epoch > num_epochs_to_skip:
+                if valloss <= best_val_loss:
+                    ckpt_loc = f"{self.work_dir}/best.pth"
+                    self._save_model(epoch, trnloss, ckpt_loc)
+                    best_val_acc = valaccu
+                    best_val_loss = valloss
+                    best_epoch = epoch
+                    num_epochs_worse = 0
+                else:
+                    num_epochs_worse += 1
+            else:
+                ckpt_loc = f"{self.work_dir}/best.pth"
                 self._save_model(epoch, trnloss, ckpt_loc)
                 best_val_acc = valaccu
-                best_val_acc_epoch = epoch
+                best_val_loss = valloss
+                best_epoch = epoch
+                num_epochs_worse = 0
+                
 
-            # Print useful information per epoch
+            # Print and save useful information per epoch
             trnstr = (
-                f'{{"mode": "train", "epoch":{epoch}, "acc":{trnaccu}, '
-                f'"loss":{trnloss} "time???<--need correction":{trntt} }}')
+                f'{{"mode": "trn", "epoch":{epoch}, "acc":{trnaccu}, '
+                f'"loss":{trnloss} }}')
             valstr = (
                 f'{{"mode": "val", "epoch":{epoch}, "acc":{valaccu}, '
-                f'"loss":{valloss} "time???<---need correction":{valtt}}}')
-
-            # Write log file (this will slow down trainning <<< How much?)
-            self.log.write(f"\n{trnstr}\n{valstr}")
+                f'"loss":{valloss} }}')
+            best_str = (
+                f'{{"mode": "bst", "epoch":{epoch}, "acc":{best_val_acc}, "loss":{best_val_loss},'
+                f'"best epoch":{best_epoch} }}')
+            self.trn_log.write(f"\n{trnstr}")
+            self.val_log.write(f"\n{valstr}")
 
             # Print to console
             print(f"Trn: {trnstr}")
             print(f"Val: {valstr}")
+            print(f"Bst: {best_str}")
 
-        # Close log file
-        best_str = (f'{{ "mode":"best", "epoch":{best_val_acc_epoch},'
-                    f'"val_acc":{best_val_acc} }}')
-        print(f"\n{best_str}")
+        
+            # If the validation accuracy keeps decreasing for 5
+            # we stop the training.
+            if num_epochs_worse >= 5:
+                break
 
         # Recording end time
         now = datetime.now()
-        self.log.write(f'{{"mode": "info", "end_time":{now} }}')
+        self.trn_log.write(f'\n{{"mode": "info", "end_time":"{now}" }}')
+        self.val_log.write(f'\n{{"mode": "info", "end_time":"{now}" }}')
 
-        self.log.close()
+        # Renaming the best model
+        ckpt_loc = f"{self.work_dir}/best.pth"
+        new_ckpt_loc = f"{self.work_dir}/best_epoch{best_epoch}.pth"
+        os.system(f"mv {ckpt_loc} {new_ckpt_loc}")
+        
+        self.trn_log.close()
+        self.val_log.close()
 
     def _train_and_get_loss_and_accuracy(self):
         """ Trains and returns avrage training loss and accuracy

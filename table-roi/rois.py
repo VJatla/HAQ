@@ -42,29 +42,99 @@ class ROI:
         # Session properties
         self.sprops = {"FPS": FPS}
 
-    def create_session_video(self, n=1):
-        """ Creating session level video taking `n` frames
+    def create_session_video(self, vidxs):
+        """Creating session level video taking 1 frames
         every second.
 
         Parameters
         ----------
-        n : Int, optional
-            Number of frames to take from a sec.mp4ond starting from
-            frame 0.
+        vidxs : Str
+            Video indexes for which we have activity ground truth.
+        """
+
+        # If "all"
+        if vidxs == "all":
+            self._create_session_video_all_videos()
+        else:
+            self._create_session_video(vidxs)
+
+
+    def _create_session_video(self, vidxs):
+        """Create a session video with the videos other than vidxs as
+        blank.
+
+        Parameters
+        ----------
+        vidxs : Str
+            Video indexes for which we have activity ground
+
+        """
+
+        # Loading the session properties csv file
+        props_fpth = f"{self.rdir}/properties_session.csv"
+        pdf = pd.read_csv(props_fpth)
+        pdf = pdf[0:-1].copy()
+        pdf = pdf.sort_values(by=['name']).copy()
+        
+        # Creating a session video to write
+        video_session = pk.Vid(f"{self.rdir}/session_video.mp4", "write")
+
+        # Loop over each session video from properties dataframe
+        for i, row in pdf.iterrows():
+            cvid_name = row['name']
+            cvidx = cvid_name.split('_')[2]
+
+            # Check if current video has activity ground truth
+            vvalid_flag = False
+            for vidx in vidxs.split(','):
+                
+                if len(vidx) == 1:
+                    vidx = f"0{vidx}-"
+                else:
+                    vidx = f"{vidx}-"
+                    
+                if vidx in cvidx:
+                    vvalid_flag = True
+
+
+            # If the current video is not valid use black frames
+            if not vvalid_flag:
+                bframe = np.zeros((int(row['height']), int(row['width']), 3)).astype('uint8')
+                for f0 in range(0, int(row['dur'])):
+                    video_session.write_frame(bframe)
+                    
+            # If the current video is valid, use the frames from video
+            else:
+                video_file = f"{self.rdir}/{cvid_name}"
+                video = pk.Vid(video_file, "read")
+                print(f"{cvid_name}")
+                for f0 in tqdm(range(0, video.props['num_frames'], video.props['frame_rate'])):
+                    frm = video.get_frame(f0)
+                    video_session.write_frame(frm)
+                video.close()
+
+        # Closing session video
+        video_session.close()
+
+
+    def _create_session_video_all_videos(self):
+        """Creating session level video taking `n` frames
+        every second.
         """
         print(f"Saving {self.rdir}/session_video.mp4")
         
         video_files = pk.get_file_paths_with_kws(self.rdir, ['30fps', 'mp4'])
         video_session = pk.Vid(f"{self.rdir}/session_video.mp4", "write")
 
-        for video_file in tqdm(video_files):
+        for video_file in video_files:
             
             video = pk.Vid(video_file, "read")
+            print(f"{video_file}")
             
-            for f0 in range(0, video.props['num_frames'], video.props['frame_rate']):
+            for f0 in tqdm(range(0, video.props['num_frames'], video.props['frame_rate'])):
                 
                 frm = video.get_frame(f0)
-                frm = cv2.cvtColor(frm, cv2.COLOR_BGR2RGB)
+                # frm = cv2.cvtColor(frm, cv2.COLOR_BGR2RGB) # Previously we had to convert color spaces. Not anymore.
                 video_session.write_frame(frm)
                 
             video.close()

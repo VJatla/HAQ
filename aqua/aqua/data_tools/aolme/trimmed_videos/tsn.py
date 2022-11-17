@@ -86,7 +86,6 @@ class TSNDataTools:
         """
         vname = vname.replace("_", "-")
         vsplit = vname.split("-")
-
         splabel = f"{vsplit[3]}-{vsplit[4]}-{vsplit[5]}-{vsplit[13]}"
 
         return splabel
@@ -118,6 +117,7 @@ class TSNDataTools:
         # If no hits or more than 1 hit throw error
         if not len(cvid_split_info) == 1:
             print(cvid_split_info)
+            import pdb; pdb.set_trace()
             raise Exception(f"{vname}")
 
         # return label
@@ -287,19 +287,19 @@ class TSNDataTools:
             dftrn, dfval, dftst = self._create_df_list(df_act, "splabel")
 
             # Creating list for training samples
-            self._create_txt_list(trn_f, dftrn, num_trn_samples)
+            self._create_txt_list(trn_f, dftrn, num_trn_samples, act=act, split="trn")
 
             # Creating list for validation samples
-            self._create_txt_list(val_f, dfval, num_val_samples)
+            self._create_txt_list(val_f, dfval, num_val_samples, act=act, split="val")
 
             # Creating list for testing samples
-            self._create_txt_list(tst_f, dftst, num_tst_samples)
+            self._create_txt_list(tst_f, dftst, num_tst_samples, act=act, split="tst")
 
         trn_f.close()
         val_f.close()
         tst_f.close()
 
-    def _create_txt_list(self, f, dflst, n):
+    def _create_txt_list(self, f, dflst, n, act="", split=""):
         """ Writes each trimmed video sample into the file
         while maintaining diversity.
 
@@ -345,7 +345,7 @@ class TSNDataTools:
 
             # If all data frames in dflst are empty break from while
             if empty_df_count >= len(dflst):
-                print(f"All samples are extracted, {extracted_samples}")
+                print(f"Number of {split} {act} \tsamples: {extracted_samples}")
                 break
 
     def _create_df_list(self, df, col_name):

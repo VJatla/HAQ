@@ -1,0 +1,10 @@
+{
+    "vdir"  : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
+    "rp_roi_only_file" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tyrp_only_roi.csv",
+
+    "mma2_ckpt": "/mnt/twelvetb/vj/mmaction2_2022/workdir/tynty_table_roi/resized_224/tsn/run1_Sep08_2022/best_top1_acc_epoch_90.pth",
+    "mma2_cfg": "/home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ/sota/2022-mmaction2/tynty-roi-224/tsn/trn_tsn_r50_video_1x1x8_100e_kinetics400_rgb_vj.py",
+
+    "oloc" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
+    "ofile" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota-tsn_30fps.csv"
+}

@@ -1,0 +1,19 @@
+{
+    "videos_dir": "/home/vj/Dropbox/typing-notyping/C3L1P-C/20190411",
+    "video_names":[
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps.mp4",
+    "G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps.mp4",
+    "G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps.mp4",
+    "G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps.mp4",
+    "G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps.mp4"
+
+    ],
+
+    "activity": "typing",
+    "gt_csv_path": "/home/vj/Dropbox/typing-notyping/C3L1P-C/20190411/gTruth-tynty_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C3L1P-C/20190411",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/typing-notyping-trims/C3L1P-C/20190411"
+}

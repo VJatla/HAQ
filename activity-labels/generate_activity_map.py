@@ -1,8 +1,45 @@
 """
-WARNING: DESCRIPTION
---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DESCRIPTION
+-----------
 This script generates activity map from activity labels. Activity 
 labels are given using excel sheets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 USAGE
 -----

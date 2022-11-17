@@ -1,0 +1,15 @@
+{
+    "videos_dir": "/home/vj/Dropbox/typing-notyping/C2L1P-C/20180412",
+    "video_names":[
+	"G-C2L1P-Apr12-C-Issac_q2_03-06_30fps.mp4",
+    "G-C2L1P-Apr12-C-Issac_q2_04-06_30fps.mp4"
+    ],
+
+    "activity": "typing",
+    "gt_csv_path": "/home/vj/Dropbox/typing-notyping/C2L1P-C/20180412/gTruth-tynty_30fps.csv",
+
+    "table_roi_dir" : "/home/vj/Dropbox/table_roi_annotation/C2L1P-C/20180412",
+    "table_roi_csv" : "video_roi.csv",
+
+    "outdir" : "/home/vj/Dropbox/typing-notyping-trims/C2L1P-C/20180412"
+}

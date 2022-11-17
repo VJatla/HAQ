@@ -1,0 +1,32 @@
+{
+    "alg_paths":[
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota-i3d_30fps.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota-slowfast_30fps.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota-tsm_30fps.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota-tsn_30fps.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-ours-3DCNN_30fps.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-ours-3DCNN_kbdet_30fps.xlsx"
+    ],
+    
+    "alg_names":[
+	"I3D",
+	"SlowFast",
+	"TSM",
+	"TSN",
+	"ours",
+	"ours+KB"
+    ],
+
+    "roc_colors":[
+	"green",
+	"blue",
+	"black",
+	"red",
+	"magenta",
+	"orange"
+    ],
+    
+    "gt_path": "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/gt-ty-30fps.xlsx",
+
+    "out_roc_path": "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-sota_30fps.png"
+}

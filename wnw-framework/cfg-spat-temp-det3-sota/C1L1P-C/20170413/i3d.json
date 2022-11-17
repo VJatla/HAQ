@@ -1,0 +1,10 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+    "rp_roi_only_file" : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wrp_only_roi.csv",
+
+    "mma2_ckpt": "/mnt/twelvetb/vj/mmaction2_2022/workdir/wnw_table_roi/resized_224/i3d/run1_Sep09_2022/best_top1_acc_epoch_75.pth",
+    "mma2_cfg": "/home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ/sota/2022-mmaction2/wnw-roi-224/i3d/trn_i3d_r50_video_32x2x1_100e_kinetics400_rgb_vj.py",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+    "ofile" : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-sota-i3d_30fps.csv"
+}

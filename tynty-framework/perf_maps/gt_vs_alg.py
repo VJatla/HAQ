@@ -1,3 +1,10 @@
+"""
+
+This file calculates peformace of algorithm when compared against ground truth.
+It produce
+    1. A CSV file that contains performance information
+    2. An Activity map that shows performance
+""" 
 import argparse
 from aqua.act_maps_and_perf import ActMapsAndPerf
             
@@ -41,7 +48,7 @@ if __name__ == "__main__":
     ty_perf = ActMapsAndPerf(**args)
 
     # Visualize activity maps
-    # ty_perf.visualize_maps()
+    ty_perf.visualize_maps()
 
 
     # Write the map produced by confusion matrix

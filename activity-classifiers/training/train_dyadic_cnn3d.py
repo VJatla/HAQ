@@ -55,7 +55,7 @@ def main():
     vdir = argd['vdir']
     trn_list = argd['trnlst']
     input_shape = [3, 90, 224, 224]
-    max_epochs = 50
+    max_epochs = 30
     cur_cuda_device_id = 0
 
     # Initialize single gpu training instance
@@ -79,7 +79,8 @@ def main():
 
     # Loss and optimizer
     criterion = nn.BCELoss()  # Using Binary Cross Entropy loss
-    optimizer = optim.SGD(cnn3d.parameters(), lr=0.001, momentum=0.9)
+    # optimizer = optim.SGD(cnn3d.parameters(), lr=0.001, momentum=0.9)
+    optimizer = optim.Adam(cnn3d.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0)
 
     trainer = SGPU_TrnOnly(training_params,
                            cnn3d,

@@ -1,3 +1,3 @@
 ((nil . (
-	 (eval . (pyvenv-workon "haq"))
+	 (eval . (pyvenv-activate "~/anaconda3/envs/haq"))
 	 )))

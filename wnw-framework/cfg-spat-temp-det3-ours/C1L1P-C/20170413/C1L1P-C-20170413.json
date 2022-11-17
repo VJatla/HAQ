@@ -1,0 +1,48 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+    "vids"  : [
+	
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps.mp4"
+    ],
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C1L1P-C/20170413",
+    "kb_dets"   : [
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps_60_det_per_min.csv"
+    ],
+
+    "hand_detdir" : "/home/vj/Dropbox/objectdetection-aolme/hand-tensorflow/C1L1P-C/20170413",
+    "hand_dets"   : [
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps_detection.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps_detection.csv"
+	
+    ],
+    
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170413/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170413/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+
+    "depth": 4,
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/wnw_table_roi/resized_224/Nov10/run5_Nov10_2022/epoch_22.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/gt-wr-30fps.xlsx"
+    
+    
+}

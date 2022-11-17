@@ -1,0 +1,43 @@
+{
+    "vdir"  : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
+    "vids"  : [
+	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_02-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_03-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_04-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps.mp4"
+    ],
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C2L1P-B/20180223",
+    "kb_dets"   : [
+	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_02-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_03-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_04-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps_60_det_per_min.csv"
+    ],
+
+    "hand_detdir" : "/home/vj/Dropbox/objectdetection-aolme/hand-tensorflow/C2L1P-B/20180223",
+    "hand_dets"   : [
+	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps_detection.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_02-06_30fps_detection.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_03-06_30fps_detection.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_04-06_30fps_detection.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps_detection.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps_detection.csv"
+    ],
+    
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C2L1P-B/20180223/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C2L1P-B/20180223/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
+
+    "depth": 4,
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/tynty_table_roi/resized_224/run8_Aug28_2022/best_epoch18.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/gt-ty-30fps.xlsx"
+    
+    
+}
