@@ -450,7 +450,6 @@ class ActMapsPlotly:
         # Get student codes and activity labels from per second dataframe
         student_codes = df["student_codes"].tolist()
         act_labels = df[f"act"].tolist()
-        import pdb; pdb.set_trace()
 
         # Creating a 2D matrix
         student_codes = [x.split(":") for x in student_codes]
