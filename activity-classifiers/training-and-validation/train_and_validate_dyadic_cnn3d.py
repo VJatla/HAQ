@@ -15,6 +15,7 @@ import argparse
 import torch.nn as nn
 import torch.optim as optim
 from torchsummary import summary
+from aqua.nn.models import DyadicCNN3DV2
 from aqua.nn.models import DyadicCNN3D
 from torch.utils.data import DataLoader
 from aqua.nn.dloaders import AOLMETrmsDLoader
@@ -63,12 +64,13 @@ def main():
     trn_list = argd['trnlst']
     val_list = argd['vallst']
     input_shape = [3, 90, 224, 224]
+    input_shape_20fps = [3, 60, 224, 224]
     max_epochs = 100
     cur_cuda_device_id = 0
 
     # Initialize single gpu training instance
     training_params = {
-        "input_shape": tuple(input_shape),
+        "input_shape": tuple(input_shape_20fps),
         "max_epochs": max_epochs,
         "work_dir": argd['workdir'],
         "ckpt_save_interval": 1,
@@ -90,15 +92,16 @@ def main():
                              num_workers=8)
 
     # Build model
-    cnn3d = DyadicCNN3D(ndyads, [3, 90, 224, 224])
+    # cnn3d = DyadicCNN3D(ndyads, [3, 90, 224, 224])
+    cnn3d_20fps = DyadicCNN3DV2(ndyads, [3, 60, 224, 224])
 
     # Loss and optimizer
     criterion = nn.BCELoss()  # Using Binary Cross Entropy loss
     # optimizer = optim.SGD(cnn3d.parameters(), lr=0.001, momentum=0.9)
-    optimizer = optim.Adam(cnn3d.parameters())
+    optimizer = optim.Adam(cnn3d_20fps.parameters())
 
     trainer = SGPU_TrnAndVal(training_params,
-                             cnn3d,
+                             cnn3d_20fps,
                              optimizer,
                              criterion,
                              trainloader,

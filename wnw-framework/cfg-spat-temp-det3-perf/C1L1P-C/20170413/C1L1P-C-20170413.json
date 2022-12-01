@@ -4,7 +4,8 @@
 	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-sota-slowfast_30fps.xlsx",
 	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-sota-tsm_30fps.xlsx",
 	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-sota-tsn_30fps.xlsx",
-	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-ours-3DCNN_30fps.xlsx"
+	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-ours-3DCNN_30fps.xlsx",
+	"/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/wnw-roi-ours-3DCNN_handdet_30fps.xlsx"
     ],
     
     "alg_names":[
@@ -12,7 +13,8 @@
 	"SlowFast",
 	"TSM",
 	"TSN",
-	"ours"
+	"ours",
+	"ours-handdet"
     ],
 
     "roc_colors":[

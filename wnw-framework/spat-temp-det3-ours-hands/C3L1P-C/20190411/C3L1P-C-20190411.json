@@ -1,0 +1,34 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411",
+    "vids"  : [
+	
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps.mp4"
+    ],
+
+    "hand_detdir" : "/home/vj/Dropbox/objectdetection-aolme/hand-tensorflow/C3L1P-C/20190411",
+    "hand_dets"   : [
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps_detection.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps_detection.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps_detection.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps_detection.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps_detection.csv"
+	
+    ],
+    
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C3L1P-C/20190411/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C3L1P-C/20190411/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411",
+
+    "depth": 4,
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/wnw_table_roi/resized_224/Nov10/run5_Nov10_2022/epoch_22.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/gt-wr-30fps.xlsx"
+    
+    
+}

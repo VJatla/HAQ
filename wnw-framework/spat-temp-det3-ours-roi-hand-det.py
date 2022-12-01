@@ -4,7 +4,8 @@ detections."""
 
 import argparse
 import json
-from aqua.frameworks.writing.framework3_roi_hands import Writing3Hands
+from aqua.frameworks.writing.framework3_roi_hands import Writing3
+import sys
 
 def _arguments():
     """Parse input arguments."""
@@ -29,12 +30,17 @@ if __name__ == "__main__":
         cfg = json.load(f)
 
     # Initializing typing instance
-    ty = Writing3(cfg)
+    wr = Writing3(cfg)
 
     # 1. Table region proposals using table ROI
-    ty.generate_typing_proposals_using_roi(dur=3, overwrite=False)
+    wr.generate_writing_proposals_using_roi(dur=3, overwrite=False)
 
-    # 2. Uses keyboard and hand detection to improve typing classification
-    ty.classify_proposals_using_kb_det(overwrite=False)
+    # 2. Uses hand detection to improve writing classification by
+    #    removing writing region proposals.
+    wr.classify_proposals_using_hand_det(overwrite=True)
+
+    # 2. Classifying without using hand detections
+    # wr.classify_writing_proposals_roi(overwrite=False)
     
-    
+
+

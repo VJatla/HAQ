@@ -16,7 +16,7 @@ from aqua.nn.models import DyadicCNN3D
 from torchsummary import summary
 
 
-class Writing3Hands:
+class Writing3:
     
     wdf = pd.DataFrame()
 
@@ -61,8 +61,7 @@ class Writing3Hands:
 
         
     def generate_writing_proposals_using_roi(self, dur=3, fps=30, overwrite = True):
-        """ Calculates writing region proposals using ROI and keyboard
-        detections.
+        """ Calculates writing region proposals using ROI.
 
         It write the output to `wrp_only_roi.csv`
 
@@ -73,21 +72,29 @@ class Writing3Hands:
         fps : Frames per second, optional
             Framerate of 
         """
+
+        # Check for writing region proposals file and load it
         wrp_roi_only_loc = f"{self.cfg['oloc']}/wrp_only_roi.csv"
+        wrp_roi_only_exists, self.wrp_roi_only = self._read_from_disk(wrp_roi_only_loc)
         
         # if overwrite == False then we check of existing csv with region proposals
         if not overwrite:
-            wrp_roi_only_exists, self.wrp_roi_only = self._read_from_disk(wrp_roi_only_loc)
             if wrp_roi_only_exists:
                 print(f"Reading {wrp_roi_only_loc}")
                 return True
 
+        # if overwrite == True, and file exists delete it
+        if wrp_roi_only_exists:
+            print(f"Deleting {wrp_roi_only_loc}")
+            os.remove(wrp_roi_only_loc)
+
+        # Creating writing region proposals csv
         print(f"Creating {wrp_roi_only_loc}")
         self.dur = dur
         self.fps = fps
         vid_names = self.cfg['vids']
         
-        # Loop over each video
+        # Loop over each video every 3 seconds
         wprop_lst = []
         for vid_name in vid_names:
             
@@ -97,7 +104,7 @@ class Writing3Hands:
             H = int(self.sprop_df[self.sprop_df['name'] == vid_name]['height'].item())
             FPS = int(self.sprop_df[self.sprop_df['name'] == vid_name]['FPS'].item())
 
-            # ROI and Keyboard detection for current video
+            # ROI for current video
             roi_df_vid = self.roi_df[self.roi_df['video_names'] == vid_name].copy()
 
             # Current video duration from session properties
@@ -115,7 +122,8 @@ class Writing3Hands:
                 roi_df_3sec = roi_df_vid[roi_df_vid['f0'] >= f0].copy()
                 roi_df_3sec = roi_df_3sec[roi_df_3sec['f0'] <= f1].copy()
 
-                # skip this 3 seconds?
+                # skip this 3 seconds if there is thare are no rois in then
+                # in the interval.
                 skip_flag = self._skip_this_3sec_roi_only(roi_df_3sec)
 
                 # If not skipping 
@@ -245,15 +253,19 @@ class Writing3Hands:
         return wdf
 
 
-    def classify_proposals_using_kb_det(self, overwrite=False):
-        """ Classify each proposed region as writing / no-writing.
-        In this method we use keyboard detection information
-        to further improve performance.
+    def classify_proposals_using_hand_det(self, overwrite=False):
+        """ Classify each proposed region as writing / no-writing. In 
+        this method I use hand detection information to further improve
+        performance.
 
-        The output is a csv file, "alg2-wnw-ro
+        Parameters
+        ----------
+        overwrite : bool
+            Overwrite existing writing csv file.
         """
+        
         # if the file is already present load it if overwrite == True
-        out_file = f"{self.cfg['oloc']}/wnw-roi-ours-3DCNN_kbdet_30fps.csv"
+        out_file = f"{self.cfg['oloc']}/wnw-roi-ours-3DCNN_handdet_30fps.csv"
         if not overwrite:
             if os.path.isfile(out_file):
                 print(f"Reading {out_file}")
@@ -275,7 +287,7 @@ class Writing3Hands:
             # Loading relavent files
             ivid = pk.Vid(f"{self.cfg['vdir']}/{video_name}", "read")  # Video
             wrp_video = self.wrp_roi_only[self.wrp_roi_only['name'] == video_name].copy()  # Region proposals
-            kb_det = pd.read_csv(f"{self.cfg['kb_detdir']}/{video_name_no_ext}_60_det_per_min.csv")
+            hand_det = pd.read_csv(f"{self.cfg['hand_detdir']}/{video_name_no_ext}_12sec_interval.csv")
 
 
             # Loop through each instance in the video
@@ -291,22 +303,20 @@ class Writing3Hands:
                 efrm = row['f1']
                 opth = (f"{self.cfg['oloc']}/temp.mp4")
 
-                # Get keyboard detection intersection bounding box
-                kb_bbox = self._get_kbdet_intersection(kb_det, sfrm, efrm)
 
-                # Did they overlap?
-                iflag, icoords = self._get_intersection(bbox, kb_bbox)
 
-                if not iflag:
+                # Get hand detections inside current bounding box
+                bbox_valid_flag = self.is_bbox_valid(bbox, hand_det, sfrm, efrm)
+
+                # ifq the intersection area is less than 25th percentile of hand area we mark the instance as no writing
+                if bbox_valid_flag > 0:
                     
                     # If they don't overlap then mark the proposal as nowriting
-                    # with class probability of 0 <--- Very confident
                     wrp_video.at[ii, 'activity'] = 'nowriting'
                     wrp_video.at[ii, 'class_prob'] = 0.49
                     wrp_video.at[ii, 'class_idx'] = 0
                     
                 else:
-                    
                     # Spatio temporal trim
                     ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
 
@@ -317,13 +327,15 @@ class Writing3Hands:
 
                     # Intialize AOLME data loader instance
                     tst_data = AOLMETrmsDLoader(
-                        self.cfg['oloc'], f"{self.cfg['oloc']}/temp.txt", oshape=(224, 224)
+                        self.cfg['oloc'], f"{self.cfg['oloc']}/temp.txt",
+                        oshape=(224, 224)
                     )
                     tst_loader = DataLoader(
                         tst_data, batch_size=1, num_workers=1
                     )
 
-                    # Loop over tst data (??? goes over only once. I am desparate so I kept the loop)
+                    # Loop over tst data (??? goes over only once.
+                    # I am desparate so I kept the loop)
                     for data in tst_loader:
                         dummy_labels, inputs = (
                             data[0].to("cuda:0", non_blocking=True),
@@ -343,7 +355,8 @@ class Writing3Hands:
                             ipred_class = "nowriting"
                             ipred_class_prob = round(ipred[0], 2)
 
-                        # This is because for 0.5 I am having problems in ROC curve
+                        # This is because for 0.5 I am having problems in ROC
+                        # curve
                         if ipred_class_prob == 0.5:
                             if ipred_class_idx == 1:
                                 ipred_class_prob = 0.51
@@ -360,8 +373,8 @@ class Writing3Hands:
                 ivid.close()
 
                         
-            # If this is the first time, copy the proposal dataframe to writing dataframe
-            # else concatinate
+            # If this is the first time, copy the proposal dataframe to writing
+            # dataframe else concatinate
             if i == 0:
                 wdf = wrp_video
             else:
@@ -372,11 +385,141 @@ class Writing3Hands:
         self.wdf.to_csv(f"{out_file}", index=False)
         return wdf
 
+    def is_bbox_valid(self, bbox, hand_det, sfrm, efrm):
+        """Returns True if the current bounding box is valid. Valid implies that
+        we have atleast one hand detection inside the bounding box that has 0.5 
+        IoU.
+        
+        Parameters
+        ----------
+        bbox : 
+            Regin proposal bounding box. 
+            The bounding box has the following coordinates, ['w0','h0', 'w', 'h']
+        hand_det : 
+            Hand detection dataframe
+        sfrm :
+            Starting frame
+        efrm :
+            Ending frame
+        """
+
+        # Width and height of image
+        hdf = hand_det.copy()
+        W = hdf['W'].unique().item()
+        H = hdf['H'].unique().item()
+
+        # Get hand detections within the starting and ending frames
+        hdf = hdf[hdf['f0'] <= sfrm].copy()  # Detection that start before or equal to the starting frame.
+        hdf = hdf[hdf['f0'] + hdf['f'] > efrm].copy()  # Hand detections that end after or equal to the ending frame.
+
+        # If we do not have any hand detections we mark the proposal as invalid
+        if len(hdf) == 0:
+            return False
+
+        # There should be a maximum of one row in hdf
+        if len(hdf) > 1:
+            import pdb; pdb.set_trace()
+
+        # Loop though each hand detection.
+        dets = hdf['props'].item().split(':')
+        dets.remove('')
+
+        for det in dets:
+            det = [int(x) for x in det.split('-')]
+            IoU = self._get_iou_using_image(det, bbox, W, H)
+            if IoU >= 0.5:
+                return True
+        
+        # There are no hand detections in the proposal region that have 0.5 IoU. Hence  the current
+        # proposal is invalid
+        return False
+
+
+    def _get_iou_using_image(self, bbox1, bbox2, W, H):
+        """ Returns IoU score for bounding boxes.
+
+        Parameters
+        ----------
+        bbox1 : list[int]
+            [x_tl, y_tl, x_w, y_h]
+        bbox2 : list[int]
+            [x_tl, y_tl, x_w, y_h]
+        """
+        # Changing bboxes to [x_tl, y_tl, x_br, y_bl]
+        bbox1 = [bbox1[0], bbox1[1], bbox1[0]+bbox1[2], bbox1[1]+bbox1[3]]
+        bbox2 = [bbox2[0], bbox2[1], bbox2[0]+bbox2[2], bbox2[1]+bbox2[3]]
+
+        # Creating two images with bounding boxes marked as 1
+        img1 = np.zeros((H, W))
+        img2 = np.zeros((H, W))
+        img1[ bbox1[1] : bbox1[3], bbox1[0] : bbox1[2] ] = 1
+        img2[ bbox2[1] : bbox2[3], bbox2[0] : bbox2[2] ] = 1
+
+        # Intersection image
+        imgi = img1*img2
+        pixi = imgi.sum()
+
+        # Union image
+        imgu = 1*((img1 + img2) >= 1)
+        pixu = imgu.sum()
+
+        # IoU
+        iou = pixi/pixu
+
+        return iou
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def _get_hand_det_intersection(self, hand_det):
+        """Determines hand detection intersection"""
+
+        df = hand_det.copy()
+
+        # If we do not have any detection we will send [0, 0, 0, 0]
+        if len(df) == 0:
+            return 0, [0, 0, 0, 0]
+        
+        df['w1'] = df['w0'] + df['w']
+        df['h1'] = df['h0'] + df['h']
+
+        # Top left intersection coordinates
+        tl_w = max(df['w0'].tolist())
+        tl_h = max(df['h0'].tolist())
+
+        # Bottom right intersection coordinates
+        br_w = min(df['w1'].tolist())
+        br_h = min(df['h1'].tolist())
+        w = br_w - tl_w
+        h = br_h - tl_h
+
+        return w*h, [tl_w, tl_h, w, h]
+        
+        
+
     def _get_kbdet_intersection(self, kb_det, sfrm, efrm):
-        """Determines keyboard detection intersectin bouhnding box between
+        """
+
+        WARNING:
+        --------
+        DEPRICATION THIS METHOD IS USED FOR TYPING, IT IS NO LONGER USED IN WRITING.
+
+        Determines hand detection intersectin bouhnding box between
         sfrm and efrm"""
 
-        # Snipping keyboard detection dataframe between sfrm and efrm
+        # Snipping hand detection dataframe between sfrm and efrm
         kdf = kb_det.copy()
         kdf = kdf[kdf['f0'] >= sfrm].copy()
         kdf = kdf[kdf['f0'] <= efrm].copy()
@@ -411,14 +554,14 @@ class Writing3Hands:
     def _get_3sec_proposal_df(self, roi_df, kdf):
         """Returns a dataframe with writing region proposals using
         1. Table ROI
-        2. Keyboard detections
+        2. Hand detections
 
         Parameters
         ----------
         roi_df : Pandas Dataframe
             Table ROI for 3 seconds
         kdf : Pandas Dataframe
-            Keyboard detection for 3 seconds
+            Hand detection for 3 seconds
         """
 
         # ROI column names (persons sitting around the table)
@@ -426,7 +569,7 @@ class Writing3Hands:
         roidf_temp = roidf_temp.drop(['Time', 'f0', 'f', 'video_names'], axis=1)
         persons_list = roidf_temp.columns.tolist()
         
-        # Loop over each person ROI and check for keyboard detection
+        # Loop over each person ROI and check for hand detection
         prop_lst = []
         roi_coords_lst = []  # ROI coordinates list
         iarea_lst = [] # Intersection area
@@ -494,7 +637,7 @@ class Writing3Hands:
         roidf_temp = roidf_temp.drop(['Time', 'f0', 'f', 'video_names'], axis=1)
         persons_list = roidf_temp.columns.tolist()
         
-        # Loop over each person ROI and check for keyboard detection
+        # Loop over each person ROI and check for hand detection
         prop_lst = []
         for person in persons_list:
             
@@ -520,7 +663,7 @@ class Writing3Hands:
         Parameters
         ----------
         det_df : Pandas DataFrame
-            Keyboard detection dataframe for current duration.
+            Hand detection dataframe for current duration.
         """
         detdf_temp = det_df.copy()
 
@@ -661,8 +804,8 @@ class Writing3Hands:
         
     def _skip_this_3sec(self, roidf, detdf):
         """Skip the current 3 second interval if
-        1. We do not have table region of interest or keyboard detection
-        2. Keyboard detections should be available for more than half
+        1. We do not have table region of interest or hand detection
+        2. Hand detections should be available for more than half
            of the duration.
         3. ROI should be available for more than half of the duration.
 
@@ -671,7 +814,7 @@ class Writing3Hands:
         roidf : Pandas DataFrame instance
             ROI dataframe
         detdf : Pandas DataFrame instance
-            Keyboard detection instances
+            Hand detection instances
 
         Returns
         -------
@@ -687,13 +830,13 @@ class Writing3Hands:
         if roidf_temp.isnull().values.all():
             return True
 
-        # Return True if there is no keyboard detection. If we don't
-        # detect keyboard we keep widht and heigh to 0.
+        # Return True if there is no hand detection. If we don't
+        # detect hand we keep widht and heigh to 0.
         w_sum = detdf_temp['w'].sum()
         if w_sum <= 0:
             return True
 
-        # There should be atleast two keyboard detections, otherwise
+        # There should be atleast two hand detections, otherwise
         # we skip analyzing the current 3 seconds
         w_lst = detdf_temp['w'].tolist()
         num_zeros = sum([1*(x==0) for x in w_lst])
@@ -717,14 +860,14 @@ class Writing3Hands:
 
 
                     
-    def _get_union_of_keyboard_detections(self, df, f0, f):
-        """ Returns keyboard detection regions using union of all the detections
+    def _get_union_of_hand_detections(self, df, f0, f):
+        """ Returns hand detection regions using union of all the detections
         in an interval.
         
         Parameters
         ----------
         df : DataFrame
-            A DataFrame having keyboard detections.
+            A DataFrame having hand detections.
 
         Returns
         -------
@@ -738,7 +881,7 @@ class Writing3Hands:
         W = df['W'].unique().item()
         H = df['H'].unique().item()
         FPS = df['FPS'].unique().item()
-        oclass = "keyboard"
+        oclass = "hand"
         table_boundary = df['table_boundary'].unique().item()
         uimg = np.zeros((H, W ))
 
@@ -776,14 +919,14 @@ class Writing3Hands:
         return new_rows
 
     
-    def _remove_outside_keyboard_detections(self, df, th=0.5):
-        """ Removes all the keyboard detections that are less that are
+    def _remove_outside_hand_detections(self, df, th=0.5):
+        """ Removes all the hand detections that are less that are
         50% not inside the table boundary.
 
         Parameters
         ----------
         df : DataFrame
-            DataFrame having keyboard detections with `roi-overlap-ratio`
+            DataFrame having hand detections with `roi-overlap-ratio`
             column.
         th : Float
             Detectons which are < th are removed.
@@ -795,17 +938,17 @@ class Writing3Hands:
 
     
     def _get_roi_overlap_ratio(self, hdf, table_boundary):
-        """ Adds a column to keyboard detections, roi-overlap-ratio.
+        """ Adds a column to hand detections, roi-overlap-ratio.
             
             - Table boundary = T
-            - Keyboard detection = H
+            - Hand detection = H
             - Overlap (O) = Intersection(T, H)
                 overlap-ratio = Area(O) / Area(H)
 
         Parameters
         ----------
         hdf : DataFrame
-            Dataframe having keyboard detections
+            Dataframe having hand detections
 
         table_boundary : List[Int]
             Table boundary as list, [w0, h0, w, h]
@@ -825,15 +968,15 @@ class Writing3Hands:
         timg = zimg.copy()
         timg[th0 : th0 + th, tw0 : tw0 + tw] = 1
 
-        # Loop over each keyboard detection
+        # Loop over each hand detection
         o_area_ratio_lst = []
         for ridx, row in hdf.iterrows():
 
-            # keyboard detection is loaded into proper variables
+            # hand detection is loaded into proper variables
             [hw0, hh0, hw, hh] = [row['w0'], row['h0'], row['w'], row['h']]
             h_area = hw*hh
 
-            # Creating a binary image with keyboard detection as 1
+            # Creating a binary image with hand detection as 1
             himg = zimg.copy()
             himg[hh0 : hh0 + hh, hw0 : hw0 + hw] = 1
 
@@ -853,8 +996,8 @@ class Writing3Hands:
                 plt.show()
                 import pdb; pdb.set_trace()
 
-            # Drop the keyboard detection if the overlap area is less than
-            # 50% of keyboard area
+            # Drop the hand detection if the overlap area is less than
+            # 50% of hand area
             o_area_ratio = o_area/h_area
             o_area_ratio_lst += [o_area_ratio]
             
@@ -969,7 +1112,7 @@ class Writing3Hands:
         Parameters
         ----------
         proposal_df: DataFrame
-            Proposal dataframe having keyboards bounding boxes.
+            Proposal dataframe having hands bounding boxes.
         Todo
         ----
         1. Here I am trimming -> writing to hdd -> loading. This is not
@@ -979,7 +1122,7 @@ class Writing3Hands:
         # Loop over proposal dataframe
         for i, row in proposal_df.iterrows():
 
-            # if w or h == 0 then there is no keyboards
+            # if w or h == 0 then there is no hands
             if row['w'] == 0 or row['h'] == 0:
                 proposal_df.at[i, 'writing'] = -1
             else:
@@ -1024,7 +1167,7 @@ class Writing3Hands:
         Parameters
         ----------
         bboxes: str
-            path to file having keyboards bounding boxes
+            path to file having hands bounding boxes
         wdur: int, optional
             Each writing instance duration considered in seconds. 
             Defaults to 3.
@@ -1067,7 +1210,7 @@ class Writing3Hands:
             5. w, h    : width and height of bounding box
             6. FPS     : Frames per second
             7. writing : {-1, 0, 1}.
-                -1 => Keyboards not found
+                -1 => Hands not found
                 0  => nowriting
                 1  => writing
 
@@ -1093,7 +1236,7 @@ class Writing3Hands:
         Parameters
         ----------
         bboxes: str
-            Path to file having keyboards detection bounding boxes
+            Path to file having hands detection bounding boxes
         f0_lst: List of int
             List having starting frame poc
         f_lst: List of int
