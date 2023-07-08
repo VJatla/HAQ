@@ -1,1 +1,2 @@
 from aqua.nn.dloaders.aolme_trims_dloader import AOLMETrmsDLoader
+from aqua.nn.dloaders.aolme_val_trims_dloader import AOLMEValTrmsDLoader

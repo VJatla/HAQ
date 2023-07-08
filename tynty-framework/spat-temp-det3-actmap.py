@@ -1,16 +1,18 @@
 """
 DESCRIPTION
 -----------
-    Creates three activity maps,
-        1. gt.html
-        2. <alg name>.html
-        3. <alg name>_vs_gt.html
+Creates three activity maps,
+    1. gt-excel-gt_act_map.html         : Ground truth activity map drawn from ground truth excel file.
+    2. results-excel-gt_act_map.html    : Ground truth activity map drawn from results excel file.
+    3. results-excel-alg_act_map.html   : Algorithm activity map drawn from results excel file.
+    4. results-excel-alg_vs_gt_map.html : Algorihtm Vs Ground Truth drawn from results excel file.
 
 USAGE
 -----
-python spat-temp-det3-actmap.py /home/vj/Dropbox/AOLME_Activity_Maps/Typing/C2L1P-B/20180223/C2L1P-B_Feb23_actmap.json
-
+python spat-temp-det3-actmap.py /home/vj/Dropbox/AOLME_Activity_Maps/Typing/C1L1P-E/20170302/C1L1P-E_Mar02_actmap.json
 """
+
+
 import os
 import json
 import argparse
@@ -19,6 +21,7 @@ import pandas as pd
 import numpy as np
 import pytkit as pk
 import math
+import sys
 import plotly.graph_objects as go
 
 
@@ -41,7 +44,7 @@ class ActMaps:
     """ Session properties dataframe """
 
     _collist = ["green", "red", "blue", "black",
-               "magenta", "orange", "pink"]
+                "magenta", "orange", "pink"]
     """ List of colors for each student """
 
     
@@ -72,8 +75,8 @@ class ActMaps:
         self.namesdf = pd.read_csv(cfg['student_names_csv'])
 
 
-    def create_tygt_map(self):
-        """Create ground truth activity map"""
+    def create_tygt_map_from_gt_excel(self):
+        """Create ground truth activity map from the excel file"""
 
         # Copying grouhd truth dataframe
         gtdf = self.gtdf.copy()
@@ -172,7 +175,7 @@ class ActMaps:
                     # If we hit last activity annotate it and reset lists
                     if aidx == len(stu_vid_gtdf) - 1:
                         fig = self._annotate(fig, vname, sidx, ann_dur_start, ann_dur_end)
-                            
+                        
         # Updating y axis
         student_codes_vals = np.arange(1, len(student_codes) + 1)
         fig.update_yaxes(
@@ -198,7 +201,7 @@ class ActMaps:
 
 
     def _prepare_algdf(self):
-        """ Prepares algorithm dataframe for activity map. Preparation includes,
+        """ Prepares results dataframe for algorithm activity map. Preparation includes,
         1. Remove notyping
         2. Join typing activity that are next to each other
 
@@ -211,6 +214,27 @@ class ActMaps:
         # Removing notyping instances
         algdf = self.algdf.copy()
         algdf.drop(algdf.index[algdf['activity'] == 'notyping'], inplace=True)
+
+        # Join typing instances that are next to each other.
+        algdf_ = self._join_algdf_activities(algdf.copy())
+
+        return algdf_
+
+
+    def _prepare_gtdf(self):
+        """ Prepares results dataframe for GT activity map. Preparation includes,
+        1. Remove notyping
+        2. Join typing activity that are next to each other
+
+        Returns
+        -------
+        gtdf : Pandas DataFrame
+            dataframe prepared for plotting
+        """
+
+        # Removing notyping instances
+        algdf = self.algdf.copy()
+        algdf.drop(algdf.index[algdf['class_idx_true'] == 0], inplace=True)
 
         # Join typing instances that are next to each other.
         algdf_ = self._join_algdf_activities(algdf.copy())
@@ -283,19 +307,31 @@ class ActMaps:
                     
         return df_
 
-    def create_tyalg_map(self):
-        """Create algorithm activity map"""
+    def create_ty_maps(self, map_type):
+        """Create Ground truth and algorithm activity maps from the results excel file.
 
-        # Copying grouhd truth dataframe
-        algdf = self._prepare_algdf()
+        Parameters
+        ----------
+        map_type : Str
+            Activity map type. It can be "gt" or "alg"
+        """
+
+        # Copying  dataframe
+        if map_type == "alg":
+            df = self._prepare_algdf()
+        elif map_type == "gt":
+            df = self._prepare_gtdf()
+        else:
+            raise Exception(f"The map_type is not supported, {map_type}")
+
         namesdf = self.namesdf.copy()
 
         # Initilize plotly figure
         fig = go.Figure()
 
         # Person names as used by education department
-        algdf, student_codes = self._get_student_codes(algdf.copy(), namesdf = namesdf)
-
+        df, student_codes = self._get_student_codes(df.copy(), namesdf = namesdf)
+        
         # video properties
         vnames = self.sessdf['name'].tolist()[0:-1]
         vdurs  = self.sessdf['dur'].tolist()[0:-1]
@@ -309,7 +345,7 @@ class ActMaps:
             y_ = [np.nan]*len(x_)
 
             # Dataframe for current student
-            stu_algdf = algdf[algdf['student_code'] == student_code].copy()
+            stu_algdf = df[df['student_code'] == student_code].copy()
 
             # Loop through each video
             first_act_per_stu = True
@@ -353,8 +389,9 @@ class ActMaps:
                             mode="lines",
                             line=dict(color=self._collist[sidx], width=20),
                             name=f"{student_code}",
-                            showlegend=True,
-                            legendgroup=f"{student_code}"))
+                            showlegend=False,
+                            legendgroup=f"{student_code}"
+                        ))
                         first_act_per_stu = False
                     else:
                         fig.add_trace(go.Scatter(
@@ -381,10 +418,144 @@ class ActMaps:
                         else:
                             ann_dur_end = [dur_end_vid, dur_end_sess]
 
-                    # If we hit last activity annotate it and reset lists
+                    # If we hit last activity in the video annotate it and reset lists
                     if aidx == len(stu_vid_algdf) - 1:
                         fig = self._annotate(fig, vname, sidx, ann_dur_start, ann_dur_end)
-                            
+                        
+        # Updating y axis
+        student_codes_vals = np.arange(1, len(student_codes) + 1)
+        fig.update_yaxes(
+            title_font={"size": 32},
+            tickvals=student_codes_vals,
+            ticktext=student_codes,
+            tickfont=dict(size=20),
+        )
+        fig.update(layout_yaxis_range = [0,len(student_codes)+1])
+
+        # Updating x axis
+        x_vals = np.arange(0, sum(vdurs), 60 * 5).tolist()
+        x_labels = [f"{int(x/60)} min" for x in x_vals]
+        fig.update_xaxes(
+            title_font={"size": 32},
+            tickvals=x_vals,
+            ticktext=x_labels,
+            tickfont=dict(size=20),
+        )
+        
+        # Return figure
+        return fig
+
+
+    def create_gt_vs_alg_maps(self):
+        """
+        WARNING
+        -------
+        Compared to ground truth and algorithm activity maps created
+        by combining close by activities, the following method produces
+        an activity map that is having a right shift in time domain. Due
+        to time constraint I am giving up on this pursuit.
+        
+        Creating performance map to visualize confusion matrix."""
+
+        df = self.algdf.copy()
+
+        namesdf = self.namesdf.copy()
+
+        # Initilize plotly figure
+        fig = go.Figure()
+
+        # Person names as used by education department
+        df, student_codes = self._get_student_codes(df.copy(), namesdf = namesdf)
+        
+        # video properties
+        vnames = self.sessdf['name'].tolist()[0:-1]
+        vdurs  = self.sessdf['dur'].tolist()[0:-1]
+        vframes = [30*x for x in vdurs]
+        x_ = np.arange(0, sum(vdurs), 1).tolist()
+
+        # Loop through each person
+        for sidx, student_code in enumerate(student_codes):
+
+            # Initialize y values to np.nan
+            y_tp = [np.nan]*len(x_)
+            y_fp = [np.nan]*len(x_)
+            y_fn = [np.nan]*len(x_)
+
+            # Dataframe for current student
+            stu_algdf = df[df['student_code'] == student_code].copy()
+
+            # Loop through each video
+            first_act_per_stu = True
+            for vidx, vname in enumerate(vnames):
+
+                # Dataframe instances of current video
+                stu_vid_algdf = stu_algdf[stu_algdf['name'] == vname].copy()
+                stu_vid_algdf = stu_vid_algdf.reset_index()
+
+                # if empty continue to next video
+                if stu_vid_algdf.empty:
+                    continue
+
+                # Previous number of frames
+                prev_nframes = sum(vframes[0:vidx])
+
+                # loop through each instance of activity
+                first_act_per_vid = True
+                for aidx, arow in stu_vid_algdf.iterrows():
+
+                    # starting frame, duration w.r.t. video and session
+                    fs_vid = arow['f0']
+                    fs_sess = prev_nframes + fs_vid
+                    dur_start_vid = math.floor(fs_vid/30)
+                    dur_start_sess = math.floor(fs_sess/30)
+
+                    # ending frame, duration w.r.t. video and session
+                    fe_vid = fs_vid + arow['f']
+                    fe_sess = fs_sess + arow['f']
+                    dur_end_vid = math.floor(fe_vid/30)
+                    dur_end_sess = math.floor(fe_sess/30)
+
+                    # TN : Not plotted
+                    # TP : sidx + 1,   green
+                    # FP : sidx + 1.1, yellow
+                    # FN : sidx + 0.9, red
+                    if arow['cm_label'] == "TN":
+                        continue
+                    elif arow['cm_label'] == "TP":
+                        y_tp[dur_start_sess:dur_end_sess] = [sidx + 1]*(dur_end_sess - dur_start_sess)
+                    elif arow['cm_label'] == "FP":
+                        y_fp[dur_start_sess:dur_end_sess] = [sidx + 1 + 0.2]*(dur_end_sess - dur_start_sess)
+                    elif arow['cm_label'] == "FN":
+                        y_fn[dur_start_sess:dur_end_sess] = [sidx + 1 - 0.2]*(dur_end_sess - dur_start_sess)
+                    else:
+                        raise Exception(f"The confusion matrix label is not valid {arow['cm_label']}")
+
+
+            fig.add_trace(go.Scatter(
+                x=x_,
+                y=y_tp,
+                mode="lines",
+                line=dict(color="green", width=10),
+                name=f"{student_code}",
+                showlegend=True,
+                legendgroup=f"{student_code}"))
+            fig.add_trace(go.Scatter(
+                x=x_,
+                y=y_fp,
+                mode="lines",
+                line=dict(color="orange", width=10),
+                name=f"{student_code}",
+                showlegend=True,
+                legendgroup=f"{student_code}"))
+            fig.add_trace(go.Scatter(
+                x=x_,
+                y=y_fn,
+                mode="lines",
+                line=dict(color="red", width=10),
+                name=f"{student_code}",
+                showlegend=True,
+                legendgroup=f"{student_code}"))
+
         # Updating y axis
         student_codes_vals = np.arange(1, len(student_codes) + 1)
         fig.update_yaxes(
@@ -463,7 +634,7 @@ class ActMaps:
             showarrow=True,
         )
         return fig
-        
+    
         
         
 
@@ -489,9 +660,13 @@ class ActMaps:
             student_code = namesdf[namesdf['pseudonym'] == pseudonym]['student_code'].item()
             student_codes += [student_code]
             df['student_code'][df['pseudonym'] == pseudonym] = student_code
+            
+
+        # Sorting student codes
+        student_codes.sort()
 
         return df, student_codes
-        
+    
         
         
 def _arguments():
@@ -525,13 +700,20 @@ if __name__ == "__main__":
     # Initalize activity maps instance
     act_maps = ActMaps(args['cfg_path'])
 
-    # Create ground truth activity map
-    # gtfig = act_maps.create_tygt_map()
-    # gtfig.write_html(f"{act_maps.cfg['odir']}/gt.html")
-
     # Save the activity map
-    algfig = act_maps.create_tyalg_map()
-    algfig.write_html(f"{act_maps.cfg['odir']}/alg.html")
+    gt_vs_alg_fig = act_maps.create_gt_vs_alg_maps()
+    gtfig = act_maps.create_ty_maps("gt")
+    algfig = act_maps.create_ty_maps("alg")
+    algfig.write_html(f"{act_maps.cfg['odir']}/alg_map_using_results_excel.html")
+    gtfig.write_html(f"{act_maps.cfg['odir']}/gt_map_using_results_excel.html")
+
+    # Create ground truth activity map
+    gtfig = act_maps.create_tygt_map_from_gt_excel()
+    gtfig.write_html(f"{act_maps.cfg['odir']}/gt_map_using_gt_excel.html")
+
+    # Save GT vs Alg activity map
+    # algfig = act_maps.create_tyalg_map()
+    # algfig.write_html(f"{act_maps.cfg['odir']}/alg.html")
     
 
 

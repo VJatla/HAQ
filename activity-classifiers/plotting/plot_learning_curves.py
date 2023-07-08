@@ -25,6 +25,16 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from aqua.nn.log_analyzer import LogAnalyzer
 
+def smooth(scalars, weight):  # Weight between 0 and 1
+    last = scalars[0]  # First value in the plot (first timestep)
+    smoothed = list()
+    for point in scalars:
+        smoothed_val = last * weight + (1 - weight) * point  # Calculate smoothed value
+        smoothed.append(smoothed_val)                        # Save it
+        last = smoothed_val                                  # Anchor the last smoothed value
+
+    return smoothed
+
 def _arguments():
     """Parse input arguments."""
     # Initialize arguments instance
@@ -56,6 +66,7 @@ if __name__ == "__main__":
     dir_loc = os.path.dirname(trn_log)
     acc_save_loc = f"{dir_loc}/accuracy.html"
     loss_save_loc = f"{dir_loc}/loss.html"
+    loss_smoothed_save_loc = f"{dir_loc}/loss_smoothed.html"
 
     # Creating LogAnalyzer class instances
     trn_log_analyzer = LogAnalyzer(trn_log)
@@ -68,6 +79,8 @@ if __name__ == "__main__":
     # Getting Training and Validation loss
     trn_loss = trn_log_analyzer.get_metric_values("loss")
     val_loss = val_log_analyzer.get_metric_values("loss")
+    trn_loss_smoothed = smooth(trn_loss, 0.3)
+    val_loss_smoothed = smooth(val_loss, 0.3)
 
     # Plotting Training and validation accuracies
     fig = make_subplots(rows=1, cols=1)
@@ -93,6 +106,7 @@ if __name__ == "__main__":
     fig.write_html(f'{acc_save_loc}')
 
     # Plotting Training and validation loss
+    loss_max = max(max(trn_loss), max(val_loss))
     fig = make_subplots(rows=1, cols=1)
     fig.add_trace(go.Scatter(x=np.arange(len(trn_loss)),
                              y=trn_loss,
@@ -109,8 +123,34 @@ if __name__ == "__main__":
                   row=1,
                   col=1)
     fig.update_xaxes(title_text="Epochs", row=1, col=1, rangemode="tozero", fixedrange=True)
-    fig.update_yaxes(title_text="Loss", row=1, col=1, rangemode="tozero", fixedrange=True, autorange=False, range=[0,1])
+    fig.update_yaxes(title_text="Loss", row=1, col=1, rangemode="tozero", fixedrange=True, autorange=False, range=[0,loss_max+0.25])
     fig.update_layout(height=1000,
                   title_text='Training and Validation loss per Epoch',
                   font=dict(family="Courier New, monospace", size=23))
     fig.write_html(f'{loss_save_loc}')
+
+
+
+    # Plotting Training and validation loss smoothed
+    loss_max = max(max(trn_loss_smoothed), max(val_loss_smoothed))
+    fig = make_subplots(rows=1, cols=1)
+    fig.add_trace(go.Scatter(x=np.arange(len(trn_loss_smoothed)),
+                             y=trn_loss_smoothed,
+                             mode='lines',
+                             name=f'Training',
+                             line=dict(color='blue')),
+                  row=1,
+                  col=1)
+    fig.add_trace(go.Scatter(x=np.arange(len(val_loss_smoothed)),
+                             y=val_loss_smoothed,
+                             mode='lines',
+                             name=f'Validation',
+                             line=dict(color=f'blue', dash='dot')),
+                  row=1,
+                  col=1)
+    fig.update_xaxes(title_text="Epochs", row=1, col=1, rangemode="tozero", fixedrange=True)
+    fig.update_yaxes(title_text="Loss", row=1, col=1, rangemode="tozero", fixedrange=True, autorange=False, range=[0,loss_max+0.25])
+    fig.update_layout(height=1000,
+                  title_text='Training and Validation loss per Epoch',
+                  font=dict(family="Courier New, monospace", size=23))
+    fig.write_html(f'{loss_smoothed_save_loc}')

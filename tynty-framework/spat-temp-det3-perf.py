@@ -8,15 +8,11 @@
 
 USAGE:
 ------
-# C2L1P-B, Feb 23
+# Typing / Notyping
+#    C1L1P-E, Mar 02
 python spat-temp-det3-perf.py \
-    ~/Dropbox/typing-notyping/C2L1P-B/20180223/tynty-roi-ours-3DCNN_kbdet_30fps.csv \
-    ~/Dropbox/typing-notyping/C2L1P-B/20180223/gt-ty-30fps.xlsx
-
-# C3L1P-D, Feb 21
-python spat-temp-det3-perf.py \
-    ~/Dropbox/typing-notyping/C3L1P-D/20190221/tynty-roi-ours-3DCNN_kbdet_30fps.csv  \
-    ~/Dropbox/typing-notyping/C3L1P-D/20190221/gt-ty-30fps.xlsx
+    ~/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-ours-30-kbdet.csv
+    ~/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx
 """
 
 
@@ -27,6 +23,7 @@ import os
 from sklearn import metrics
 from openpyxl import load_workbook
 import matplotlib.pyplot as plt
+
 
 def _arguments():
     """Parse input arguments."""
@@ -227,14 +224,21 @@ if __name__ == "__main__":
     nfn = sum([1*(x == "FN") for x in cfmat_label])
     print(f"TP = {ntp}, FP = {nfp}, TN = {ntn}, FN = {nfn}")
 
-    # Accuracy
+    # Accuracy, precision, recall
     acc = (ntp + ntn)/(ntp + ntn + nfp + nfn)
+    precision = ntp/(ntp + nfn)
+    recall = ntp/(ntp + nfp)
+    
 
     # AUC and ROC curve
     true_labels = algdf['class_idx_true'].tolist()
     pred_probs = algdf['class_prob'].tolist()
     fpr, tpr, thresholds = metrics.roc_curve(true_labels, pred_probs)
     auc = metrics.auc(fpr, tpr)
+
+    # F1 score
+    pred_labels = algdf['class_idx'].tolist()
+    f1 = metrics.f1_score(true_labels, pred_labels)
 
     # Create another dataframe with performance metrics
     columns = ['Metric', 'Value']
@@ -243,7 +247,7 @@ if __name__ == "__main__":
     perf_df = pd.DataFrame(rows, columns=columns)
     txt_name = os.path.splitext(cfg['alg_csv'])[0] + ".txt"
     with open(txt_name, 'w') as f:
-        f.write(f"\nTP = {ntp}, \nFP = {nfp}, \nTN = {ntn}, \nFN = {nfn} \nAcc={acc}")
+        f.write(f"\nTP = {ntp}, \nFP = {nfp}, \nTN = {ntn}, \nFN = {nfn} \nAcc={acc} \nPrecision={precision} \nRecall={recall}")
         
 
     #create ROC curve

@@ -19,6 +19,19 @@ from sklearn import metrics
 from openpyxl import load_workbook
 import matplotlib.pyplot as plt
 
+import matplotlib
+
+
+matplotlib.use("pgf")
+matplotlib.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    'font.family': 'serif',
+    'font.size' : 11,
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
+
+
 def _arguments():
     """Parse input arguments."""
     # Initialize arguments instance
@@ -176,7 +189,7 @@ if __name__ == "__main__":
     gtdf = pd.read_excel(cfg['gt_path'], sheet_name='Machine readable')
 
     # Loop over each algorithm
-    plt.figure()
+    plt.figure(figsize=(6, 4))
     for alg_idx, alg_path in enumerate(cfg['alg_paths']):
         alg_name = cfg['alg_names'][alg_idx]
         roc_color = cfg['roc_colors'][alg_idx]
@@ -184,15 +197,17 @@ if __name__ == "__main__":
 
         # AUC and ROC curve
         true_labels = algdf['class_idx_true'].tolist()
+        pred_labels = algdf['class_idx'].tolist()
         pred_probs = algdf['class_prob'].tolist()
         
         fpr, tpr, thresholds = metrics.roc_curve(true_labels, pred_probs)
         auc = metrics.auc(fpr, tpr)
+        acc = metrics.accuracy_score(true_labels, pred_labels)
         
         # Printing performance parameters
         print(
             f"""
-            Algorithm {alg_name}:  AUC = {round(auc, 2)}
+            Algorithm {alg_name}:  AUC = {round(auc, 2)}, ACC = {round(acc, 2)}
             """)
         
         #create ROC curve
@@ -202,7 +217,7 @@ if __name__ == "__main__":
             tpr,
             color=roc_color,
             lw=lw,
-            label=f"{alg_name}, {round(auc, 2)}",
+            label=f"{alg_name}, AUC: {round(auc, 2)}",
         )
 
     # Axis and plot name settings
@@ -211,10 +226,17 @@ if __name__ == "__main__":
     plt.ylim([0.0, 1.05])
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
-    plt.title(f"ROC and AUC of all the Algorithms")
     plt.legend(loc="lower right")
 
     # Create histograms of 0 and 1 w.r.t. probability
 
-    png_name = cfg['out_roc_path']
-    plt.savefig(png_name, dpi=300)
+    # Commented out to make sure we save a pgf file
+    # png_name = cfg['out_roc_path']
+    # plt.savefig(png_name, dpi=300)
+
+    plt.tight_layout()
+    pgf_name = cfg['out_roc_path_pgf']
+    print(f"Saving PGF file to {pgf_name}")
+    plt.savefig(pgf_name)
+
+    

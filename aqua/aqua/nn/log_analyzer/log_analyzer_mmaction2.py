@@ -55,22 +55,23 @@ class LogAnalyzerMMA2:
         trn_dict_lst = []
         val_dict_lst = []
         for cur_line in lines:
-            try:
-                cur_line_dict = json.loads(cur_line.rstrip())
-            except:
-                print(cur_line)
-                pdb.set_trace()
+            if cur_line != "\n":
+                try:
+                    cur_line_dict = json.loads(cur_line.rstrip())
+                except:
+                    print(cur_line)
+                    pdb.set_trace()
 
-            # If the current mode is train or validation load it
-            if 'mode' in cur_line_dict.keys():
-                if (cur_line_dict['mode'] == "train"):
-                    trn_dict_lst += [cur_line_dict]
-                if (cur_line_dict['mode'] == "val"):
-                    val_dict_lst += [cur_line_dict]
-                
-            
-            # if (cur_line_dict['mode'] != "info"):
-            #     dict_lst += [cur_line_dict]from aqua.nn.log_analyzer_mmaction2 import LogAnalyzerMMA2
+                # If the current mode is train or validation load it
+                if 'mode' in cur_line_dict.keys():
+                    if (cur_line_dict['mode'] == "train"):
+                        trn_dict_lst += [cur_line_dict]
+                    if (cur_line_dict['mode'] == "val"):
+                        val_dict_lst += [cur_line_dict]
+
+
+                # if (cur_line_dict['mode'] != "info"):
+                #     dict_lst += [cur_line_dict]from aqua.nn.log_analyzer_mmaction2 import LogAnalyzerMMA2
 
 
         # Creating dataframes from list of dictionaries

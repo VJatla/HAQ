@@ -1,0 +1,7 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223",
+    "rp_roi_only_file" : "/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223/wrp_only_roi.csv",
+    "pred_pkl":"/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223/wnw-roi-sota-tsm.pkl",
+    "output_csv":"/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223/wnw-roi-sota-tsm.csv"
+
+}

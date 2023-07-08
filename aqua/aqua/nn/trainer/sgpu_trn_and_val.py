@@ -76,6 +76,7 @@ class SGPU_TrnAndVal:
 
         # Save model diagram in model.txt
         model_stats = summary(self.net, params['input_shape'])
+        import pdb; pdb.set_trace()
         summary_str = str(model_stats)
         model_floc = f"{os.path.dirname(self.params['log_pth'])}/model.txt"
         model_f = open(model_floc, "w")
@@ -127,7 +128,7 @@ class SGPU_TrnAndVal:
         best_val_acc = 0
         best_val_loss = math.inf
         num_epochs_worse = 0
-        num_epochs_to_skip = 20
+        num_epochs_to_skip = 50
         for epoch in range(self.max_epochs):
             print(
                 f"\n*****************Epoch {epoch}**************************")
@@ -150,7 +151,7 @@ class SGPU_TrnAndVal:
             # Only after `num_epochs_to_skip` epochs check for epoch with best validation loss
             # If less than `num_epochs_to_skip` epochs best epoch == latest epoch
             if epoch > num_epochs_to_skip:
-                if valloss <= best_val_loss:
+                if valloss < best_val_loss:
                     ckpt_loc = f"{self.work_dir}/best.pth"
                     self._save_model(epoch, trnloss, ckpt_loc)
                     best_val_acc = valaccu

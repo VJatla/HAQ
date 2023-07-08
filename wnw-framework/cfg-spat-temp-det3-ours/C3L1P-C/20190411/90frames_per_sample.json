@@ -1,0 +1,45 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411",
+    "vids"  : [
+
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps.mp4",
+	"G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps.mp4"
+    ],
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C3L1P-C/20190411",
+    "kb_dets"   : [
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps_60_det_per_min.csv"
+    ],
+
+    "hand_detdir" : "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/proposals/alg1/C3L1P-C/20190411/1_det_per_sec/",
+    "hand_dets"   : [
+	"G-C3L1P-Apr11-C-Phuong_q2_01-05_30fps_12sec_interval.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_02-05_30fps_12sec_interval.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_03-05_30fps_12sec_interval.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_04-05_30fps_12sec_interval.csv",
+	"G-C3L1P-Apr11-C-Phuong_q2_05-05_30fps_12sec_interval.csv"
+    ],
+
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C3L1P-C/20190411/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C3L1P-C/20190411/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411",
+    
+    "prop_vid_oloc": "/mnt/twotb/aolme_datasets/wnw_table_roi/full_session_testing/C3L1P-C/20190411/90frames_per_sample",
+
+    "depth": 4,
+    "model_fps":30,
+    "input_shape": [3, 90, 224, 224],
+    "ckpt": "/home/vj/twelvetb/vj/dyadic_nn/wnw_table_roi/resized_224_30fps/Dec26/run4/best_epoch50.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/writing-nowriting/C3L1P-C/20190411/gt-wr-30fps.xlsx"
+
+
+}

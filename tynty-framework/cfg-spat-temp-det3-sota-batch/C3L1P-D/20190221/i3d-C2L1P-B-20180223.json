@@ -1,0 +1,7 @@
+{
+    "vdir"  : "/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221",
+    "rp_roi_only_file" : "/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221/tyrp_only_roi.csv",
+    "pred_pkl":"/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221/tynty-roi-sota-i3d.pkl",
+    "output_csv":"/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221/tynty-roi-sota-i3d.csv"
+
+}

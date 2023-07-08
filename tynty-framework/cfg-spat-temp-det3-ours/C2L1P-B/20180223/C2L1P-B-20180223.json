@@ -8,6 +8,7 @@
 	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps.mp4",
 	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps.mp4"
     ],
+    
     "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C2L1P-B/20180223",
     "kb_dets"   : [
 	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps_60_det_per_min.csv",
@@ -35,7 +36,7 @@
     "oloc" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
 
     "depth": 4,
-    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/tynty_table_roi/resized_224/run8_Aug28_2022/best_epoch18.pth",
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/tynty_table_roi/resized_224_10fps/Dec26/run9/best_epoch53.pth",
 
     "gt_xlsx": "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/gt-ty-30fps.xlsx"
     

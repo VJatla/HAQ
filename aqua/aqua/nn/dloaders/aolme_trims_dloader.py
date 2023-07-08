@@ -74,5 +74,5 @@ class AOLMETrmsDLoader(Dataset):
             Path to trimmed video
         """
         vid = Vid(vpth)
-        frames_rgb_torch = vid.load_to_tensor_using_cv2(oshape=self._oshape)
+        frames_rgb_torch = vid.load_to_tensor_using_cv2(oshape=self._oshape, data_aug_flag = True)
         return frames_rgb_torch

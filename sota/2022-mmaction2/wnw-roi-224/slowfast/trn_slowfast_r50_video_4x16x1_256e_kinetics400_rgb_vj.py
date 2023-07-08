@@ -9,11 +9,17 @@ model = dict(
 
 # dataset settings
 dataset_type = 'VideoDataset'
-data_root = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224'
-data_root_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224'
-ann_file_train = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/trn_videos_all.txt'
-ann_file_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/val_videos_all.txt'
-ann_file_test = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/tst_videos_all.txt'
+data_root = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224_30fps'
+data_root_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224_30fps'
+ann_file_train = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224_30fps/trn_videos_all.txt'
+ann_file_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224_30fps/val_videos_all.txt'
+ann_file_test = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224_30fps/tst_videos_all.txt'
+
+# data_root = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224'
+# data_root_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224'
+# ann_file_train = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/trn_videos_all.txt'
+# ann_file_val = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/val_videos_all.txt'
+# ann_file_test = '/mnt/twotb/aolme_datasets/wnw_table_roi/resized_224/tst_videos_all.txt'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_bgr=False)
@@ -83,4 +89,4 @@ data = dict(
         pipeline=test_pipeline))
 
 # runtime settings
-work_dir = '/mnt/twelvetb/vj/mmaction2_2022/workdir/wnw_table_roi/resized_224/slowfast/run1_Sep09_2022'
+work_dir = '/mnt/twelvetb/vj/mmaction2_2022/workdir/wnw_table_roi/resized_224_30fps/slowfast/run0_Jan03_2023'

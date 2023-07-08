@@ -83,6 +83,7 @@ class DyadicCNN3DV2(nn.Module):
                 raise Exception(f"{lname} is not supported")
         return x
 
+
     def _build_model_dict(self, nd, nk, ishape):
         """ Build dyadic networks
 
@@ -96,7 +97,10 @@ class DyadicCNN3DV2(nn.Module):
             [4, 8, 16, 32, 64, 128].
         ishape: int[lst]
             Input shape **[<channels>, <frames>, <Height>, <Width>]**.
-            For example, `[3, 90, 224, 224]`.
+            It can build models for following input shapes,
+                1. [3, 90, 224, 224]
+                2. [3, 60, 224, 224]
+                3. [3, 30, 224, 224]
         """
         ic = ishape[0]
         del ishape[0]
@@ -104,7 +108,7 @@ class DyadicCNN3DV2(nn.Module):
 
         # Dyad loop
         for didx in range(0, nd):
-            print(ishape)
+            
             if didx == 0:
                 ic = ic
                 oc = nk[didx]
@@ -126,36 +130,49 @@ class DyadicCNN3DV2(nn.Module):
             model_dict[f'BN_{didx}'] = nn.BatchNorm3d(ic)
 
             # Maxpooling
-            model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d(3, 3)
-            ishape = [math.floor(x / 3) for x in ishape]
+            if didx == 0:
+                
+                # For first layer,
+                #     td = 90 => MaxPool3D (3,3,3)
+                #     td = 60 => MaxPool3D (2,3,3)
+                #     td = 30 => MaxPool3D (1,3,3)
+                # Temporal dimension
+                td = ishape[0]
+                
+                if td == 90:
+                    model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d((3,3,3))
+                    ishape = [math.floor(x / 3) for x in ishape]
+                    
+                elif td == 60:
+                    model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d((2, 3, 3))
+                    ishape = [
+                        math.floor(ishape[0]/2), math.floor(ishape[1]/3), math.floor(ishape[2]/3)
+                    ]
+                elif td == 30:
+                    model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d((1,3,3))
+                    ishape = [
+                        math.floor(ishape[0]), math.floor(ishape[1]/3), math.floor(ishape[2]/3)
+                    ]
+                else:
+                    sys.exit(f"Input temporal dimension not supported, {td}")
 
-            # if the temporal depth is 2 dimensions we apply a last ConvNets
-            # with special maxpooling
-            if ishape[0] == 2:
-                didx += 1
-                print(ishape)
-                ic = nk[didx - 1]
-                oc = nk[didx]
-                model_dict[f'Conv_{didx+1}_0'] = nn.Conv3d(
-                    in_channels=ic,
-                    out_channels=oc,
-                    kernel_size=2,
-                    stride=1,
-                    padding=1,
-                    padding_mode="zeros"
-                )
-                ic = oc
-                oc = oc
-                model_dict[f'BN_{didx}'] = nn.BatchNorm3d(ic)
-                model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d(2,2)
-                ishape = [math.floor(ishape[0]/2), math.floor(ishape[1]/2), math.floor(ishape[2]/2)]
-                break
+            else:
+                
+                # Other layers
+                model_dict[f'MaxPool3D_{didx}'] = nn.MaxPool3d(3, 3)
+                ishape = [math.floor(x / 3) for x in ishape]
+                
+                
+            # For the rest of the layers
+            if 0 in ishape:
+                raise Exception(f"ERROR: Shape = {ishape} after {didx} dyads")
+
+
 
         # Network proposed in proposal
         # After dyads flatten and give input to dense layer
-        print(ishape)
         model_dict['Flatten'] = nn.Flatten()
-        model_dict['Dropout-Flatten'] = nn.Dropout(p=0.25)  # 50% dropout
+        model_dict['Dropout-Flatten'] = nn.Dropout(p=0.5)  # 50% dropout
         ic = np.prod(ishape) * oc
         model_dict['Dense'] = nn.Linear(ic, 1)
 

@@ -259,13 +259,15 @@ class Vid:
                       f' {opth}')
         os.system(ffmpeg_cmd)
 
-    def load_to_tensor_using_cv2(self, oshape):
+    def load_to_tensor_using_cv2(self, oshape, data_aug_flag = False):
         """ Loads a video as tensor using OpenCV
 
         Parameters
         ----------
         oshape: tuple of ints
             (output width, output height)
+        data_aug_flag : bool
+            Data augmentation flag
         """
         # Initialize torch tensor that can contain video
         frames_torch = torch.FloatTensor(
@@ -275,34 +277,41 @@ class Vid:
         # Initialize OpenCV video object
         vo = cv2.VideoCapture(self.props['full_path'])
 
-        # Augmentation probability per video. The values are derived
-        # from Sravani's thesis
-        # 1. Rotation, {-7,...,+7}
-        # 2. w_translation = {-20...+20} for Width = 858
-        #                  = {-5,...+5} for Width = 224
-        # 3. Flip with a probability of 0.5
-        # 4. Rescaling the frame between [0.8 to 1.2]
-        # 5. Shearing with x axis witht a factor of [-0.1, 0.1] <--- I eyed this not from sravani thesis
-        aug_prob = random.uniform(0,1)
-        if aug_prob > 0.5:
-            print("Applying data augmentation")
-            shear_factor = random.uniform(-0.25, 0.25)
-            rescaling_ratio = round(random.uniform(0.8, 1.2), 1)
-            rot_angle = random.randint(-7, 7)
-            w_translation = random.randint(-5, 5)
-            hflip_prob = random.uniform(0,1)
+        if data_aug_flag:
+            # Augmentation probability per video. The values are derived
+            # from Sravani's thesis
+            # 1. Rotation, {-7,...,+7}
+            # 2. w_translation = {-20...+20} for Width = 858
+            #                  = {-5,...+5} for Width = 224
+            # 3. Flip with a probability of 0.5
+            # 4. Rescaling the frame between [0.8 to 1.2]
+            # 5. Shearing with x axis witht a factor of [-0.05, 0.05] <--- I eyed this not from sravani thesis
+            aug_prob = random.uniform(0,1)
+            if aug_prob > 0.5:
+                shear_factor = random.uniform(-0.05, 0.05)
+                rescaling_ratio = round(random.uniform(0.8, 1.2), 1)
+                rot_angle = random.randint(-7, 7)
+                w_translation = random.randint(-5, 5)
+                hflip_prob = random.uniform(0,1)
 
         poc = 0  # picture order count
         while vo.isOpened():
             ret, frame = vo.read()
             if ret:
                 frame = cv2.resize(frame, oshape)
-                if aug_prob > 0.5:
-                    frame = self._apply_horizontal_flip(frame, hflip_prob)
-                    frame = self._apply_scaling(frame, rescaling_ratio)
-                    frame = self._apply_shearing(frame, shear_factor)
-                    frame = self._apply_rotation(frame, rot_angle)
-                    frame = self._apply_horizontal_translation(frame, w_translation)
+                frame_orig = frame.copy()
+                if data_aug_flag:
+                    if aug_prob > 0.5:
+                        frame = self._apply_horizontal_flip(frame, hflip_prob)
+                        frame = self._apply_scaling(frame, rescaling_ratio)
+                        frame = self._apply_shearing(frame, shear_factor)
+                        frame = self._apply_rotation(frame, rot_angle)
+                        frame = self._apply_horizontal_translation(frame, w_translation)
+                        # cv2.imshow("orig", frame_orig)
+                        # cv2.imshow("aug", frame)
+                        # cv2.waitKey(0)
+
+
                 frame_torch = torch.from_numpy(frame)
                 frame_torch = frame_torch.permute(
                     2, 0, 1)  # (ht, wd, ch) to (ch, ht, wd)
@@ -449,5 +458,5 @@ class Vid:
 if __name__ == "__main__":
     vpth = "./data/temp.mp4"
     vid = Vid(vpth)
-    frames_rgb_torch = vid.load_to_tensor_using_cv2((244, 244))
+    frames_rgb_torch = vid.load_to_tensor_using_cv2((244, 244), data_aug_flag = True)
     

@@ -1,0 +1,42 @@
+{
+    "vdir"  : "/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302",
+    "vids"  : [
+	"G-C1L1P-Mar02-E-Irma_q2_01-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_02-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_03-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_04-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_05-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_06-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_07-08_30fps.mp4",
+	"G-C1L1P-Mar02-E-Irma_q2_08-08_30fps.mp4"
+	
+    ],
+    
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C1L1P-E/20170302",
+    "kb_dets"   : [
+	"G-C1L1P-Mar02-E-Irma_q2_01-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_02-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_03-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_04-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_05-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_06-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_07-08_30fps_60_det_per_min.csv",
+	"G-C1L1P-Mar02-E-Irma_q2_08-08_30fps_60_det_per_min.csv"
+    ],
+
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C1L1P-E/20170302/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C1L1P-E/20170302/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302",
+    
+    "prop_vid_oloc": "/mnt/twotb/aolme_datasets/tynty_table_roi/full_session_testing/C1L1P-E/20170302/90frames_per_sample",
+
+    "depth": 4,
+    "model_fps":30,
+    "input_shape": [3, 90, 224, 224],
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/tynty_table_roi/resized_224_30fps/Dec26/run0/best_epoch50.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx"
+    
+}

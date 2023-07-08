@@ -5,22 +5,32 @@ import cv2
 import aqua
 import math
 import torch
+import time
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+from barbar import Bar
 from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
 from aqua.nn.dloaders import AOLMETrmsDLoader
+from aqua.nn.dloaders import AOLMEValTrmsDLoader
 import pytkit as pk
 from aqua.nn.models import DyadicCNN3D
+from aqua.nn.models import DyadicCNN3DV2
 from torchsummary import summary
-
+import nvidia_smi
+nvidia_smi.nvmlInit()
+import time
 
 class Typing3:
+    """
+    Note
+    ----
+    This is hard coded to 10 frame samples per second or a total of
+    30 frames in 3 second video.
+    """
     
     tydf = pd.DataFrame()
-
-    tydf_roi_only = pd.DataFrame()
 
     tyrp = pd.DataFrame()
 
@@ -59,6 +69,186 @@ class Typing3:
         self.roi_df = pd.read_csv(cfg['roi'])
         self.sprop_df = pd.read_csv(cfg['prop'])
 
+
+
+    def extract_typing_proposals_using_roi(self, overwrite = True, model_fps = None):
+        """Extracts typing region proposals using ROI to a directory (`odir`).
+
+        It write the output to `tyrp_only_roi.csv` adding an extra
+        column for names of extracted videos.
+
+        It also creates a text file at the output location of proposals
+        in the format our validation dataloader and mmaction2 validation
+        dataloader expects called, `proposals_list.txt`
+
+        Parameters
+        ----------
+        overwrite : Bool, optional
+            Overwrite existing typing proposals. Defaults to True.
+        model_fps : int, optional
+            The input FPS expected by the testing model. The proposals extracted from then
+            video have to be sampled at this frame rate. Defaults to the FPS of the session
+            video.
+        """
+        
+        # Processing arguments
+        odir = pk.check_dir_existance(self.cfg['prop_vid_oloc'])
+        if model_fps == None:
+            model_fps = self.fps
+
+        # Loop through each video
+        prop_name_lst = []
+        prop_rel_paths = []
+        video_names = self.tyrp_roi_only['name'].unique().tolist()
+        for i, video_name in enumerate(video_names):
+
+            # Typing proposals for current dataframe
+            print(f"Extracting typing region proposals from: {video_name}")
+
+            # Region proposal per video
+            tyrp_video = self.tyrp_roi_only[self.tyrp_roi_only['name'] == video_name].copy()
+
+            # Reading input video
+            ivid = pk.Vid(f"{self.cfg['vdir']}/{video_name}", "read")
+
+            # Loop through each instance in the video
+            for ii, row in tqdm(tyrp_video.iterrows(), total=tyrp_video.shape[0], desc="Extracting: "):
+
+                # Spatio temporal trim coordinates
+                bbox = [row['w0'],row['h0'], row['w'], row['h']]
+                sfrm = row['f0']
+                efrm = row['f1']
+
+                # Trimming video
+                prop_name = f"{ivid.props['name']}_{row['pseudonym']}_{sfrm}_to_{efrm}.mp4"
+                prop_name_lst += [prop_name]
+                opth_rel = f"proposals/{prop_name}"
+                prop_rel_paths += [opth_rel]
+                opth = f"{self.cfg['prop_vid_oloc']}/{opth_rel}"
+
+                # Check if the file already exists
+                if overwrite:
+                    ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=self.cfg['model_fps'])
+                else:
+                    if not os.path.isfile(opth):
+                        ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=self.cfg['model_fps'])
+
+        # Saving the proposal dataframe with new column
+        if "proposal_name" in self.tyrp_roi_only.columns:
+            self.tyrp_roi_only.drop("proposal_name", inplace=True, axis=1)
+            self.tyrp_roi_only['proposal_name'] = prop_name_lst
+        else:
+            self.tyrp_roi_only['proposal_name'] = prop_name_lst
+        tyrp_roi_only_loc = f"{self.cfg['oloc']}/tyrp_only_roi.csv"
+        print(f"Rewriting {tyrp_roi_only_loc}")
+        self.tyrp_roi_only.to_csv(tyrp_roi_only_loc, index=False)
+
+        # Saving the proposals list text files
+        text_file_path = f"{self.cfg['prop_vid_oloc']}/proposals_list.txt"
+        print(f"Writing {text_file_path}")
+        f = open(text_file_path, "w")
+        for i in range(0, len(prop_rel_paths)):
+            f.write(f"{prop_rel_paths[i]} 100\n")
+        f.close()
+
+
+
+    def extract_typing_proposals_using_roi_kbdet(self, overwrite = True, model_fps = None):
+        """Extracts typing region proposals using ROI to a directory (`odir`).
+
+        It write the output to `tyrp_only_roi.csv` adding an extra
+        column for names of extracted videos.
+
+        It also creates a text file at the output location of proposals
+        in the format our validation dataloader and mmaction2 validation
+        dataloader expects called, `proposals_list_kbdet.txt`
+
+        Parameters
+        ----------
+        overwrite : Bool, optional
+            Overwrite existing typing proposals. Defaults to True.
+        model_fps : int, optional
+            The input FPS expected by the testing model. The proposals extracted from then
+            video have to be sampled at this frame rate. Defaults to the FPS of the session
+            video.
+        """
+        
+        # Processing arguments
+        odir = pk.check_dir_existance(self.cfg['prop_vid_oloc'])
+        if model_fps == None:
+            model_fps = self.fps
+
+        # Loop through each video
+        prop_name_lst = []
+        prop_rel_paths = []
+        video_names = self.tyrp_roi_only['name'].unique().tolist()
+        for i, video_name in enumerate(video_names):
+
+            # Loading keyboard detection dataframe
+            video_name_no_ext = os.path.splitext(video_name)[0]
+            kb_det = pd.read_csv(f"{self.cfg['kb_detdir']}/{video_name_no_ext}_60_det_per_min.csv")
+
+            # Typing proposals for current dataframe
+            print(f"Extracting typing region proposals from: {video_name}")
+
+            # Region proposal per video
+            tyrp_video = self.tyrp_roi_only[self.tyrp_roi_only['name'] == video_name].copy()
+
+            # Reading input video
+            ivid = pk.Vid(f"{self.cfg['vdir']}/{video_name}", "read")
+
+            # Loop through each instance in the video
+            for ii, row in tqdm(tyrp_video.iterrows(), total=tyrp_video.shape[0], desc="Extracting: "):
+
+                # Spatio temporal trim coordinates
+                bbox = [row['w0'],row['h0'], row['w'], row['h']]
+                sfrm = row['f0']
+                efrm = row['f1']
+
+                # Get keyboard detection intersection bounding box
+                kb_bbox = self._get_kbdet_intersection(kb_det, sfrm, efrm)
+
+                # Did they overlap?
+                iflag, icoords = self._get_intersection(bbox, kb_bbox)
+
+                # Trimming video
+                if iflag:
+                    prop_name = f"{ivid.props['name']}_{row['pseudonym']}_{sfrm}_to_{efrm}.mp4"
+                    prop_name_lst += [prop_name]
+                    opth_rel = f"proposals_kbdet/{prop_name}"
+                    prop_rel_paths += [opth_rel]
+                    opth = f"{self.cfg['prop_vid_oloc']}/{opth_rel}"
+
+                    # Check if the file already exists
+                    if overwrite:
+                        ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=self.cfg['model_fps'])
+                    else:
+                        if not os.path.isfile(opth):
+                            ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=self.cfg['model_fps'])
+                else:
+                    prop_name_lst += ["dummy_name.mp4"]
+                    opth_rel = f"proposals_kbdet/dummy_name.mp4"
+                    prop_rel_paths += [opth_rel]
+                            
+
+        # Saving the proposal dataframe with new column
+        if "proposal_name" in self.tyrp_roi_only.columns:
+            self.tyrp_roi_only.drop("proposal_name", inplace=True, axis=1)
+            self.tyrp_roi_only['proposal_name'] = prop_name_lst
+        else:
+            self.tyrp_roi_only['proposal_name'] = prop_name_lst
+        tyrp_roi_only_loc = f"{self.cfg['oloc']}/tyrp_only_roi.csv"
+        print(f"Rewriting {tyrp_roi_only_loc}")
+        self.tyrp_roi_only.to_csv(tyrp_roi_only_loc, index=False)
+
+        # Saving the proposals list text files
+        text_file_path = f"{self.cfg['prop_vid_oloc']}/proposals_list_kbdet.txt"
+        print(f"Writing {text_file_path}")
+        f = open(text_file_path, "w")
+        for prop_rel_path in prop_rel_paths:
+            if prop_rel_path != "proposals_kbdet/dummy_name.mp4":
+                f.write(f"{prop_rel_path} 100\n")
+        f.close()
         
     def generate_typing_proposals_using_roi(self, dur=3, fps=30, overwrite = True):
         """ Calculates typing region proposals using ROI and keyboard
@@ -138,8 +328,135 @@ class Typing3:
         self.tyrp_roi_only.to_csv(tyrp_roi_only_loc, index=False)
         return True
 
+
+    def classify_typing_proposals_roi_fast_approach(self, overwrite=False, batch_size = 4, kb_det=False):
+        """Classify each proposed region as typing / no-typing. This method needs the
+        dataset in the format validation AOLMETrmsDLoader expects.
+
+        Parameters
+        ----------
+        overwrite : Bool, optional
+            Overwrites existing excel file 
+        """
+
+        # Output excel file with predictions
+        if kb_det:
+            out_file = f"{self.cfg['oloc']}/tynty-roi-ours-{3*self.cfg['model_fps']}-kbdet.csv"
+        else:
+            out_file = f"{self.cfg['oloc']}/tynty-roi-ours-{3*self.cfg['model_fps']}.csv"
+
+        # Creating default columns for activity, class_idx and class_prob
+        self.tyrp_roi_only["activity"] = "notyping"
+        self.tyrp_roi_only["class_idx"] = 0
+        self.tyrp_roi_only["class_prob"] = 0
+        
+        # If the file already exists and overwrite argument is false
+        # we load the file as dataframe
+        if not overwrite:
+            if os.path.isfile(out_file):
+                print(f"Reading {out_file}")
+                tydf = pd.read_csv(out_file)
+                self.tydf = tydf
+                return tydf
+
+        # creating tydf by copying self.tyrp_only_roi
+        self.tydf = self.tyrp_roi_only.copy()
+        
+        # Loading list of videos from the proposals_list.txt file
+        proposal_names = []
+        if kb_det:
+            proposal_list_file =f"{self.cfg['prop_vid_oloc']}/proposals_list_kbdet.txt"
+        else:
+            proposal_list_file =f"{self.cfg['prop_vid_oloc']}/proposals_list.txt"
+        with open(proposal_list_file) as f:
+            lines = f.readlines()
+            for line in lines:
+                proposal_rel_loc = line.split(" ")[0]
+                proposal_name = os.path.basename(proposal_rel_loc)
+                proposal_names += [proposal_name]
+        
+        # Loading the network
+        net = self._load_net(self.cfg)
+
+
+        # Initializing AOLME Validaiton data loader
+        tst_data = AOLMEValTrmsDLoader(
+            self.cfg['prop_vid_oloc'], proposal_list_file, oshape=(224, 224)
+        )
+        tst_loader = DataLoader(
+            tst_data,
+            shuffle=False,
+            batch_size=batch_size,
+            num_workers=batch_size
+        )
+
+        # Resetting maximum memory usage and starting the clock
+        torch.cuda.reset_peak_memory_stats(device=0)
+        pred_prob_lst = []
+
+        # Starting inference
+        start_time = time.time()
+        for idx, data in enumerate(Bar(tst_loader)):
+            dummy_labels, inputs = (
+                data[0].to("cuda:0", non_blocking=True),
+                data[1].to("cuda:0", non_blocking=True)
+            )
+
+            with torch.no_grad():
+                outputs = net(inputs)
+                ipred = outputs.data.clone()
+                ipred = ipred.to("cpu").numpy().flatten().tolist()
+                pred_prob_lst += ipred
+        # End of inference
+
+        # Collecting and printing statistics
+        end_time = time.time()        
+        max_memory_MB = torch.cuda.max_memory_allocated(device=0)/1000000
+        print(f"INFO: Total time for batch size of       {batch_size} = {round(end_time - start_time)} sec.")
+        print(f"INFO: Max memory usage for batch size of {batch_size} = {round(max_memory_MB, 2)} MB")
+        
+        # Edit information in the data frame
+        for i, proposal_name in enumerate(proposal_names):
+
+            # Calculating class details
+            pred = pred_prob_lst[i]
+            pred_class_idx = round(pred)
+            if pred_class_idx == 1:
+                pred_class = "typing"
+            else:
+                pred_class = "notyping"
+            pred_class_prob = round(pred, 2)
+
+            # This is because for 0.5 I am having problems in ROC curve
+            if pred_class_prob == 0.5:
+                if pred_class_idx == 1:
+                    pred_class_prob = 0.51
+                else:
+                    pred_class_prob = 0.49
+                    
+            # Adding the class details to to the dataframe
+            loc = self.tydf[self.tydf['proposal_name']==proposal_name].index.tolist()
+            if len(loc) > 1:
+                print(f"Multiple rows having same proposal name! {loc}")
+                import pdb; pdb.set_trace()
+
+            self.tydf.loc[loc[0], "activity"] = pred_class
+            self.tydf.loc[loc[0], "class_idx"] = pred_class_idx
+            self.tydf.loc[loc[0], "class_prob"] = pred_class_prob
+
+
+        # Saving the csv file
+        self.tydf.to_csv(out_file, index=False) 
+            
+        
+        
+
+
+        
+
+            
     def classify_typing_proposals_roi(self, overwrite=False):
-        """ Classify each proposed region as typing / no-typing.
+        """Classify each proposed region as typing / no-typing.
 
         Todo
         ----
@@ -181,8 +498,8 @@ class Typing3:
                 efrm = row['f1']
                 opth = (f"{self.cfg['oloc']}/temp.mp4")
 
-                # Spatio temporal trim
-                ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
+                # Spatio temporal trim and change FPS
+                ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=10)
 
                 # Creating a temporary text file `temp.txt` having
                 # temp.mp4 and a dummy label (100)
@@ -308,8 +625,8 @@ class Typing3:
                     
                 else:
                     
-                    # Spatio temporal trim
-                    ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth)
+                    # Spatio temporal trim and FPS conversion
+                    ivid.save_spatiotemporal_trim(sfrm, efrm, bbox, opth, fps=10)
 
                     # Creating a temporary text file `temp.txt` having
                     # temp.mp4 and a dummy label (100)
@@ -949,11 +1266,12 @@ class Typing3:
         depth = cfg['depth']
 
         # Creating an instance of Dyadic 3D-CNN
-        net = DyadicCNN3D(depth, [3, 90, 224, 224])
+        # net = DyadicCNN3DV2(depth, [3, 30, 224, 224])
+        net = DyadicCNN3DV2(depth, cfg['input_shape'].copy())
         net.to("cuda:0")
 
         # Print summary of network.
-        # summary(net, (3, 90, 224, 224))
+        summary(net, tuple(cfg['input_shape'].copy()))
 
         # Loading the net with trained weights to cuda device 0
         ckpt_weights = torch.load(ckpt)

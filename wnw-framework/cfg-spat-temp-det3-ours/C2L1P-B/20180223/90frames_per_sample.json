@@ -1,0 +1,37 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223",
+    "vids"  : [
+	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_02-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_03-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_04-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps.mp4",
+	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps.mp4"
+    ],
+    
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C2L1P-B/20180223",
+    "kb_dets"   : [
+	"G-C2L1P-Feb23-B-Shelby_q2_01-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_02-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_03-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_04-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_05-06_30fps_60_det_per_min.csv",
+	"G-C2L1P-Feb23-B-Shelby_q2_06-06_30fps_60_det_per_min.csv"
+    ],
+
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C2L1P-B/20180223/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C2L1P-B/20180223/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223",
+    
+    "prop_vid_oloc": "/mnt/twotb/aolme_datasets/wnw_table_roi/full_session_testing/C2L1P-B/20180223/90frames_per_sample",
+
+    "depth": 4,
+    "model_fps":30,
+    "input_shape": [3, 90, 224, 224],
+    "ckpt": "/home/vj/twelvetb/vj/dyadic_nn/wnw_table_roi/resized_224_30fps/Dec26/run4/best_epoch50.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/writing-nowriting/C2L1P-B/20180223/gt-wr-30fps.xlsx"
+    
+}

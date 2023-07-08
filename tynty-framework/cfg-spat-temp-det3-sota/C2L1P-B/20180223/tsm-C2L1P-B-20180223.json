@@ -2,7 +2,7 @@
     "vdir"  : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",
     "rp_roi_only_file" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223/tyrp_only_roi.csv",
 
-    "mma2_ckpt": "/mnt/twelvetb/vj/mmaction2_2022/workdir/tynty_table_roi/resized_224/tsm/run1_Sep08_2022/best_top1_acc_epoch_50.pth",
+    "mma2_ckpt": "/mnt/twelvetb/vj/mmaction2_2022/workdir/tynty_table_roi/resized_224_30fps/tsm/run0_Jan03/best_top1_acc_epoch_30.pth",
     "mma2_cfg": "/home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ/sota/2022-mmaction2/tynty-roi-224/tsm/trn_tsm_r50_video_1x1x8_50e_kinetics400_rgb_vj.py",
 
     "oloc" : "/home/vj/Dropbox/typing-notyping/C2L1P-B/20180223",

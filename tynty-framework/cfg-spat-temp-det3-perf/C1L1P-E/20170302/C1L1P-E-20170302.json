@@ -1,0 +1,30 @@
+{
+    "alg_paths":[
+	"/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-sota-i3d.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-sota-tsm.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-sota-tsn.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-sota-slowfast.xlsx",
+	"/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-ours-30-kbdet.xlsx"
+    ],
+    
+    "alg_names":[
+	"I3D",
+	"TSM",
+	"TSN",
+	"Slowfast",
+	"Ours-opt."
+    ],
+
+    "roc_colors":[
+	"green",
+	"blue",
+	"black",
+	"red",
+	"magenta"
+    ],
+    
+    "gt_path": "/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx",
+
+    "out_roc_path": "/home/vj/Dropbox/typing-notyping/C1L1P-E/20170302/tynty-roi-all.png",
+    "out_roc_path_pgf": "/home/vj/Dropbox/VJ_PPTs_Docs/LaTeX/Dissertation/draft/pgf_plots/C1L1P-E-Mar02-tynty-roi-all.pgf"
+}

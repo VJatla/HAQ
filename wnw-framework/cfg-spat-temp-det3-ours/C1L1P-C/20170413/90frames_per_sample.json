@@ -1,0 +1,51 @@
+{
+    "vdir"  : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+    "vids"  : [
+
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps.mp4",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps.mp4"
+    ],
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C1L1P-C/20170413",
+    "kb_dets"   : [
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps_60_det_per_min.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps_60_det_per_min.csv"
+    ],
+
+    "hand_detdir" : "/home/vj/Dropbox/steeparthi/HARP-root/data/hands/proposals/alg1/C1L1P-C/20170413/1_det_per_sec",
+    "hand_dets"   : [
+	"G-C1L1P-Apr13-C-Windy_q2_01-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_02-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_03-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_04-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_05-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_06-07_30fps_12sec_interval.csv",
+	"G-C1L1P-Apr13-C-Windy_q2_07-07_30fps_12sec_interval.csv"
+    ],
+
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170413/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C1L1P-C/20170413/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413",
+
+    "prop_vid_oloc": "/mnt/twotb/aolme_datasets/wnw_table_roi/full_session_testing/C1L1P-C/20170413/90frames_per_sample",
+
+    "depth": 4,
+    "model_fps":30,
+    "input_shape": [3, 90, 224, 224],
+    "ckpt": "/home/vj/twelvetb/vj/dyadic_nn/wnw_table_roi/resized_224_30fps/Dec26/run4/best_epoch50.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/writing-nowriting/C1L1P-C/20170413/gt-wr-30fps.xlsx"
+
+
+}

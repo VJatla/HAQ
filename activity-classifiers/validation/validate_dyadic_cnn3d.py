@@ -1,5 +1,10 @@
 """
-USAGE
+Description
+-----------
+Validate dyadic 3D-CNNs. This creates a json file that has validation loss and
+and accuracy every saved epoch.
+
+Usage
 -----
 CUDA_VISIBLE_DEVICES=1 python validate_dyadic_cnn3d.py \
 /mnt/twotb/aolme_datasets/wnw/trimmed_videos/one_trim_per_instance_3sec_224 \

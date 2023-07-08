@@ -1,9 +1,16 @@
 """Typing and NoTyping classification using SOTA methods.
 
+WARNING
+-------
+The following script processes one sample video at a time. This is
+not optimal and is DEPRECATED in favour of batch processing.
+
 NOTE:
 ----
-    This script requires that we use python environment that has
+    1. This script requires that we use python environment that has
     MMACTION2 installed.
+
+    2. It also requires region proposal csv file.
 """
 
 

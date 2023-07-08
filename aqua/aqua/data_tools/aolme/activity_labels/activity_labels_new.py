@@ -193,6 +193,185 @@ class AOLMEActivityLabels:
         # Summarize to text file
         summary.to_json(opth)
 
+
+
+    def _get_dirs(self, dirloc):
+        """Returns unique groups in the root directory. It is assumed
+        that all directories under root directory are groups.
+
+        Parameters
+        ----------
+        dirloc : Str
+            Directory location
+        """
+        list_dir = os.listdir(dirloc)
+        unique_groups = []
+        for file_or_dir in list_dir:
+            if os.path.isdir(f"{dirloc}/{file_or_dir}"):
+                unique_groups += [file_or_dir]
+
+        return unique_groups
+        
+    def _get_sessions(self):
+        """Returns two lists of same size having groups and
+        dates. A session is groups[i]/dates[i].
+        """
+
+        # Unique groups
+        groups = self._get_dirs(self._rdir)
+
+        # Group loop
+        groups_ = []
+        sessions_ = []
+        for group in groups:
+            group_path = f"{self._rdir}/{group}"
+            dates = self._get_dirs(group_path)
+            groups_ += [group]*len(dates)
+            sessions_ += dates
+
+        return groups_, sessions_
+
+    def _get_num_act_noact_inst(self, groups, dates, activity):
+        """Returns two lists containing number of activity and
+        noactivity instances.
+
+        Parameters
+        ----------
+        groups : Lis[Str]
+            A list of strings having groups directory names
+
+        dates : List[Str]
+            A list of strings having dates.
+        activities : List[Str]
+            List of strings having activity name. For example
+            it can be ["typing", "notyping"]
+        """
+        # Creating a list having session full paths
+        sess_paths = [
+            f"{self._rdir}/{groups[x]}/{dates[x]}" for x in range(0, len(groups))
+        ]
+
+        # Loop over each session
+        num_act_inst = []
+        num_noact_inst = []
+        for sess_path in sess_paths:
+            sess_gt = pd.read_csv(f"{sess_path}/{self._fname}")
+            
+            sess_num_act_inst = sum(sess_gt["activity"] == activity)
+            sess_num_noact_inst = sum(sess_gt['activity'] == f"no{activity}")
+            
+            num_act_inst += [sess_num_act_inst]
+            num_noact_inst += [sess_num_noact_inst]
+
+        return num_act_inst, num_noact_inst
+
+
+    def _get_dur_act_noact_inst(self, groups, dates, activity):
+        """Returns two lists containing duration of activity and
+        noactivity instances.
+
+        Parameters
+        ----------
+        groups : Lis[Str]
+            A list of strings having groups directory names
+
+        dates : List[Str]
+            A list of strings having dates.
+        activities : List[Str]
+            List of strings having activity name. For example
+            it can be ["typing", "notyping"]
+        """
+        # Creating a list having session full paths
+        sess_paths = [
+            f"{self._rdir}/{groups[x]}/{dates[x]}" for x in range(0, len(groups))
+        ]
+
+        # Loop over each session
+        dur_act_inst = []
+        dur_noact_inst = []
+        for sess_path in sess_paths:
+
+            sess_gt = pd.read_csv(f"{sess_path}/{self._fname}")
+            fps = sess_gt['FPS'].unique().item()
+            sess_gt['dur'] = sess_gt['f']/fps
+            sess_gt_act = sess_gt[sess_gt['activity'] == activity].copy()
+            sess_gt_noact = sess_gt[sess_gt['activity'] == f"no{activity}"].copy()
+            
+            sess_dur_act_inst = math.floor(sess_gt_act['dur'].sum())
+            sess_dur_noact_inst = math.floor(sess_gt_noact['dur'].sum())
+            
+            dur_act_inst += [sess_dur_act_inst]
+            dur_noact_inst += [sess_dur_noact_inst]
+
+        return dur_act_inst, dur_noact_inst
+
+    
+    def save_summary_per_session(self, activity, prev_data_split):
+        """Summarizes activity instance ground truth per session.
+
+        Parameters
+        ----------
+        activities : Str
+            activity name. For example it can be "typing".
+        prev_data_split : Str
+            Path to the csv file containing labels of previous data split.
+        """
+
+        # Get session detials.
+        # A session is identified by group and corresponding date
+        groups, dates = self._get_sessions()
+
+        # number of  <activity> and no<activity> instances per session
+        num_act_inst, num_noact_inst = self._get_num_act_noact_inst(groups, dates, activity)
+
+        # Duration (in seconds) of <activity> and no<activity> instances per session
+        dur_act_inst, dur_noact_inst = self._get_dur_act_noact_inst(groups, dates, activity)
+
+        # List of previous data split labels
+
+        summary_df = pd.DataFrame(
+            list(zip(groups, dates, num_act_inst, num_noact_inst, dur_act_inst, dur_noact_inst)),
+            columns=[
+                "group", "date_full",
+                "num_act_inst", "num_noact_inst",
+                "dur_act_inst", "dur_noact_inst"
+            ])
+
+        # Summary dataframe get group summary
+        summary_df_copy = summary_df.copy()
+        summary_df_copy.drop(["date_full"], axis=1)
+        agg_functions = {
+            'num_act_inst': 'sum',
+            'num_noact_inst': 'sum',
+            'dur_act_inst': 'sum',
+            'dur_noact_inst': 'sum'
+        }
+        summary_df_group = summary_df_copy.groupby(summary_df_copy['group']).aggregate(agg_functions)
+        summary_df_group = summary_df_group.sort_values(by=['group'])
+        summary_df_group.loc["Total"] = summary_df_group.sum()
+
+        dur_act_inst_readable = []
+        dur_noact_inst_readable = []
+        for i, row in summary_df_group.iterrows():
+            dur_act_inst_readable += [str(datetime.timedelta(seconds=int(row['dur_act_inst'])))]
+            dur_noact_inst_readable += [str(datetime.timedelta(seconds=int(row['dur_noact_inst'])))]
+
+
+        summary_df_group['dur_act_inst_readable'] = dur_act_inst_readable
+        summary_df_group['dur_noact_inst_readable'] = dur_noact_inst_readable
+        
+
+        print(f"{self._rdir}/gt_summary_per_session.csv")
+        print(f"{self._rdir}/gt_summary_dissertation_table.xlsx")
+        summary_df = summary_df.sort_values(by=['group'])
+        summary_df.to_csv(f"{self._rdir}/gt_summary_per_session.csv", index=False)
+        writer = pd.ExcelWriter(f"{self._rdir}/gt_summary_dissertation_table.xlsx", engine = 'xlsxwriter')
+        summary_df.to_excel(writer, sheet_name="Session", index=False)
+        summary_df_group.to_excel(writer, sheet_name="Group")
+        writer.close()
+        
+        
+
     def hist_of_activity_labels(self, title):
         """ The following method saves histograms of
         width, height and duration of bounding boxes.
@@ -207,6 +386,10 @@ class AOLMEActivityLabels:
 
         # Write code from here
         pdb.set_trace()
+
+
+
+        
 
     def standardize_activity_labels(self, fr=30, overwrite=False):
         """ Standardizes activity labels.
@@ -276,8 +459,7 @@ class AOLMEActivityLabels:
                             f"{trims_per_instance}")
 
     def _load_all_activity_labels(self, flist):
-        """ Loads all activity labels present under rood directory inot
-        one dataframe.
+        """ Loads all activity labels present under root directory to a dataframe.
 
         Parameters
         ----------

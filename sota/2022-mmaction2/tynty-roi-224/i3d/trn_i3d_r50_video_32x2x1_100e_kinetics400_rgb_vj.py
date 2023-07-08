@@ -3,11 +3,11 @@ _base_ = ['./i3d_r50_32x2x1_100e_kinetics400_rgb.py']
 # dataset settings
 dataset_type = 'VideoDataset'
 
-data_root = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224'
-data_root_val = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224'
-ann_file_train = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224/trn_videos_all.txt'
-ann_file_val = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224/val_videos_all.txt'
-ann_file_test = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224/tst_videos_all.txt'
+data_root = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224_30fps'
+data_root_val = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224_30fps'
+ann_file_train = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224_30fps/trn_videos_all.txt'
+ann_file_val = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224_30fps/val_videos_all.txt'
+ann_file_test = '/mnt/twotb/aolme_datasets/tynty_table_roi/resized_224_30fps/tst_videos_all.txt'
 
 
 img_norm_cfg = dict(
@@ -83,4 +83,4 @@ data = dict(
         pipeline=test_pipeline))
 
 # runtime settings
-work_dir = '/mnt/twelvetb/vj/mmaction2_2022/workdir/tynty_table_roi/resized_224/i3d/run1_Sep08_2022'
+work_dir = '/mnt/twelvetb/vj/mmaction2_2022/workdir/tynty_table_roi/resized_224_30fps/i3d/run1_Dec27_2022'

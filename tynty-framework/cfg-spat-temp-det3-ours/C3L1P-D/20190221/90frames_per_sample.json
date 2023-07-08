@@ -1,0 +1,34 @@
+{
+    "vdir"  : "/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221",
+    
+    "vids"  : [
+	"G-C3L1P-Feb21-D-Ivonne_q2_01-05_30fps.mp4",
+	"G-C3L1P-Feb21-D-Ivonne_q2_02-05_30fps.mp4",
+	"G-C3L1P-Feb21-D-Ivonne_q2_03-05_30fps.mp4",
+	"G-C3L1P-Feb21-D-Ivonne_q2_04-05_30fps.mp4",
+	"G-C3L1P-Feb21-D-Ivonne_q2_05-05_30fps.mp4"
+    ],
+    "kb_detdir" : "/home/vj/Dropbox/objectdetection-aolme/keyboard-detectron2/C3L1P-D/20190221/",
+    "kb_dets"   : [
+	"G-C3L1P-Feb21-D-Ivonne_q2_01-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Feb21-D-Ivonne_q2_02-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Feb21-D-Ivonne_q2_03-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Feb21-D-Ivonne_q2_04-05_30fps_60_det_per_min.csv",
+	"G-C3L1P-Feb21-D-Ivonne_q2_05-05_30fps_60_det_per_min.csv"
+    ],
+    "roi"   : "/home/vj/Dropbox/table_roi_annotation/C3L1P-D/20190221/video_roi.csv",
+
+    "prop"  : "/home/vj/Dropbox/table_roi_annotation/C3L1P-D/20190221/properties_session.csv",
+
+    "oloc" : "/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221",
+    
+    "prop_vid_oloc": "/mnt/twotb/aolme_datasets/tynty_table_roi/full_session_testing/C3L1P-D/20190221/90frames_per_sample",
+
+    "depth": 4,
+    "model_fps":30,
+    "input_shape": [3, 90, 224, 224],
+    "ckpt": "/mnt/twelvetb/vj/dyadic_nn/tynty_table_roi/resized_224_30fps/Dec26/run0/best_epoch50.pth",
+
+    "gt_xlsx": "/home/vj/Dropbox/typing-notyping/C3L1P-D/20190221/gt-ty-30fps.xlsx"
+    
+}

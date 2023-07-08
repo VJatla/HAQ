@@ -57,7 +57,21 @@ if __name__ == "__main__":
 
     # Getting Training and Validation accuracies
     trn_epochs, trn_accuracy = trn_log_analyzer.get_metric_values("trn", "top1_acc")
+    trn_loss_epochs, trn_loss = trn_log_analyzer.get_metric_values("trn", "loss")
     val_epochs, val_accuracy = trn_log_analyzer.get_metric_values("val", "top1_acc")
+
+    # Printing information about best epoch
+    best_epoch_idx = val_accuracy.index(max(val_accuracy))
+    best_val_acc   = val_accuracy[best_epoch_idx]
+    
+    best_epoch = val_epochs[best_epoch_idx]
+    best_trn_acc = trn_accuracy[best_epoch]
+    best_trn_loss = trn_loss[best_epoch]
+
+    print(f"Best Epoch     {best_epoch}")
+    print(f"Best Val. Acc. {best_val_acc}")
+    print(f"Best Trn. Acc. {best_trn_acc}")
+    print(f"Best Trn. Los. {best_trn_loss}")
 
     # Plotting Training and validation accuracies
     fig = make_subplots(rows=1, cols=1)
@@ -75,9 +89,11 @@ if __name__ == "__main__":
                              line=dict(color=f'black', dash='dot')),
                   row=1,
                   col=1)
+    # Adding annotation for best epoch
     fig.update_xaxes(title_text="Epochs", row=1, col=1, rangemode="tozero", fixedrange=True)
     fig.update_yaxes(title_text="Accuracy", row=1, col=1, rangemode="tozero", fixedrange=True, autorange=False, range=[0,1])
     fig.update_layout(height=1000,
                   title_text=f'{os.path.split(os.path.split(dir_loc)[0])[1]}',
                   font=dict(family="Courier New, monospace", size=23))
+
     fig.write_html(f'{acc_save_loc}')

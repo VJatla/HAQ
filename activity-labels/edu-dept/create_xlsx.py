@@ -19,6 +19,13 @@ python create_xlsx.py \
    ~/Dropbox/typing-notyping/C1L1P-E/20170302/gt-ty-30fps.xlsx \
    typing person numeric_code
 
+python create_xlsx.py \
+   ~/Dropbox/writing-nowriting/C2L1P-B/20180223/gTruth-wnw_30fps.csv \
+   ~/Dropbox/writing-nowriting/kid-pseudonym-mapping.csv \
+   ~/Dropbox/writing-nowriting/C2L1P-B/20180223/gt-wr-30fps.xlsx \
+   writing person numeric_code
+
+
 # To create algorithm xlsx file
 python create_xlsx.py \
    ~/Dropbox/typing-notyping/C1L1P-E/20170302/gTruth-tynty_30fps.csv \

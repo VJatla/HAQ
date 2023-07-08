@@ -1,10 +1,13 @@
 """Typing detection framework using table ROI and keboard
-detections."""
+detections.
+
+"""
 
 
 import argparse
 import json
 from aqua.frameworks.typing.framework3_roi_kb import Typing3
+import time
 
 def _arguments():
     """Parse input arguments."""
@@ -32,9 +35,21 @@ if __name__ == "__main__":
     ty = Typing3(cfg)
 
     # 1. Table region proposals using table ROI
+    st = time.time()
     ty.generate_typing_proposals_using_roi(dur=3, overwrite=False)
+    et = time.time()
+    print(f"Time taken for generating proposal csv file: {int(et-st)} sec.")
 
-    # 2. Uses keyboard and hand detection to improve typing classification
-    ty.classify_proposals_using_kb_det(overwrite=False)
+    # 2. Extract proposal regions into `proposals` directory
+    st = time.time()
+    ty.extract_typing_proposals_using_roi_kbdet(overwrite=False, model_fps=cfg['model_fps'])
+    et = time.time()
+    print(f"Time taken in extracting proposal videos: {int(et-st)} sec.")
+
+    # 3. Classify proposals
+    st = time.time()
+    ty.classify_typing_proposals_roi_fast_approach(overwrite=False, batch_size=16, kb_det=True)
+    et = time.time()
+    print(f"Time taken in classifying the proposals: {int(et-st)} sec.")
     
     
