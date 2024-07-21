@@ -40,7 +40,7 @@ To use this script you have to instlal `pytkit`. This is available in the
 `shared_tool_kits` (shared with Hannah and Miguel).
 
 ```shell
-# Change directory to the python scrip
+# Change directory to the python script
 cd /home/vj/Dropbox/Marios_Shared/HAQ-AOLME/software/HAQ/table-roi
 
 # Create a session video that is 1 fps
@@ -55,10 +55,56 @@ python create_session_videos.py /home/vj/Dropbox/table_roi_annotation/C2L2P-A/20
   - Camera change
   - Seating change
 4. Hit  "Automate"
-    4.1 Lable the bounding box sparsely across the time interval.
-    4.2 Press the "Run" button.
-    4.3 Press the "Accept" button.
-    4.4 Repeat steps 4.1 through 4.3 for other students and facilitator
+  4.1 Lable the bounding box sparsely across the time interval.
+  4.2 Press the "Run" button.
+  4.3 Press the "Accept" button.
+  4.4 Repeat steps 4.1 through 4.3 for other students and facilitator
 5. Repeat steps 3 to 4 for rest of the video intervals.
 
 [Demo YouTube link](https://youtu.be/U81c37z-dKo)
+
+Advice:
+
+- Don't be too critical on labeling correctly. In theory, 
+  this labeling should happen automatically by using
+  Phoung (+Wenjing) research.
+- Periodically save your labeling sessions.
+
+## 4. Export labels to `.mat` file
+
+Export the labels to a `.mat` file using, `Export -> To File`. I name this
+file as `session_roi_exported.mat`.
+
+## 5. Create a `csv` file from `.mat` file.
+
+To do this use, `mat_to_csv.m` file provided in the `HAQ` library. Its location
+is, [mat_to_csv.m in Github](https://github.com/VJatla/HAQ/blob/main/table-roi/mat_to_csv.m)
+
+Change the `rdir` variable as needed.
+
+```matlab
+rdir = 'C:\Users\vj\Dropbox\table_roi_annotation\C2L1P-D_copy\20180308';
+```
+
+It produces `session_roi.csv`. This contains table region of interest for the
+session.
+
+## 6. Convert session labels to video labels.
+
+The script is, [`session_roi_to_video.py`](https://github.com/VJatla/HAQ/blob/main/table-roi/session_roi_to_video.py).
+
+This script requires, `properties_session.csv`. This file is manually created. It entries as shown below,
+
+![properties_session.csv](pictures/table_roi_labeling/properties_session_example.png)
+
+I used *VLC Media player* to get duration. When you open a video, you can see its duraiton below. I converted
+`minutes:seconds` format to `seconds`.
+
+Once you have the `properties_session.csv` file we can generate the `video_roi.csv` using
+
+```shell
+python session_roi_to_video.py /home/vj/Dropbox/table_roi_annotation/C2L1P-D_copy/20180308/
+```
+
+
+

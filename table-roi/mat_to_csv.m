@@ -25,7 +25,7 @@ clc;
 
 
 % Root directory having
-rdir = 'C:\Users\vj\Dropbox\table_roi_annotation\C2L1P-E\20180412';
+rdir = 'C:\Users\vj\Dropbox\table_roi_annotation\C2L1P-D_copy\20180308';
 min_instance_duration = 3; 
 
 
