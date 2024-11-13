@@ -174,19 +174,21 @@ class KeyboardDetection(datasets.VisionDataset):
 
 if __name__ == "__main__":
 
-    dataset_path = "/home/vj/projects/reach/keyboard_detector/dataset/coco/"
+    dataset_path = "/home/hannah/projects/keyboard_detection/datasets/coco/"
     training_labels = "train_coco_format.json"
     validation_labels = "validation_coco_format.json" 
     
-    model_save_dir = "/home/vj/projects/reach/keyboard_detector/models/using_coco__no_validation/"
+    model_save_dir = "/home/hannah/projects/keyboard_detection/models/using_coco__no_validation/"
     training_log = f"{model_save_dir}/training_log.txt"
 
-    num_epochs=10
-    saving_interval = 5
+    num_epochs=50
+    batch_size = 4
+    saving_interval = 2
+    num_workers=4
     
     os.path.join(dataset_path, "train", training_labels)
     train_dataset = KeyboardDetection(root=dataset_path, split='train', training_labels=training_labels, transforms=get_transforms(True))
-    train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, num_workers=4, collate_fn=collate_fn)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, collate_fn=collate_fn)
 
     #load classes
     coco = COCO(os.path.join(dataset_path, "train", training_labels))
@@ -226,11 +228,16 @@ if __name__ == "__main__":
     # Train
     for epoch in range(num_epochs):
         train_one_epoch(model, optimizer, train_loader, device, epoch, training_log)
+
+        # Save model
+        if epoch%saving_interval == 0:
+            torch.save(model.state_dict(), f'{model_save_dir}/epoch_{epoch}.pth')
+
+
     #     lr_scheduler.step()
 
 
-    # Save model
-    torch.save(model.state_dict(), f'{model_save_dir}/epoch_{epoch}.pth')
+
 
     # Validation
     # model.eval()
