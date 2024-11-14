@@ -40,17 +40,17 @@ if __name__ == "__main__":
     random_seed_ = 43
 
     # Input images
-    dataset_path = "/home/hannah/projects/keyboard_detection/datasets/aolme_Jun28C2L2_Keyboard/"
-    img_extension = "png"
+    dataset_path = "/home/hannah/projects/keyboard_detection/datasets/coco/validation/"
+    img_extension = "jpg"
     num_images = 10
 
     # Model
-    model_save_dir = "/home/hannah/projects/keyboard_detection/models/using_coco__no_validation/"
+    model_save_dir = "/home/hannah/projects/keyboard_detection/models/using_aolme_tynty__no_validation/"
     model_pth = f"{model_save_dir}/epoch_48.pth"
     pred_threshold = 0.5
 
     # output visualization directory
-    output_dir = f"/home/hannah/projects/keyboard_detection/inference/visualization/aolme_Jun28C2L2_Keyboard/random_seed_{random_seed_}"
+    output_dir = f"/home/hannah/projects/keyboard_detection/inference/visualization/trained_on_aolme_tynty__no_validation/coco_validation/random_seed_{random_seed_}"
     
     if os.path.isdir(output_dir):
 
