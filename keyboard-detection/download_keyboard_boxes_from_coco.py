@@ -27,7 +27,7 @@ def get_data_and_export(download_dir, data_split_label):
 if __name__ == "__main__":
 
     # Root directory to download
-    download_dir = "/home/vj/projects/reach/keyboard_detector/dataset/coco/"
+    download_dir = "/home/hannah/projects/keyboard_detection/datasets/coco/"
     
     # Get training coco data for keyboard
     get_data_and_export(download_dir, "train")

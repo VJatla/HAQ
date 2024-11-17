@@ -174,11 +174,10 @@ class KeyboardDetection(datasets.VisionDataset):
 
 if __name__ == "__main__":
 
-    dataset_path = "/home/hannah/projects/keyboard_detection/datasets/coco/"
-    training_labels = "train_coco_format.json"
-    validation_labels = "validation_coco_format.json" 
+    dataset_path = "/home/hannah/projects/keyboard_detection/datasets/aolme_from_ty_nty_gt/"
+    training_labels = "keyboard_ground_truth.json"
     
-    model_save_dir = "/home/hannah/projects/keyboard_detection/models/using_coco__no_validation/"
+    model_save_dir = "/home/hannah/projects/keyboard_detection/models/using_aolme_tynty__no_validation/"
     training_log = f"{model_save_dir}/training_log.txt"
 
     num_epochs=50
