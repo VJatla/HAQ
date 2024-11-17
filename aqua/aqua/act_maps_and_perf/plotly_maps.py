@@ -1,3 +1,4 @@
+
 import argparse
 import os
 import pdb
@@ -5,6 +6,7 @@ import pandas as pd
 import pytkit as pk
 import numpy as np
 import plotly.graph_objects as go
+from sklearn.preprocessing import LabelEncoder
 
 
 class ActMapsAndPerf():
@@ -58,7 +60,7 @@ class ActMapsAndPerf():
         alg_pth  = pk.check_file_existance(f"{idir}/alg-ty-30fps.xlsx")
         gt_pth   = pk.check_file_existance(f"{idir}/gt-ty-30fps.xlsx")
         prop_pth = pk.check_file_existance(f"{idir}/properties_session.csv")
-        
+
         # Load as data frames
         self.alg_df  = pd.read_excel(alg_pth, sheet_name="Machine readable")
         self.gt_df   = pd.read_excel(gt_pth, sheet_name="Machine readable")
@@ -74,7 +76,7 @@ class ActMapsAndPerf():
             self.perf_df.to_csv(f"{idir}/perf_per_sec.csv", index=False)
         else:
             self.perf_df = pd.read_csv(f"{idir}/perf_per_sec.csv")
-        
+
 
     def _calc_perf_per_sec(self):
         """ Evaluates algorithm activity instances against ground
@@ -105,7 +107,7 @@ class ActMapsAndPerf():
         f0_sess_col = np.arange(0, len(dur_col)*FPS, FPS).tolist()
 
         # Get student_codes, union of GT and Alg.
-        student_codes, student_codes_col = self._get_student_codes(dur_col)        
+        student_codes, student_codes_col = self._get_student_codes(dur_col)
 
         # Ground truth columns
         act_gt_col, bbox_gt_col, fn_gt_col = self._get_act_columns(
@@ -117,9 +119,12 @@ class ActMapsAndPerf():
             self.alg_df.copy(), video_name_col, f0_col, f_col, student_codes_col
         )
 
+        # Applying median filter for algorithm column
+        act_alg_col = self._apply_median_filter_on_labels(act_alg_col, window_size=10)
+        
         # Confusion matrix label
         cf_label_col = self._get_cf_mat_labels(act_gt_col, act_alg_col)
-
+        
         # IoU <--- ??? Should do after meeting
 
         # Creating an empty data frame with required columns
@@ -140,48 +145,49 @@ class ActMapsAndPerf():
         return df
 
 
-        
+
     def _get_cf_mat_labels(self, gt, alg):
-        """ 
+        """
         Creates confusion matrix labels for each student. It is
         in the form of "TP:TN:FP:FN".
         """
+
         cf_col = [""]*len(gt)
         for i in range(0,len(gt)):
-            
+
             gti  = [x for x in gt[i].split(":")]
             algi = [x for x in alg[i].split(":")]
             cfi = []
-            
+
             for j in range(0,len(gti)):
-                
+
                 gtij = gti[j].strip()
                 algij = algi[j].strip()
 
                 if gtij == f"no_{self.act}" and algij == f"no_{self.act}":
                     cfi += ["TN"]
-                    
+
                 elif gtij == f"{self.act}" and algij == f"{self.act}":
                     cfi += ["TP"]
-                    
+
                 elif gtij == f"no_{self.act}" and algij == f"{self.act}":
                     cfi += ["FP"]
 
                 elif gtij == f"{self.act}" and algij == f"no_{self.act}":
-                    cfi += ["TN"]
-                    
+                    cfi += ["FN"]
+
                 else:
                     import pdb; pdb.set_trace()
                     raise Exception(f"Something is wrong")
-                
+
             cfi = ":".join(cfi)
             cf_col[i] = cfi
 
         return cf_col
 
-                
 
-        
+
+
     def _get_student_codes(self, dur_col):
         """ Returns student_codes by considering students from both
         ground truth and algorithm.
@@ -189,15 +195,15 @@ class ActMapsAndPerf():
         gt_sc = self.gt_df['student_code'].unique()
         alg_sc = self.alg_df['student_code'].unique()
         union_sc = list(set().union(gt_sc, alg_sc))
-        
+
         for i,x in enumerate(union_sc):
             if i == 0:
                 student_code_str = f"{x}"
             else:
                 student_code_str += f":{x}"
-                
+
         return union_sc, [student_code_str]*len(dur_col)
-    
+
 
     def _get_act_columns(self, df, video_name_col, f0_col, f_col, student_codes_col):
         """ Checks every second and labels it as activity or
@@ -214,19 +220,19 @@ class ActMapsAndPerf():
             f = f_col[i]
             video_name = video_name_col[i]
             student_codes = student_codes_col[i]
-            
+
             act_, bbox, fn_gt= self._get_act_label(
                 df.copy(), video_name, f0, f, student_codes
             )
-            
+
             act_col += [act_]
             bbox_col += [bbox]
             fn_col += [fn_gt]
 
         return act_col, bbox_col, fn_col
-            
 
-            
+
+
     def _get_act_label(self, df, vname, f0, f, student_codes):
         """ If there are >= 1/2*frames between f0 and f0+f are
         classified as 'activity' we return <self.act>, else
@@ -253,7 +259,7 @@ class ActMapsAndPerf():
             # Data frame having entries for current student
             dfs = df[df['student_code'] == student_code].copy()
 
-            
+
             # Calculating number of frames in time interval
             fn = 0
             w0 = 0; h0 = 0; w = 0; h = 0
@@ -271,8 +277,8 @@ class ActMapsAndPerf():
                 )
             else:
                 bbox = "0-0-0-0"
-            
-            
+
+
             # If we have activity for more than 50% of frames
             # in current time interval, we label it as self.act
             if fn >= 0.5*(f):
@@ -292,11 +298,11 @@ class ActMapsAndPerf():
                 fns += f" :{fn}"
 
         return activities, bboxs, fns
-        
-        
+
+
     def _get_f0_column(self, FPS):
         """ Returns f0 column """
-        
+
         # Copy session data frame and drop last row
         sdf = self.sess_df.copy()
         sdf = sdf[:-1]
@@ -306,7 +312,7 @@ class ActMapsAndPerf():
         for ridx, row in sdf.iterrows():
           f0_col += np.arange(0, FPS*row['dur'], FPS).tolist()
         return f0_col
-            
+
 
     def _get_W_H_FPS(self):
         """ Returns Width, Height and FPS """
@@ -327,16 +333,16 @@ class ActMapsAndPerf():
         video_name_col = []
         for ridx, row in sdf.iterrows():
             video_name_col += [row['name']]*int(row['dur'])
-            
+
         return video_name_col
 
 
 
-        
-        
+
+
 
     def _get_dur_column(self):
-        """ Get session duration """        
+        """ Get session duration """
 
         sess_df   = self.sess_df.copy()
         total_row = sess_df[sess_df['name'] == 'total']
@@ -350,17 +356,24 @@ class ActMapsAndPerf():
         """
         # Show legend flag
         show_legend = False
-        
+
         # X values
         x_vals = np.arange(0, len(cf_labels)).tolist()
 
         # Calculating y value and color
         if label == "TP":
-            y_val = (sidx + 1) - 0.1
+            # y_val = (sidx + 1) - 0.1
+            y_val = (sidx + 1)
             color = "green"
             if labels_traced['TP'] == False:
                 show_legend=True
                 labels_traced['TP'] = True
+        elif label == "TN":
+            y_val = (sidx + 1)
+            color = "rgba(0, 125, 0, 0.5)"
+            if labels_traced['TN'] == False:
+                show_legend=True
+                labels_traced['TN'] = True
         elif label == "FN":
             y_val = (sidx + 1)
             color = "red"
@@ -368,7 +381,8 @@ class ActMapsAndPerf():
                 show_legend=True
                 labels_traced['FN'] = True
         elif label == "FP":
-            y_val = (sidx + 1) + 0.1
+            # y_val = (sidx + 1) + 0.1
+            y_val = (sidx + 1)
             color = "orange"
             if labels_traced['FP'] == False:
                 show_legend=True
@@ -390,7 +404,7 @@ class ActMapsAndPerf():
                 name=f"{label}",
                 showlegend=show_legend
             ))
-        
+
 
         return fig, labels_traced
 
@@ -414,6 +428,27 @@ class ActMapsAndPerf():
 
         return x_labels
 
+    def _apply_median_filter_on_labels(self, cur_cf_labels, window_size=10):
+        """Applying median filter"""
+        list_of_labels = cur_cf_labels
+
+        # Converting labels to integers
+        encoder = LabelEncoder()
+        int_labels = encoder.fit_transform(list_of_labels)
+
+        # Convert to pandas Series
+        int_labels_series = pd.Series(int_labels)
+
+        # Apply rolling window median
+        median_labels = int_labels_series.rolling(window=window_size, center=True).median()
+        median_labels = median_labels.fillna(method='bfill').fillna(method='ffill')
+        median_labels_list = median_labels.tolist()
+
+        # Convert back
+        final_labels = encoder.inverse_transform([int(label) for label in median_labels_list]).tolist()
+
+        return final_labels
+        
 
     def _create_cf_mat_map(self, fig):
         """ Creates activity map.
@@ -435,13 +470,13 @@ class ActMapsAndPerf():
 
             # Current student confusion matrix labels
             cur_cf_labels = [x[sidx] for x in cf_labels]
-            cur_student = student_codes[0][sidx]
-
+            
             # Plot TP, FP, FN
             fig, labels_traced = self._plot_cf_labels(fig, sidx, cur_cf_labels, "TP", labels_traced)
             fig, labels_traced = self._plot_cf_labels(fig, sidx, cur_cf_labels, "FP", labels_traced)
             fig, labels_traced = self._plot_cf_labels(fig,  sidx, cur_cf_labels, "FN", labels_traced)
-            
+            # fig, labels_traced = self._plot_cf_labels(fig,  sidx, cur_cf_labels, "TN", labels_traced)
+
         # Updating y_ticks
         y_vals = np.arange(1, len(student_codes) + 1)
         y_labels = student_codes[0]
@@ -453,8 +488,8 @@ class ActMapsAndPerf():
 
         # Updating x_ticks: we will be having a label every
         # 3 minutes
-        x_vals = np.arange(0, len(cf_labels), 60*5).tolist()
-        x_labels = self._get_x_labels(x_vals)
+        x_vals = np.arange(0, len(cf_labels), 60*20).tolist()
+        x_labels = [f"{int(x/60)} min." for x in x_vals]
         fig.update_xaxes(
         title_font={"size": 32},
         tickvals=x_vals,
@@ -489,11 +524,11 @@ class ActMapsAndPerf():
                 continue
             elif v == 1 and not(start_idx_flag):
                 continue
-            
+
             elif v == 1 and start_idx_flag:
                 start_idx = i
                 start_idx_flag = False
-                
+
             elif v == 0 and not(start_idx_flag):
                 end_idx = i - 1
                 act_start_end_list += [(start_idx, end_idx)]
@@ -537,14 +572,14 @@ class ActMapsAndPerf():
         return vidx
 
 
-    def _create_act_map(self, fig, method, annotation_delta_time=1):
+    def _create_act_map(self, fig, method, annotation_delta_time=1, apply_median=False):
         """ Creates ground truth activity map
         """
-        
+
         # Get student codes and activity labels from performance dataframe
         student_codes = self.perf_df['student_codes'].tolist()
         act_labels = self.perf_df[f'act_{method}'].tolist()
-                
+
 
         # Creating a 2D matrix
         student_codes = [x.split(":") for x in student_codes]
@@ -555,6 +590,12 @@ class ActMapsAndPerf():
 
             # Current student confusion matrix labels
             cur_act_labels = [x[sidx].strip() for x in act_labels]
+
+            # Apply median for algorithm
+            if apply_median:
+                cur_act_labels = self._apply_median_filter_on_labels(cur_act_labels, window_size=10)
+
+            # Current student
             cur_student = student_codes[0][sidx]
 
             # Plot typing instances or current student
@@ -593,17 +634,16 @@ class ActMapsAndPerf():
                     prev_end_time = end
                 else:
                     annotate_falg = False
-                
+
                 # Annotate only if annotation flag is true
                 if annotate_falg:
 
                     start_vname = self.perf_df.iloc[start]['video_name']
                     end_vname = self.perf_df.iloc[end]['video_name']
                     if start_vname != end_vname:
-                        raise Exception ("""
-                        The activity should be in the same video. But the starting
-                        and ending event indexes contradict that!
-                        """)
+                        # At this point I do not know how to address
+                        # this. So I am skipping it throwing a warning
+                        print(f"Warning: start and end videos are different")
 
                     # Time w.r.t the video
                     f0_start               = self.perf_df.iloc[start]['f0']
@@ -616,7 +656,7 @@ class ActMapsAndPerf():
                     link = "https://aolme.unm.edu/researcher/activity_maps/video.php"
                     vidx = self._get_vidx_from_groups_db(start_vname)
                     link = f"{link}?vidx={vidx}&start_time={start_sec}&end_time={end_sec}"
-                    
+
                     # On hover show the following information
                     hover_tempalte = (
                         f"<b>Video:</b> {start_vname}<br>"
@@ -631,8 +671,8 @@ class ActMapsAndPerf():
                         text=f"<a href='{link}'>*</a>",
                         showarrow=True
                     )
-                
-        
+
+
         # Updating y_ticks
         y_vals = np.arange(1, len(student_codes) + 1)
         y_labels = student_codes[0]
@@ -644,8 +684,9 @@ class ActMapsAndPerf():
 
         # Updating x_ticks: we will be having a label every
         # 3 minutes
-        x_vals = np.arange(0, len(act_labels), 60*5).tolist()
-        x_labels = self._get_x_labels(x_vals)
+        x_vals = np.arange(0, len(act_labels), 60*20).tolist()
+        # x_labels = self._get_x_labels(x_vals)
+        x_labels = [f"{int(x/60)} min." for x in x_vals]
         fig.update_xaxes(
         title_font={"size": 32},
         tickvals=x_vals,
@@ -660,7 +701,7 @@ class ActMapsAndPerf():
 
 
         return fig
-    
+
     def visualize_maps(self):
         """ Helps in visualizing confusion matrix for activity
         detection as activity map.
@@ -674,8 +715,8 @@ class ActMapsAndPerf():
         # Create maps
         cf_map_fig = self._create_cf_mat_map(cf_map_fig)
         gt_fig     = self._create_act_map(gt_fig, "gt")
-        alg_fig    = self._create_act_map(alg_fig, "alg", annotation_delta_time=2)
-                
+        alg_fig    = self._create_act_map(alg_fig, "alg", annotation_delta_time=2, apply_median=True)
+
 
         # Show maps
         cf_map_fig.show()
@@ -694,10 +735,10 @@ class ActMapsAndPerf():
         cf_map_fig = self._create_cf_mat_map(cf_map_fig)
         gt_fig     = self._create_act_map(gt_fig, "gt")
         alg_fig    = self._create_act_map(alg_fig, "alg", annotation_delta_time=2)
-                
+
 
         # Write maps
-        
+
         cf_map_fig.write_html(f"{out_path}/gt_vs_alg.html")
         gt_fig.write_html(f"{out_path}/gt.html")
         alg_fig.write_html(f"{out_path}/alg.html")
@@ -717,7 +758,7 @@ class ActMapsAndPerf():
         # Loop through each student
         rows = []
         for i in range(0,len(student_codes)):
-            
+
             # Getting current student information
             student_i = student_codes[i]
             cf_labels_i = [x[i] for x in cf_labels]
@@ -729,7 +770,7 @@ class ActMapsAndPerf():
             FN_i = cf_labels_i.count("FN")
 
             rows += [[student_i, TP_i, TN_i, FP_i, FN_i]]
-            
+
         # Save the csv file
         df_out = pd.DataFrame(
             rows, columns=['student_code','TP', 'TN', 'FP', 'FN']
