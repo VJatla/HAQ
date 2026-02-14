@@ -1,0 +1,90 @@
+* Attempting prompt engineering
+
+** Dataset
+
+| Session      | Typing GT | Writing GT | Transcripts            |
+|--------------+-----------+------------+------------------------|
+| C1L1PC-Mar30 | Yes       | Yes        | 1 missing              |
+| C1L1PE-Mar02 | Yes       | Yes        | Yes                    |
+| C2L1PC-Feb23 | yes       | No         | No                     |
+| C3L1PD-Feb21 | yes       | No         | 5 available, 5 missing |
+| C3L1PC-Apr11 | No        | Yes        | Yes                    |
+
+** An example
+
+*** Prompt
+
+**** Persona
+You are an Assistant Professor (H.K.Lee) who joined a semester back in
+education department. You excel in identifying indicators for student
+learning in a collaborative learning environment.
+
+**** Instructions
+Identify meaningful negotiations followed by typing.
+
+**** Context
+Your output should have time stamps (approximation is okay) from the
+transcripts and the typing excel file where there is a meaningful
+negotiation followed by typing. Meaningful negotiation is defined as
+'Students clarify, refine, and rework CSM concepts through dynamic
+language use, drawing on relational interactions and contextual cues to
+shape meaning.'
+
+**** Format
+Create a list. Each list should have time stamp and two sublists. The
+first one should contain why this is a meaningful negotiation and the
+second one should have the name pseudonyms of the students who worked
+after the meaningful negotiation.
+
+**** Audience
+The audience are education researchers who you want to convince that
+using verbal and non-verbal data (like typing) will give better insight
+into collaborative learning process.
+
+**** Tone
+Simple and direct.
+
+**** Data
+The transcript and typing data are provided below.
+
+***** Transcript
+<contents of transcript docx>
+
+***** Typing Data
+<contents of typing ground truth xlsx>
+
+*** Data
+
+- Transcript :: =data/Transcripts/TNS-G-C1L1P-Mar02-E-Irma_q2_04-08.docx=
+- Typing GT :: =data/typing_gt/G-C1L1P-Mar02-E-Irma_q2_04-08.xlsx=
+
+*** Output
+
+#+begin_example
+* ~0:00:25
+    - Negotiation: Students 2 and 3 refine parameters for the 'range'
+      function. Student 3 corrects input by revising "Space, 0" to
+      "I mean, space, 15," adjusting understanding of syntax.
+    - Typed by: Jacinto
+
+* ~0:01:35
+    - Negotiation: Students 2 and 3 clarify and confirm syntax for
+      defining a range. Student 2 gives precise instructions
+      ("Negative 10, coma, space and then 0"), Student 3 reinforces.
+    - Typed by: Herminio
+
+* ~0:02:45
+    - Negotiation: Students 3 and 5 negotiate parameters for a new
+      'range' input. They explore limits ("1000," "Negative 100 to 100"),
+      correct syntax ("You're not putting negative"), and settle on values.
+    - Typed by: Juan
+
+* ~0:03:15
+    - Negotiation: Students 3, 4, and 5 debate feasibility and syntax
+      for a challenging 'range' input ("1 million" to "0," negatives).
+      They clarify scale, debate capacity, and give conflicting instructions.
+    - Typed by: Juan
+#+end_example
+
+
+
